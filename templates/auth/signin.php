@@ -26,7 +26,9 @@
             <?php if (!empty($errors)): ?>
                 <ul class="alert alert-danger my-2">
                     <?php foreach ($errors as $error): ?>
-                        <li><?= htmlspecialchars($error) ?></li>
+                        <li>
+                            <?= htmlspecialchars($error) ?>
+                        </li>
                     <?php endforeach ?>
                 </ul>
             <?php endif ?>

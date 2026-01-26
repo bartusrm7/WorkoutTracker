@@ -27,6 +27,7 @@ class AuthRepository
             return null;
         }
         return new AuthModel(
+            (int) $row['id'],
             '',
             $row['email'],
             ''
@@ -37,8 +38,9 @@ class AuthRepository
     {
         $stmt = $this->pdo->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
         $stmt->execute([':name' => $name, ':email' => $email, ':password' => $pass]);
+        $id = (int) $this->pdo->lastInsertId();
 
-        return new AuthModel($name, $email, $pass);
+        return new AuthModel($id, $name, $email, $pass);
     }
 
     public function loginUserQuery($email)
@@ -51,6 +53,7 @@ class AuthRepository
             return null;
         }
         return new AuthModel(
+            (int) $row['id'],
             '',
             $row['email'],
             $row['password'],

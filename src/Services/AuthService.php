@@ -56,14 +56,9 @@ class AuthService
             return $errors;
         }
         $user = $this->repository->loginUserQuery($email);
-        $verifiedPassword = password_verify($pass, $user->getPass());
-        if (!$verifiedPassword) {
-            $errors[] =  'Hasło niepoprawne';
+        if (!password_verify($pass, $user->getPass())) {
+            return ['Hasło niepoprawne'];
         }
-
-        return [
-            'success' => true,
-            'email' => $user->getEmail()
-        ];
+        return $user;
     }
 }

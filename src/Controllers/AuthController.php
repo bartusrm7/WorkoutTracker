@@ -37,12 +37,26 @@ class AuthController
         $pass = $_POST['password'];
 
         $user = $this->service->loginUser($email, $pass);
+        var_dump($user->getId());
+
         if (is_array($user)) {
             $errors = $user;
             include __DIR__ .  '/../../templates/auth/signin.php';
             exit();
         }
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['user'] = $user->getId();
         header('Location: /dashboard');
+        exit();
+    }
+
+    public function userLogout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: /signin-form');
         exit();
     }
 

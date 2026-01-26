@@ -4,8 +4,12 @@ namespace App\Models;
 
 class AuthModel
 {
-    public function __construct(private string $name, private string $email, private string $pass) {}
+    public function __construct(private int $id, private string $name, private string $email, private string $pass) {}
 
+    public function getId()
+    {
+        return $this->id;
+    }
     public function getName()
     {
         return $this->name;

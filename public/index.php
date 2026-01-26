@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Middlewares\AuthMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -16,13 +17,16 @@ $dotenv->load();
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     // GET
-    $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
-    $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
-    $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
+    $r->addRoute('GET', '/logout', [AuthController::class, 'userLogout']);
 
     // POST
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
+
+    // VIEWS
+    $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
+    $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
+    $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
 });
 
 // Fetch method and URI from somewhere
@@ -47,6 +51,13 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
+
+        $protectedRoutes = [
+            '/dashboard'
+        ];
+        if (in_array($uri, $protectedRoutes, true)) {
+            (new AuthMiddleware)->userAccess();
+        }
 
         if (is_callable($handler)) {
             return $handler($vars);

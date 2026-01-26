@@ -28,6 +28,7 @@
                     Customers
                 </a> </li>
         </ul>
+        <a href="/logout">Wyloguj</a>
     </div>
 
 </body>
