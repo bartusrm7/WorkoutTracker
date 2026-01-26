@@ -48,7 +48,6 @@ class AuthController
         $pass = $_POST['password'] ?? null;
 
         $user = $this->service->loginUser($email, $pass);
-        var_dump($user->getId());
 
         if (is_array($user)) {
             $errors = $user;
@@ -58,6 +57,7 @@ class AuthController
 
         session_regenerate_id(true);
         $_SESSION['user'] = $user->getId();
+        $_SESSION['name'] = $user->getName();
 
         header('Location: /dashboard');
         exit();

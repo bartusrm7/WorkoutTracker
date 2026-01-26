@@ -22,12 +22,13 @@ class AuthRepository
         $stmt = $this->pdo->prepare('SELECT email FROM users WHERE email = :email');
         $stmt->execute([':email' => $email]);
         $row = $stmt->fetch();
+        $id = (int) $this->pdo->lastInsertId();
 
         if (!$row) {
             return null;
         }
         return new AuthModel(
-            (int) $row['id'],
+            $id,
             '',
             $row['email'],
             ''
@@ -54,7 +55,7 @@ class AuthRepository
         }
         return new AuthModel(
             (int) $row['id'],
-            '',
+            $row['name'],
             $row['email'],
             $row['password'],
         );

@@ -22,11 +22,34 @@ body {
   list-style: none;
 }
 
+@media (min-width: 992px) {
+  .dashboard {
+    margin-right: 250px;
+  }
+}
+.dashboard__navbar {
+  border-bottom: 1px solid rgb(80, 80, 80);
+  overflow: hidden;
+}
+.dashboard__menu-btn {
+  border: 1px solid #eaeaf0;
+}
 .dashboard__sidebar {
-  width: 200px;
+  position: fixed;
+  top: 0;
+  width: 250px;
+  border-right: 1px solid rgb(80, 80, 80);
 }
 .dashboard__label {
   color: #9597d8;
+}
+.dashboard__nav a:hover, .dashboard__nav a:focus {
+  color: #eaeaf0;
+}
+.dashboard__nav a:active {
+  color: #eaeaf0;
+  border: 1px solid #eaeaf0;
+  border-radius: 8px;
 }
 
 /*# sourceMappingURL=main.css.map */
