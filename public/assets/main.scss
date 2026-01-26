@@ -1,0 +1,39 @@
+$background: #0d0d18;
+$text: #eaeaf0;
+$primary: #9597d8;
+$secondary: #212388;
+$accent: #353ae4;
+
+body {
+	background-color: $background;
+	color: $text;
+}
+.custom-btn {
+	background-color: $secondary;
+	color: $text;
+	&:hover {
+		background-color: $accent;
+	}
+}
+
+.auth {
+	&__container {
+		width: 500px;
+		background-color: #9597d8;
+	}
+	&__label {
+		color: $background;
+	}
+	li {
+		list-style: none;
+	}
+}
+
+.dashboard {
+	&__sidebar {
+		width: 200px;
+	}
+	&__label {
+		color: $primary;
+	}
+}
