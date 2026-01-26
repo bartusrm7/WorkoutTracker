@@ -15,6 +15,7 @@
         <h3 class="auth__label text-center mb-3">Rejestracja</h3>
 
         <form action="/signup" method="post">
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
             <div class="form-floating mt-2">
                 <input id="name" type="text" name="name" class="form-control" required placeholder="">
                 <label for="name">Nazwa użytkownika</label>

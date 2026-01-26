@@ -17,6 +17,11 @@ class AuthController
 
     public function userRegistration()
     {
+        session_start();
+        if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+            die('CSRF token nieprawidłowy');
+        }
+
         $name = $_POST['name'] ?? null;
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $pass = $_POST['password'] ?? null;
@@ -27,14 +32,20 @@ class AuthController
             include __DIR__ . '/../../templates/auth/signup.php';
             exit();
         }
+
         header('Location: /signin-form');
         exit();
     }
 
     public function userLogin()
     {
+        session_start();
+        if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+            die('CSRF token nieprawidłowy');
+        }
+
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $pass = $_POST['password'];
+        $pass = $_POST['password'] ?? null;
 
         $user = $this->service->loginUser($email, $pass);
         var_dump($user->getId());
@@ -44,9 +55,10 @@ class AuthController
             include __DIR__ .  '/../../templates/auth/signin.php';
             exit();
         }
-        session_start();
+
         session_regenerate_id(true);
         $_SESSION['user'] = $user->getId();
+
         header('Location: /dashboard');
         exit();
     }
@@ -62,11 +74,19 @@ class AuthController
 
     public function signInForm()
     {
+        session_start();
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
         require '../templates/auth/signin.php';
     }
 
     public function signUpForm()
     {
+        session_start();
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
         require '../templates/auth/signup.php';
     }
 }
