@@ -29,7 +29,7 @@ body {
 	}
 }
 
-.dashboard {
+.nav {
 	&__navbar {
 		border-bottom: 1px solid rgb(80, 80, 80);
 		overflow: hidden;
@@ -41,10 +41,9 @@ body {
 		position: fixed;
 		top: 0;
 		width: 250px;
+		background-color: $background;
 		border-right: 1px solid rgb(80, 80, 80);
-		@media (min-width: 992px) {
-			margin-right: 250px;
-		}
+		z-index: 1;
 	}
 	&__label {
 		color: $primary;
@@ -65,6 +64,6 @@ body {
 }
 .training {
 	&__create-workout-btn {
-		transform: rotate(90deg);
+		transform: rotate(-30deg);
 	}
 }

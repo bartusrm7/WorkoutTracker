@@ -22,38 +22,35 @@ body {
   list-style: none;
 }
 
-.dashboard__navbar {
+.nav__navbar {
   border-bottom: 1px solid rgb(80, 80, 80);
   overflow: hidden;
 }
-.dashboard__menu-btn {
+.nav__menu-btn {
   border: 1px solid #eaeaf0;
 }
-.dashboard__sidebar {
+.nav__sidebar {
   position: fixed;
   top: 0;
   width: 250px;
+  background-color: #0d0d18;
   border-right: 1px solid rgb(80, 80, 80);
+  z-index: 1;
 }
-@media (min-width: 992px) {
-  .dashboard__sidebar {
-    margin-right: 250px;
-  }
-}
-.dashboard__label {
+.nav__label {
   color: #9597d8;
 }
-.dashboard__nav a:hover, .dashboard__nav a:focus {
+.nav__nav a:hover, .nav__nav a:focus {
   color: #eaeaf0;
 }
-.dashboard__nav a:active {
+.nav__nav a:active {
   color: #eaeaf0;
   border: 1px solid #eaeaf0;
   border-radius: 8px;
 }
 
 .training__create-workout-btn {
-  transform: rotate(90deg);
+  transform: rotate(-30deg);
 }
 
 /*# sourceMappingURL=main.css.map */
