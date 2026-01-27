@@ -63,3 +63,8 @@ body {
 		}
 	}
 }
+.training {
+	&__create-workout-btn {
+		transform: rotate(90deg);
+	}
+}

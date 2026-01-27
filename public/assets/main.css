@@ -52,4 +52,8 @@ body {
   border-radius: 8px;
 }
 
+.training__create-workout-btn {
+  transform: rotate(90deg);
+}
+
 /*# sourceMappingURL=main.css.map */
