@@ -43,4 +43,17 @@ class Database
             password VARCHAR(255) NOT NULL
         )');
     }
+
+    public function createTrainingTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS training (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            user_id INT,
+            CONSTRAINT fk_user_training
+            FOREIGN KEY (user_id) 
+            REFERENCES users(id) 
+            ON DELETE CASCADE
+        )');
+    }
 }

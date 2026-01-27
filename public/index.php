@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Controllers\TrainingController;
 use App\Middlewares\AuthMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -27,6 +28,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
+    $r->addRoute('GET', '/training', [TrainingController::class, 'training']);
 });
 
 // Fetch method and URI from somewhere
@@ -53,7 +55,8 @@ switch ($routeInfo[0]) {
         $vars = $routeInfo[2];
 
         $protectedRoutes = [
-            '/dashboard'
+            '/dashboard',
+            '/training'
         ];
         if (in_array($uri, $protectedRoutes, true)) {
             (new AuthMiddleware)->userAccess();

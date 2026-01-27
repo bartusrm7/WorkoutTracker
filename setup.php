@@ -11,3 +11,4 @@ $dotenv->load();
 
 $db = new Database();
 $db->createUserTable();
+$db->createTrainingTable();
