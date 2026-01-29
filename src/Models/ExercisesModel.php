@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-class TrainingModel
+class ExercisesModel
 {
-    public function __construct(private $id, private $name, private $userId) {}
+    public function __construct(private $id, private $name, private $trainingId) {}
 
     public function getId()
     {
@@ -16,8 +16,8 @@ class TrainingModel
     {
         return $this->name;
     }
-    public function getUserId()
+    public function getTrainingId()
     {
-        return $this->userId;
+        return $this->trainingId;
     }
 }

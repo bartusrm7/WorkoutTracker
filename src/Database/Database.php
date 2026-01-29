@@ -56,4 +56,31 @@ class Database
             ON DELETE CASCADE
         )');
     }
+
+    public function createExercisesTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            training_id INT,
+            CONSTRAINT fk_training_exercises
+            FOREIGN KEY (training_id) 
+            REFERENCES training(id) 
+            ON DELETE CASCADE
+        )');
+    }
+
+    public function createExercisesDataTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises_data (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            sets INT NOT NULL,
+            reps INT,
+            exercise_id INT,
+            CONSTRAINT fk_exercises_data
+            FOREIGN KEY (exercise_id) 
+            REFERENCES exercises(id) 
+            ON DELETE CASCADE
+        )');
+    }
 }

@@ -56,7 +56,7 @@ class AuthController
         }
 
         session_regenerate_id(true);
-        $_SESSION['user'] = $user->getId();
+        $_SESSION['id'] = $user->getId();
         $_SESSION['name'] = $user->getName();
 
         header('Location: /dashboard');

@@ -15,28 +15,28 @@
 
     <div>
         <header class="nav__navbar d-flex justify-content-end align-items-center mb-3 p-2">
-            <h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
-            <button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
-                <i class="fa-solid fa-bars fs-3 text-white"></i>
-            </button>
-        </header>
+			<h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
+			<button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
+				<i class="fa-solid fa-bars fs-3 text-white"></i>
+			</button>
+		</header>
 
-        <nav class="nav__sidebar min-vh-100 d-none d-md-flex flex-column flex-shrink-0 p-3">
-            <h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
-            <hr>
-            <ul class="nav__nav nav flex-column mb-auto">
-                <li class="nav-item mb-2">
-                    <a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a href="/training" class="custom-btn btn nav-link"> Trening </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
-                </li>
-            </ul>
-            <a href="/logout" class="custom-btn btn">Wyloguj</a>
-        </nav>
+        <nav class="nav__sidebar min-vh-100 d-flex flex-column flex-shrink-0 p-3">
+			<h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
+			<hr>
+			<ul class="nav__nav nav flex-column mb-auto">
+				<li class="nav-item mb-2">
+					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="/training" class="custom-btn btn nav-link"> Trening </a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
+				</li>
+			</ul>
+			<a href="/logout" class="custom-btn btn">Wyloguj</a>
+		</nav>
     </div>
 
     <main class="dashboard"></main>
@@ -46,7 +46,16 @@
 
 <script>
     const handleOpenMenu = () => {
-        document.querySelector('.nav__sidebar').classList.toggle('d-none')
-        document.querySelector('.nav__sidebar').classList.toggle('d-flex')
-    }
+        const sideBar = document.querySelector(".nav__sidebar");
+        const menuBtn = document.querySelector('.nav__menu-btn i');
+
+        const isHidden = sideBar.classList.toggle('d-none');
+        if (isHidden) {
+            menuBtn.classList.remove('fa-bars');
+            menuBtn.classList.add('fa-bars-staggered');
+        } else {
+            menuBtn.classList.add('fa-bars');
+            menuBtn.classList.remove('fa-bars-staggered');
+        }
+    };
 </script>
