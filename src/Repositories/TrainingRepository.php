@@ -8,6 +8,7 @@ use App\Database\Database;
 use App\Models\ExercisesDataModel;
 use App\Models\ExercisesModel;
 use App\Models\TrainingModel;
+use PDO;
 
 class TrainingRepository
 {
@@ -58,5 +59,24 @@ class TrainingRepository
             $weight,
             $exerciseId
         );
+    }
+
+    public function displayAllTrainingPlansQuery($userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM training WHERE user_id = :user_id');
+        $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function displayTrainingPlanQuery($userId, $trainingId)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT * FROM training
+        INNER JOIN exercises ON training.id = exercises.training_id
+        WHERE training.user_id = :user_id
+        AND training.id = :training_id'
+        );
+        $stmt->execute([':user_id' => $userId, ':training_id' => $trainingId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

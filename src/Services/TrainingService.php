@@ -42,4 +42,32 @@ class TrainingService
             ]
         ];
     }
+
+    public function displayAllTrainingPlans($userId)
+    {
+        if (empty($userId)) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $trainings = $this->repository->displayAllTrainingPlansQuery($userId);
+        return [
+            'success' => true,
+            'data' => $trainings
+        ];
+    }
+
+    public function displayTrainingPlan($userId, $trainingId)
+    {
+        if (empty($userId)) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        if (empty($trainingId)) {
+            return ['success' => false, 'error' => 'ID treningu jest niepoprawne'];
+        }
+        $training = $this->repository->displayTrainingPlanQuery($userId, $trainingId);
+
+        return [
+            'success' => true,
+            'data' => $training
+        ];
+    }
 }

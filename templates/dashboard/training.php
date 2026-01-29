@@ -88,6 +88,12 @@
 			</div>
 		</div>
 
+		<div class="training__main-container">
+			<?php foreach ($trainings as $training): ?>
+				<?= $training['name'] ?>
+			<?php endforeach ?>
+		</div>
+
 	</main>
 
 </body>

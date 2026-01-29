@@ -29,12 +29,27 @@ class TrainingController
             echo json_encode(['success' => false, 'error' => 'Użytkownik niezalogowany']);
             return;
         }
-        $result = $this->service->newTraining($trainingName, $exercisesName, $userId);
-        echo json_encode($result);
+        $training = $this->service->newTraining($trainingName, $exercisesName, $userId);
+        echo json_encode($training);
     }
 
-    public function training()
+    public function displayAllTrainings()
     {
+        $userId = (int)($_SESSION['id'] ?? 0);
+        $result = $this->service->displayAllTrainingPlans($userId);
+        $trainings = $result['data'] ?? [];
+
         require '../templates/dashboard/training.php';
+    }
+
+    public function displayTraining()
+    {
+        session_start();
+
+        $userId = (int)($_SESSION['id'] ?? 0);
+        $trainingId = $_GET['trainingId'];
+        $training = $this->service->displayTrainingPlan($userId, $trainingId);
+
+        return $training;
     }
 }

@@ -19,6 +19,7 @@ $dotenv->load();
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     // GET
     $r->addRoute('GET', '/logout', [AuthController::class, 'userLogout']);
+    $r->addRoute('GET', '/training', [TrainingController::class, 'displayAllTrainings']);
 
     // POST
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
@@ -29,7 +30,6 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
-    $r->addRoute('GET', '/training', [TrainingController::class, 'training']);
 });
 
 // Fetch method and URI from somewhere
