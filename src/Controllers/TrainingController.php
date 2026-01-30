@@ -38,18 +38,20 @@ class TrainingController
         $userId = (int)($_SESSION['id'] ?? 0);
         $result = $this->service->displayAllTrainingPlans($userId);
         $trainings = $result['data'] ?? [];
+        foreach ($trainings as $training) {
+            $_SESSION['trainingName'] = $training['name'];
+        }
 
-        require '../templates/dashboard/training.php';
+        require '../templates/dashboard/trainings.php';
     }
 
     public function displayTraining()
     {
-        session_start();
-
         $userId = (int)($_SESSION['id'] ?? 0);
-        $trainingId = $_GET['trainingId'];
+        $trainingId = $_GET['id'];
         $training = $this->service->displayTrainingPlan($userId, $trainingId);
+        $trainingName = $_SESSION['trainingName'];
 
-        return $training;
+        require '../templates/dashboard/training.php';
     }
 }

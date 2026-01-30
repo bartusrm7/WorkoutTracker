@@ -29,7 +29,7 @@
 					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
 				</li>
 				<li class="nav-item mb-2">
-					<a href="/training" class="custom-btn btn nav-link"> Trening </a>
+					<a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
 				</li>
 				<li class="nav-item mb-2">
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>

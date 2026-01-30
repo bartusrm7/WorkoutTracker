@@ -30,7 +30,7 @@
 					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
 				</li>
 				<li class="nav-item mb-2">
-					<a href="/training" class="custom-btn btn nav-link"> Trening </a>
+					<a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
 				</li>
 				<li class="nav-item mb-2">
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
@@ -42,55 +42,14 @@
 
 	<main class="training container">
 
-		<button type="button" class="custom-btn btn px-4 py-2 float-end" data-bs-toggle="modal" data-bs-target="#trainingFormModal">
-			<i class="training__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz treninig
-		</button>
-
-		<div class="modal fade" id="trainingFormModal" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content training-form-modal">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5 fw-bold">Nowy trening</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="training__form-container">
-							<form action="/create-training" method="post" id="trainingForm">
-								<div class="form-floating">
-									<input class="form-control training-input" type="text" name="trainingName" id="trainingName" required placeholder="">
-									<label for="trainingName">Nazwa treningu</label>
-								</div>
-								<button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="handleToggleFormContainer()">Dalej</button>
-							</form>
-						</div>
-					</div>
+		<div class="training__main-container pt-5">
+			<h4 class="traning__trainin-plan">
+				<?php echo $trainingName ?>
+			</h4>
+			<?php foreach ($training['data'] as $row): ?>
+				<div class="traning__workout-exercise">
+					<?= $row['name'] ?>
 				</div>
-				<div class="modal-content exercises-form-modal d-none">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5 fw-bold">Nowe ćwiczenie</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="training__form-container">
-							<form action="/create-exercises" id="exercisesForm">
-								<div class="form-floating">
-									<input class="form-control exercises-input" type="text" name="exercisesName" id="exercisesName" required placeholder="">
-									<label for="exercisesName">Nazwa ćwiczenia</label>
-								</div>
-								<div class="float-end">
-									<button type="button" class="custom-btn btn px-5 mt-3" onclick="saveExercises()">Dalej</button>
-									<button type="button" class="custom-btn btn px-5 mt-3" onclick="createNewTraining()">Zakończ</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="training__main-container">
-			<?php foreach ($trainings as $training): ?>
-				<?= $training['name'] ?>
 			<?php endforeach ?>
 		</div>
 
@@ -113,42 +72,4 @@
 			menuBtn.classList.remove('fa-bars-staggered');
 		}
 	};
-
-	const handleToggleFormContainer = () => {
-		document.querySelector('.training-form-modal').classList.add('d-none');
-		document.querySelector('.exercises-form-modal').classList.remove('d-none');
-		saveTrainingName()
-	}
-
-	let trainingData = [];
-	let exercises = []
-
-	const saveTrainingName = () => {
-		const trainingName = document.querySelector('.training-input').value
-		trainingData.push({
-			training: trainingName
-		})
-	}
-
-	const saveExercises = () => {
-		const exercisesName = document.querySelector('.exercises-input').value
-		exercises.push(exercisesName)
-		document.querySelector('.exercises-input').value = ''
-	}
-
-	const createNewTraining = async () => {
-		trainingData.push({
-			exercises: exercises
-		})
-		const formData = new FormData();
-		formData.append('trainingName', trainingData[0].training);
-		formData.append('exercisesName', JSON.stringify(exercises));
-
-		const response = await fetch('/create-training', {
-			method: 'POST',
-			body: formData
-		});
-		const data = await response.json();
-		console.log(data);
-	}
 </script>

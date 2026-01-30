@@ -19,7 +19,8 @@ $dotenv->load();
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     // GET
     $r->addRoute('GET', '/logout', [AuthController::class, 'userLogout']);
-    $r->addRoute('GET', '/training', [TrainingController::class, 'displayAllTrainings']);
+    $r->addRoute('GET', '/trainings', [TrainingController::class, 'displayAllTrainings']);
+    $r->addRoute('GET', '/training', [TrainingController::class, 'displayTraining']);
 
     // POST
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
@@ -57,7 +58,8 @@ switch ($routeInfo[0]) {
 
         $protectedRoutes = [
             '/dashboard',
-            '/training'
+            '/trainings',
+            '/training',
         ];
         if (in_array($uri, $protectedRoutes, true)) {
             (new AuthMiddleware)->userAccess();
