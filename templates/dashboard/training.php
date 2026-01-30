@@ -43,14 +43,79 @@
 	<main class="training container">
 
 		<div class="training__main-container pt-5">
-			<h4 class="traning__trainin-plan">
-				<?php echo $trainingName ?>
-			</h4>
-			<?php foreach ($training['data'] as $row): ?>
-				<div class="traning__workout-exercise">
-					<?= $row['name'] ?>
+			<div class="training__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
+				<div class="training__">
+					<h2 class="traning__trainin-plan-label mb-0">
+						<?= ucfirst($trainingName) ?>
+					</h2>
+					<hr>
+					<div>
+						<h5>Szczegóły treningu</h5>
+						<div class="d-lg-flex">
+							<div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
+							<div class="me-lg-3">Objętość: <span class="fw-bold">0</span></div>
+							<div class="me-lg-3">Ilość serii: <span class="fw-bold">0</span></div>
+						</div>
+					</div>
 				</div>
-			<?php endforeach ?>
+				<hr>
+
+				<?php foreach ($training['data'] as $row): ?>
+					<div class="container mt-3">
+						<div class="row">
+							<table class="table table-bordered mb-0 text-center">
+								<h5 class="traning__exercise-name">
+									<?= ucfirst($row['name']) ?>
+								</h5>
+								<thead>
+									<th class="col-2">S</th>
+									<th class="col-2">C</th>
+									<th class="col-2">P</th>
+									<th class="col-2">N</th>
+									<th class="col-2">E</th>
+								</thead>
+								<tbody>
+									<th></th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><button class="custom-btn btn"><i class="fa-regular fa-pen-to-square"></i></button></td>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal">Dodaj serie</button>
+				<?php endforeach ?>
+
+			</div>
+		</div>
+
+		<div class="modal fade" id="exercisesDataModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Uzupełnij serie</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<form action="/create-training" method="post" id="trainingForm">
+								<div class="d-flex justify-content-evenly">
+									<div class="form-floating">
+										<input class="form-control training-input" type="number" min="1" name="trainingName" id="trainingName" required placeholder="">
+										<label for="trainingName">Ciężar (kg)</label>
+									</div>
+									<div class="form-floating">
+										<input class="form-control training-input" type="number" min="1" name="trainingName" id="trainingName" required placeholder="">
+										<label for="trainingName">Powtórzeń</label>
+									</div>
+								</div>
+								<button type="button" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</main>
@@ -60,7 +125,7 @@
 </html>
 <script>
 	const handleOpenMenu = () => {
-		const sideBar = document.querySelector(".nav__sidebar");
+		const sideBar = document.querySelector(" .nav__sidebar");
 		const menuBtn = document.querySelector('.nav__menu-btn i');
 
 		const isHidden = sideBar.classList.toggle('d-none');
@@ -72,4 +137,8 @@
 			menuBtn.classList.remove('fa-bars-staggered');
 		}
 	};
+
+	const handleAddSetExercisesData = () => {
+		document.getElementById('exercisesDataModal').classList.toggle('d-none')
+	}
 </script>

@@ -62,8 +62,14 @@ body {
 		}
 	}
 }
-.training {
+.trainings {
 	&__create-workout-btn {
 		transform: rotate(-30deg);
+	}
+}
+.training {
+	&__training-container {
+		background-color: #c6c7cc;
+		color: $secondary;
 	}
 }

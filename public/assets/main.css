@@ -49,8 +49,13 @@ body {
   border-radius: 8px;
 }
 
-.training__create-workout-btn {
+.trainings__create-workout-btn {
   transform: rotate(-30deg);
+}
+
+.training__training-container {
+  background-color: #c6c7cc;
+  color: #212388;
 }
 
 /*# sourceMappingURL=main.css.map */

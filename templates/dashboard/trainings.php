@@ -40,10 +40,10 @@
         </nav>
     </div>
 
-    <main class="training container">
+    <main class="trainings container">
 
         <button type="button" class="custom-btn btn px-4 py-2 float-end" data-bs-toggle="modal" data-bs-target="#trainingFormModal">
-            <i class="training__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz treninig
+            <i class="trainings__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz treninig
         </button>
 
         <div class="modal fade" id="trainingFormModal" aria-hidden="true">
@@ -54,7 +54,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="training__form-container">
+                        <div class="trainings__form-container">
                             <form action="/create-training" method="post" id="trainingForm">
                                 <div class="form-floating">
                                     <input class="form-control training-input" type="text" name="trainingName" id="trainingName" required placeholder="">
@@ -71,7 +71,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="training__form-container">
+                        <div class="trainings__form-container">
                             <form action="/create-exercises" id="exercisesForm">
                                 <div class="form-floating">
                                     <input class="form-control exercises-input" type="text" name="exercisesName" id="exercisesName" required placeholder="">
@@ -88,10 +88,10 @@
             </div>
         </div>
 
-        <div class="training__main-container pt-5">
-            <div class="row gap-3 my-3">
+        <div class="trainings__main-container pt-5">
+            <div class="row gap-3">
                 <?php foreach ($trainings as $training): ?>
-                    <div class="card text-bg-warning mb-3 col-4" style="max-width: 18rem;">
+                    <div class="card text-bg-warning col-3">
                         <div class="card-header">
                             <h5 class="card-title"><?= $training['name'] ?></h5>
                         </div>
