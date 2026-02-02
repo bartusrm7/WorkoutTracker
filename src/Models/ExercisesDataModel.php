@@ -5,7 +5,7 @@ namespace App\Models;
 
 class ExercisesDataModel
 {
-    public function __construct(private $id, private $sets, private $reps, private $weight, private $exerciseId) {}
+    public function __construct(private $id, private $sets, private $reps, private $weight, private $createdAt, private $exerciseId) {}
 
     public function getId()
     {
@@ -22,6 +22,10 @@ class ExercisesDataModel
     public function getWeight()
     {
         return $this->weight;
+    }
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
     public function getExerciseId()
     {

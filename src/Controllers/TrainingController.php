@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\TrainingService;
+use DateTime;
 
 class TrainingController
 {
@@ -33,6 +34,29 @@ class TrainingController
         echo json_encode($training);
     }
 
+    public function exerciseSet()
+    {
+        session_start();
+        $sets = $_POST['sets'];
+        $weight = $_POST['weight'];
+        $reps = $_POST['reps'];
+        $exerciseId = $_POST['exerciseId'];
+        $createdAt = (new DateTime())->format('Y-m-d');
+
+        $exercisesData = $this->service->createExerciseDataSet($sets, $weight, $reps, $exerciseId, $createdAt);
+        $trainingId = $_SESSION['trainingId'];
+
+        header("Location: /training?id=$trainingId");
+    }
+
+    // public function displayExercisesData()
+    // {
+    //     session_start();
+    //     $trainingId = $_SESSION['trainingId'];
+    //     $exercises = $this->service->addExercisesDataToExercises($trainingId, $exerciseId);
+    //     header("Location: /training?id=$trainingId");
+    // }
+
     public function displayAllTrainings()
     {
         $userId = (int)($_SESSION['id'] ?? 0);
@@ -49,8 +73,21 @@ class TrainingController
     {
         $userId = (int)($_SESSION['id'] ?? 0);
         $trainingId = $_GET['id'];
+        $_SESSION['trainingId'] = $trainingId;
+        if (!$trainingId) {
+            return 'Brak ID treiningu';
+        }
+
         $training = $this->service->displayTrainingPlan($userId, $trainingId);
         $trainingName = $_SESSION['trainingName'];
+
+        if (!is_array($training)) {
+            return 'Zmienna nie jest pętlą';
+        }
+
+        foreach ($training['data'] as $k => $exercise) {
+            $training['data'][$k]['sets'] = $this->service->getSetsDataByExerciseId($exercise['id'])['data'];
+        };
 
         require '../templates/dashboard/training.php';
     }

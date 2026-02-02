@@ -68,23 +68,29 @@
 									<?= ucfirst($row['name']) ?>
 								</h5>
 								<thead>
-									<th class="col-2">S</th>
-									<th class="col-2">C</th>
-									<th class="col-2">P</th>
-									<th class="col-2">N</th>
-									<th class="col-2">E</th>
+									<tr>
+										<th class="col-2">S</th>
+										<th class="col-2">C</th>
+										<th class="col-2">P</th>
+										<th class="col-2">N</th>
+										<th class="col-2">E</th>
+									</tr>
 								</thead>
 								<tbody>
-									<th></th>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td><button class="custom-btn btn"><i class="fa-regular fa-pen-to-square"></i></button></td>
+									<?php foreach ($row['sets'] as $set): ?>
+										<tr>
+											<th><?= $set['sets'] ?></th>
+											<td><?= $set['weight'] ?></td>
+											<td><?= $set['reps'] ?></td>
+											<td></td>
+											<td><button class="custom-btn btn"><i class="fa-regular fa-pen-to-square"></i></button></td>
+										</tr>
+									<?php endforeach ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal">Dodaj serie</button>
+					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>">Dodaj serie</button>
 				<?php endforeach ?>
 
 			</div>
@@ -99,18 +105,20 @@
 					</div>
 					<div class="modal-body">
 						<div class="training__form-container">
-							<form action="/create-training" method="post" id="trainingForm">
+							<form action="/add-exercise-set" method="post" id="exerciseSet">
+								<input type="hidden" name="exerciseId" id="exerciseId">
+								<input type="hidden" name="sets" value="1">
 								<div class="d-flex justify-content-evenly">
 									<div class="form-floating">
-										<input class="form-control training-input" type="number" min="1" name="trainingName" id="trainingName" required placeholder="">
-										<label for="trainingName">Ciężar (kg)</label>
+										<input class="form-control" type="number" min="1" name="weight" id="weight" required placeholder="">
+										<label for="weight">Ciężar (kg)</label>
 									</div>
 									<div class="form-floating">
-										<input class="form-control training-input" type="number" min="1" name="trainingName" id="trainingName" required placeholder="">
-										<label for="trainingName">Powtórzeń</label>
+										<input class="form-control" type="number" min="1" name="reps" id="reps" required placeholder="">
+										<label for="reps">Powtórzeń</label>
 									</div>
 								</div>
-								<button type="button" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
+								<button type="submit" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
 							</form>
 						</div>
 					</div>
@@ -141,4 +149,9 @@
 	const handleAddSetExercisesData = () => {
 		document.getElementById('exercisesDataModal').classList.toggle('d-none')
 	}
+
+	document.getElementById('exercisesDataModal').addEventListener('show.bs.modal', e => {
+		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
+		console.log(e.relatedTarget);
+	})
 </script>

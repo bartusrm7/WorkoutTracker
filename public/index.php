@@ -26,6 +26,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
     $r->addRoute('POST', '/create-training', [TrainingController::class, 'addTraining']);
+    $r->addRoute('POST', '/add-exercise-set', [TrainingController::class, 'exerciseSet']);
 
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);

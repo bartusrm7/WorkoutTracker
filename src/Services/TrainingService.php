@@ -43,6 +43,61 @@ class TrainingService
         ];
     }
 
+    public function createExerciseDataSet($sets, $weight, $reps, $exerciseId, $createdAt)
+    {
+        if (!$sets) {
+            return [
+                'success' => false,
+                'error' => ['sets' => 'Liczba serii musi być wybrana']
+            ];
+        }
+        if (empty($weight) || empty($reps)) {
+            return [
+                'success' => false,
+                'error' => ['setData' => 'Oba pola muszą być uzupełnione']
+            ];
+        }
+        if (!$exerciseId) {
+            return [
+                'success' => false,
+                'error' => ['exerciseId' => 'ID ćwiczenia musi być wybrane']
+            ];
+        }
+        $exercisesData = $this->repository->createNewExercisesDataQuery($sets,  $weight, $reps, $exerciseId, $createdAt);
+
+        return [
+            'success' => true,
+            'data' => $exercisesData
+        ];
+    }
+
+    public function getSetsDataByExerciseId($exerciseId)
+    {
+        if (empty($exerciseId)) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        $exercises = $this->repository->getSetsDataByExerciseIdQuery($exerciseId);
+        return [
+            'success' => true,
+            'data' => $exercises
+        ];
+    }
+
+    // public function addExercisesDataToExercises($trainingId)
+    // {
+    //     if (empty($trainingId)) {
+    //         return ['success' => false, 'error' => 'Brak ID treningu'];
+    //     }
+    //     if (empty($exerciseId)) {
+    //         return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+    //     }
+    //     $exercises = $this->repository->addExercisesDataToExercisesQuery($trainingId, $exerciseId);
+    //     return [
+    //         'success' => true,
+    //         'data' => $exercises
+    //     ];
+    // }
+
     public function displayAllTrainingPlans($userId)
     {
         if (empty($userId)) {

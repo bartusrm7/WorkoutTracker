@@ -46,19 +46,39 @@ class TrainingRepository
         );
     }
 
-    public function createNewExercisesDataQuery($sets, $reps, $weight, $exerciseId)
+    public function createNewExercisesDataQuery($sets, $weight, $reps, $exerciseId, $createdAt)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO exercises_data (sets, reps, weight, training_id) VALUES (:sets, :reps, :weight, :exercise_id)');
-        $stmt->execute([':sets' => $sets, ':reps' => $reps, ':weight' => $weight, ':exercise_id' => $exerciseId]);
+        $stmt = $this->pdo->prepare('INSERT INTO exercises_data (sets, weight, reps, created_at, exercise_id) VALUES (:sets, :weight, :reps, :created_at, :exercise_id)');
+        $stmt->execute([':sets' => $sets, ':weight' => $weight, ':reps' => $reps,  ':exercise_id' => $exerciseId, ':created_at' => $createdAt]);
         $id = (int) $this->pdo->lastInsertId();
 
         return new ExercisesDataModel(
             $id,
             $sets,
-            $reps,
             $weight,
+            $reps,
+            $createdAt,
             $exerciseId
         );
+    }
+
+    // public function addExercisesDataToExercisesQuery($trainingId, $exerciseId)
+    // {
+    //     $stmt = $this->pdo->prepare(
+    //         'SELECT * FROM exercises
+    //         INNER JOIN exercises_data ON exercises.id = exercises_data.exercise_id
+    //         WHERE exercises.training_id = :training_id
+    //         AND exercises.id = :exercise_id'
+    //     );
+    //     $stmt->execute([':training_id' => $trainingId, ':exercise_id' => $exerciseId]);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+
+    public function getSetsDataByExerciseIdQuery($exerciseId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE exercise_id = :exercise_id');
+        $stmt->execute([':exercise_id' => $exerciseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function displayAllTrainingPlansQuery($userId)
