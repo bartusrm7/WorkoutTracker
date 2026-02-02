@@ -43,7 +43,7 @@ class TrainingService
         ];
     }
 
-    public function createExerciseDataSet($sets, $weight, $reps, $exerciseId, $createdAt)
+    public function createExerciseDataSet($sets, $weight, $reps, $rir, $exerciseId, $createdAt)
     {
         if (!$sets) {
             return [
@@ -51,10 +51,10 @@ class TrainingService
                 'error' => ['sets' => 'Liczba serii musi być wybrana']
             ];
         }
-        if (empty($weight) || empty($reps)) {
+        if (empty($reps)) {
             return [
                 'success' => false,
-                'error' => ['setData' => 'Oba pola muszą być uzupełnione']
+                'error' => ['setData' => 'Pola muszą być uzupełnione']
             ];
         }
         if (!$exerciseId) {
@@ -63,7 +63,7 @@ class TrainingService
                 'error' => ['exerciseId' => 'ID ćwiczenia musi być wybrane']
             ];
         }
-        $exercisesData = $this->repository->createNewExercisesDataQuery($sets,  $weight, $reps, $exerciseId, $createdAt);
+        $exercisesData = $this->repository->createNewExercisesDataQuery($sets,  $weight, $reps, $rir, $exerciseId, $createdAt);
 
         return [
             'success' => true,

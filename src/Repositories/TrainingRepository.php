@@ -46,10 +46,10 @@ class TrainingRepository
         );
     }
 
-    public function createNewExercisesDataQuery($sets, $weight, $reps, $exerciseId, $createdAt)
+    public function createNewExercisesDataQuery($sets, $weight, $reps, $rir, $exerciseId, $createdAt)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO exercises_data (sets, weight, reps, created_at, exercise_id) VALUES (:sets, :weight, :reps, :created_at, :exercise_id)');
-        $stmt->execute([':sets' => $sets, ':weight' => $weight, ':reps' => $reps,  ':exercise_id' => $exerciseId, ':created_at' => $createdAt]);
+        $stmt = $this->pdo->prepare('INSERT INTO exercises_data (sets, weight, reps, rir, created_at, exercise_id) VALUES (:sets, :weight, :reps, :rir, :created_at, :exercise_id)');
+        $stmt->execute([':sets' => $sets, ':weight' => $weight, ':reps' => $reps, ':rir' => $rir, ':exercise_id' => $exerciseId, ':created_at' => $createdAt]);
         $id = (int) $this->pdo->lastInsertId();
 
         return new ExercisesDataModel(
@@ -57,6 +57,7 @@ class TrainingRepository
             $sets,
             $weight,
             $reps,
+            $rir,
             $createdAt,
             $exerciseId
         );

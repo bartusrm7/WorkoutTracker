@@ -72,7 +72,7 @@
 										<th class="col-2">S</th>
 										<th class="col-2">C</th>
 										<th class="col-2">P</th>
-										<th class="col-2">N</th>
+										<th class="col-2">Z</th>
 										<th class="col-2">E</th>
 									</tr>
 								</thead>
@@ -80,10 +80,10 @@
 									<?php foreach ($row['sets'] as $set): ?>
 										<tr>
 											<th><?= $set['sets'] ?></th>
-											<td><?= $set['weight'] ?></td>
+											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
 											<td><?= $set['reps'] ?></td>
-											<td></td>
-											<td><button class="custom-btn btn"><i class="fa-regular fa-pen-to-square"></i></button></td>
+											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
+											<td><button class="custom-btn btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></button></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -108,14 +108,52 @@
 							<form action="/add-exercise-set" method="post" id="exerciseSet">
 								<input type="hidden" name="exerciseId" id="exerciseId">
 								<input type="hidden" name="sets" value="1">
-								<div class="d-flex justify-content-evenly">
+								<div class="d-flex gap-3">
 									<div class="form-floating">
-										<input class="form-control" type="number" min="1" name="weight" id="weight" required placeholder="">
+										<input class="form-control" type="number" min="0" name="weight" id="weight" placeholder="">
 										<label for="weight">Ciężar (kg)</label>
 									</div>
 									<div class="form-floating">
 										<input class="form-control" type="number" min="1" name="reps" id="reps" required placeholder="">
 										<label for="reps">Powtórzeń</label>
+									</div>
+									<div class="form-floating">
+										<input class="form-control" type="number" min="0" name="rir" id="rir" placeholder="">
+										<label for="rir">Zapas powtórzeń</label>
+									</div>
+								</div>
+								<button type="submit" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exerciseSetEditModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Edytuj serie</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<form action="/edit-exercise-set" method="post" id="editExerciseSet">
+								<input type="hidden" name="exerciseId" id="exerciseId">
+								<input type="hidden" name="sets" value="1">
+								<div class="d-flex gap-3">
+									<div class="form-floating">
+										<input class="form-control" type="number" min="0" name="weight" id="weight" placeholder="">
+										<label for="weight">Ciężar (kg)</label>
+									</div>
+									<div class="form-floating">
+										<input class="form-control" type="number" min="1" name="reps" id="reps" required placeholder="">
+										<label for="reps">Powtórzeń</label>
+									</div>
+									<div class="form-floating">
+										<input class="form-control" type="number" min="0" name="rir" id="rir" placeholder="">
+										<label for="rir">Zapas powtórzeń</label>
 									</div>
 								</div>
 								<button type="submit" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>

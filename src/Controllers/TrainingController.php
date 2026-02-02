@@ -40,10 +40,11 @@ class TrainingController
         $sets = $_POST['sets'];
         $weight = $_POST['weight'];
         $reps = $_POST['reps'];
+        $rir = $_POST['rir'];
         $exerciseId = $_POST['exerciseId'];
         $createdAt = (new DateTime())->format('Y-m-d');
 
-        $exercisesData = $this->service->createExerciseDataSet($sets, $weight, $reps, $exerciseId, $createdAt);
+        $exercisesData = $this->service->createExerciseDataSet($sets, $weight, $reps, $rir, $exerciseId, $createdAt);
         $trainingId = $_SESSION['trainingId'];
 
         header("Location: /training?id=$trainingId");

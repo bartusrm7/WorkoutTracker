@@ -77,6 +77,7 @@ class Database
             sets INT NOT NULL,
             weight INT,
             reps INT NOT NULL,
+            rir INT,
             created_at DATE NOT NULL,
             exercise_id INT,
             CONSTRAINT fk_exercises_data
