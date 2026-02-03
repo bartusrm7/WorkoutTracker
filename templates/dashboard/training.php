@@ -64,16 +64,29 @@
 					<div class="container mt-3">
 						<div class="row">
 							<table class="table table-bordered mb-0 text-center">
-								<h5 class="traning__exercise-name">
-									<?= ucfirst($row['name']) ?>
-								</h5>
+								<div class="d-flex justify-content-between align-items-center mb-2">
+									<h5 class="traning__exercise-name mb-0">
+										<?= ucfirst($row['name']) ?>
+									</h5>
+									<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+								</div>
 								<thead>
 									<tr>
-										<th class="col-2">S</th>
-										<th class="col-2">C</th>
-										<th class="col-2">P</th>
-										<th class="col-2">Z</th>
-										<th class="col-2">E</th>
+										<th class="training__th col-2">S
+											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
+										</th>
+										<th class="training__th col-2">C
+											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
+										</th>
+										<th class="training__th col-2">P
+											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
+										</th>
+										<th class="training__th col-2">Z
+											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+										</th>
+										<th class="training__th col-2">E
+											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
+										</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -90,7 +103,7 @@
 							</table>
 						</div>
 					</div>
-					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>">Dodaj serie</button>
+					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $row['sets'] ?>">Dodaj serie</button>
 				<?php endforeach ?>
 
 			</div>
@@ -192,4 +205,12 @@
 		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
 		console.log(e.relatedTarget);
 	})
+
+	document.getElementById('exerciseSetEditModal').addEventListener('show.bs.modal', e => {
+		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
+		console.log(e.relatedTarget);
+	})
+
+	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>

@@ -83,21 +83,6 @@ class TrainingService
         ];
     }
 
-    // public function addExercisesDataToExercises($trainingId)
-    // {
-    //     if (empty($trainingId)) {
-    //         return ['success' => false, 'error' => 'Brak ID treningu'];
-    //     }
-    //     if (empty($exerciseId)) {
-    //         return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
-    //     }
-    //     $exercises = $this->repository->addExercisesDataToExercisesQuery($trainingId, $exerciseId);
-    //     return [
-    //         'success' => true,
-    //         'data' => $exercises
-    //     ];
-    // }
-
     public function displayAllTrainingPlans($userId)
     {
         if (empty($userId)) {
@@ -123,6 +108,25 @@ class TrainingService
         return [
             'success' => true,
             'data' => $training
+        ];
+    }
+
+    public function editExerciseSet($id, $sets, $weight, $reps, $rir, $exerciseId)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID serii'];
+        }
+        if (empty($reps)) {
+            return ['success' => false, 'error' => 'Pole powtórzeń musi być uzupełnione'];
+        }
+        if (!$exerciseId) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+
+        $exerciseSet = $this->repository->editExerciseSetQuery($id, $sets, $weight, $reps, $rir, $exerciseId);
+        return [
+            'success' => true,
+            'data' => $exerciseSet
         ];
     }
 }

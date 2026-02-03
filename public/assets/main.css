@@ -57,5 +57,14 @@ body {
   background-color: #c6c7cc;
   color: #212388;
 }
+.training__th {
+  position: relative;
+}
+.training__tool-tip-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.25;
+}
 
 /*# sourceMappingURL=main.css.map */

@@ -50,14 +50,6 @@ class TrainingController
         header("Location: /training?id=$trainingId");
     }
 
-    // public function displayExercisesData()
-    // {
-    //     session_start();
-    //     $trainingId = $_SESSION['trainingId'];
-    //     $exercises = $this->service->addExercisesDataToExercises($trainingId, $exerciseId);
-    //     header("Location: /training?id=$trainingId");
-    // }
-
     public function displayAllTrainings()
     {
         $userId = (int)($_SESSION['id'] ?? 0);
@@ -91,5 +83,21 @@ class TrainingController
         };
 
         require '../templates/dashboard/training.php';
+    }
+
+    public function editSet()
+    {
+        $id = $_POST['id'];
+        $sets = $_POST['sets'];
+        $weight = $_POST['weight'];
+        $reps = $_POST['reps'];
+        $rir = $_POST['rir'];
+        $exerciseId = $_POST['exercise_id'];
+
+        $trainingId = $_SESSION['trainingId'];
+
+        $exerciseSet = $this->service->editExerciseSet($id, $sets, $weight, $reps, $rir, $exerciseId);
+
+        header("Location: /training?id=$trainingId");
     }
 }
