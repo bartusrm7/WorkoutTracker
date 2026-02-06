@@ -45,8 +45,8 @@ class TrainingController
         $createdAt = (new DateTime())->format('Y-m-d');
 
         $exercisesData = $this->service->createExerciseDataSet($sets, $weight, $reps, $rir, $exerciseId, $createdAt);
-        $trainingId = $_SESSION['trainingId'];
 
+        $trainingId = $_SESSION['trainingId'];
         header("Location: /training?id=$trainingId");
     }
 
@@ -78,8 +78,16 @@ class TrainingController
             return 'Zmienna nie jest pętlą';
         }
 
+        $setsVolume = $this->service->countSetsVolume($trainingId);
+        $setsVolumeWeight = strval(array_sum(array_column($setsVolume['data'], 'weight')));
+        $setsVolumeAmount = strval(count($setsVolume['data']));
+
         foreach ($training['data'] as $k => $exercise) {
             $training['data'][$k]['sets'] = $this->service->getSetsDataByExerciseId($exercise['id'])['data'];
+
+            foreach ($training['data'][$k]['sets'] as $i => $set) {
+                $training['data'][$k]['sets'][$i]['setNum'] = $i + 1;
+            }
         };
 
         require '../templates/dashboard/training.php';
@@ -87,17 +95,27 @@ class TrainingController
 
     public function editSet()
     {
+        session_start();
         $id = $_POST['id'];
         $sets = $_POST['sets'];
         $weight = $_POST['weight'];
         $reps = $_POST['reps'];
         $rir = $_POST['rir'];
-        $exerciseId = $_POST['exercise_id'];
-
-        $trainingId = $_SESSION['trainingId'];
+        $exerciseId = $_POST['exerciseId'];
 
         $exerciseSet = $this->service->editExerciseSet($id, $sets, $weight, $reps, $rir, $exerciseId);
 
+        $trainingId = $_SESSION['trainingId'];
         header("Location: /training?id=$trainingId");
+    }
+
+    public function getEditSet()
+    {
+        header('Content-Type: application/json');
+
+        $id = $_GET['id'];
+        $set = $this->service->getEditSetData($id);
+
+        echo json_encode($set);
     }
 }

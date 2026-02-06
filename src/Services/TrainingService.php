@@ -63,7 +63,9 @@ class TrainingService
                 'error' => ['exerciseId' => 'ID ćwiczenia musi być wybrane']
             ];
         }
-        $exercisesData = $this->repository->createNewExercisesDataQuery($sets,  $weight, $reps, $rir, $exerciseId, $createdAt);
+        $sets = $this->repository->getSetsDataByExerciseIdQuery($exerciseId);
+        $setNum = count($sets) + 1;
+        $exercisesData = $this->repository->createNewExercisesDataQuery($setNum,  $weight, $reps, $rir, $exerciseId, $createdAt);
 
         return [
             'success' => true,
@@ -127,6 +129,32 @@ class TrainingService
         return [
             'success' => true,
             'data' => $exerciseSet
+        ];
+    }
+
+    public function getEditSetData($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID serii'];
+        }
+        $exerciseSet = $this->repository->getEditSetDataQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $exerciseSet
+        ];
+    }
+
+    public function countSetsVolume($trainingId)
+    {
+        if (empty($trainingId)) {
+            return ['success' => false, 'error' => 'ID treningu jest niepoprawne'];
+        }
+        $exercises = $this->repository->countSetsVolumeQuery($trainingId);
+
+        return [
+            'success' => true,
+            'data' => $exercises
         ];
     }
 }

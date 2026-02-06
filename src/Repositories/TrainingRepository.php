@@ -104,4 +104,22 @@ class TrainingRepository
             $exerciseId
         );
     }
+
+    public function getEditSetDataQuery($id)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function countSetsVolumeQuery($trainingId)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT exercises_data.* FROM exercises_data
+            INNER JOIN exercises ON exercises_data.exercise_id = exercises.id
+            WHERE exercises.training_id = :training_id'
+        );
+        $stmt->execute([':training_id' => $trainingId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

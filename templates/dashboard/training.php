@@ -53,8 +53,8 @@
 						<h5>Szczegóły treningu</h5>
 						<div class="d-lg-flex">
 							<div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
-							<div class="me-lg-3">Objętość: <span class="fw-bold">0</span></div>
-							<div class="me-lg-3">Ilość serii: <span class="fw-bold">0</span></div>
+							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= $setsVolumeWeight ?>kg</span></div>
+							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= $setsVolumeAmount ?></span></div>
 						</div>
 					</div>
 				</div>
@@ -92,18 +92,18 @@
 								<tbody>
 									<?php foreach ($row['sets'] as $set): ?>
 										<tr>
-											<th><?= $set['sets'] ?></th>
+											<th><?= $set['setNum'] ?></th>
 											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
 											<td><?= $set['reps'] ?></td>
 											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
-											<td><button class="custom-btn btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></button></td>
+											<td><button class="custom-btn btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></button></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $row['sets'] ?>">Dodaj serie</button>
+					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>">Dodaj serie</button>
 				<?php endforeach ?>
 
 			</div>
@@ -120,7 +120,7 @@
 						<div class="training__form-container">
 							<form action="/add-exercise-set" method="post" id="exerciseSet">
 								<input type="hidden" name="exerciseId" id="exerciseId">
-								<input type="hidden" name="sets" value="1">
+								<input type="hidden" name="sets" id="sets">
 								<div class="d-flex gap-3">
 									<div class="form-floating">
 										<input class="form-control" type="number" min="0" name="weight" id="weight" placeholder="">
@@ -153,20 +153,21 @@
 					<div class="modal-body">
 						<div class="training__form-container">
 							<form action="/edit-exercise-set" method="post" id="editExerciseSet">
-								<input type="hidden" name="exerciseId" id="exerciseId">
-								<input type="hidden" name="sets" value="1">
+								<input type="hidden" name="id" id="editId">
+								<input type="hidden" name="exerciseId" id="editExerciseId">
+								<input type="hidden" name="sets" id="setId">
 								<div class="d-flex gap-3">
 									<div class="form-floating">
-										<input class="form-control" type="number" min="0" name="weight" id="weight" placeholder="">
-										<label for="weight">Ciężar (kg)</label>
+										<input class="form-control" type="number" min="0" name="weight" id="weightSet" placeholder="">
+										<label for="weightSet">Ciężar (kg)</label>
 									</div>
 									<div class="form-floating">
-										<input class="form-control" type="number" min="1" name="reps" id="reps" required placeholder="">
-										<label for="reps">Powtórzeń</label>
+										<input class="form-control" type="number" min="1" name="reps" id="repsSet" required placeholder="">
+										<label for="repsSet">Powtórzeń</label>
 									</div>
 									<div class="form-floating">
-										<input class="form-control" type="number" min="0" name="rir" id="rir" placeholder="">
-										<label for="rir">Zapas powtórzeń</label>
+										<input class="form-control" type="number" min="0" name="rir" id="rirSet" placeholder="">
+										<label for="rirSet">Zapas powtórzeń</label>
 									</div>
 								</div>
 								<button type="submit" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
@@ -198,19 +199,28 @@
 	};
 
 	const handleAddSetExercisesData = () => {
-		document.getElementById('exercisesDataModal').classList.toggle('d-none')
+		document.getElementById('exercisesDataModal').classList.toggle('d-none');
 	}
 
 	document.getElementById('exercisesDataModal').addEventListener('show.bs.modal', e => {
 		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
-		console.log(e.relatedTarget);
+		document.getElementById('sets').value = e.relatedTarget.dataset.sets;
 	})
 
-	document.getElementById('exerciseSetEditModal').addEventListener('show.bs.modal', e => {
-		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
-		console.log(e.relatedTarget);
+	document.getElementById('exerciseSetEditModal').addEventListener('show.bs.modal', async (e) => {
+		const id = e.relatedTarget.dataset.id;
+		const response = await fetch(`/set-id?id=${id}`);
+		const data = await response.json();
+
+		document.getElementById('editExerciseId').value = e.relatedTarget.dataset.exerciseId;
+		document.getElementById('setId').value = e.relatedTarget.dataset.setId;
+		document.getElementById('editId').value = e.relatedTarget.dataset.id;
+
+		document.getElementById('weightSet').value = data.data.weight;
+		document.getElementById('repsSet').value = data.data.reps;
+		document.getElementById('rirSet').value = data.data.rir;
 	})
 
-	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 </script>
