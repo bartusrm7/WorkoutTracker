@@ -68,7 +68,9 @@
 									<h5 class="traning__exercise-name mb-0">
 										<?= ucfirst($row['name']) ?>
 									</h5>
-									<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+									<button class="btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">
+										<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+									</button>
 								</div>
 								<thead>
 									<tr>
@@ -245,7 +247,24 @@
 	})
 
 	const addNewExercise = () => {
-		
+
+	}
+
+	async function removeExercise() {
+		const id = this.dataset.exerciseId;
+
+		const response = await fetch('/delete-exercise', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: id
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas usuwania ćwiczenia', error.status);
+		}
 	}
 
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

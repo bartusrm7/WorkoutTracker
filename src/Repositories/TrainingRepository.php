@@ -122,4 +122,11 @@ class TrainingRepository
         $stmt->execute([':training_id' => $trainingId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteExerciseQuery($id)
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM exercises WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount();
+    }
 }

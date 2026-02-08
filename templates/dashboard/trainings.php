@@ -94,7 +94,7 @@
                 <?php foreach ($trainings as $training): ?>
                     <div class="trainings__training-container card col-sm-5 col-lg-3">
                         <div class="card-header">
-                            <h5 class="card-title"><?= $training['name'] ?></h5>
+                            <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
                         </div>
                         <div class="card-body my-2">
                             <a href="/training?id=<?= $training['id'] ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>

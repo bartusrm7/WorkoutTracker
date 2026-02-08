@@ -157,4 +157,17 @@ class TrainingService
             'data' => $exercises
         ];
     }
+
+    public function deleteExercise($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        $result = $this->repository->deleteExerciseQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
 }

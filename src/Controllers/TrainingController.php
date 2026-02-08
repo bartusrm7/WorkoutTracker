@@ -118,4 +118,15 @@ class TrainingController
 
         echo json_encode($set);
     }
+
+    public function deleteExercise()
+    {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+        $result = $this->service->deleteExercise($id);
+
+        echo json_encode($result);
+    }
 }

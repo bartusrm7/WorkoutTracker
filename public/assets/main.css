@@ -57,7 +57,6 @@ body {
 }
 .nav__nav a:active {
   color: rgb(235, 235, 235);
-  border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
 }
 
