@@ -190,12 +190,12 @@
 					</div>
 					<div class="modal-body">
 						<div class="trainings__form-container">
-							<form action="/create-exercises" id="exercisesForm">
+							<form action="/new-exercise" id="exercisesForm">
 								<div class="form-floating">
-									<input class="form-control exercises-input" type="text" name="exercisesName" id="exercisesName" required placeholder="">
+									<input class="form-control exercises-input" type="text" name="name" id="exercisesName" required placeholder="">
 									<label for="exercisesName">Nazwa ćwiczenia</label>
 								</div>
-								<button type="button" class="custom-btn btn float-end px-5 mt-3" onclick="createNewTraining()">Dodaj</button>
+								<button type="button" class="custom-btn btn float-end px-5 mt-3" onclick="addNewExercise()">Dodaj</button>
 							</form>
 						</div>
 					</div>
@@ -246,13 +246,25 @@
 		document.getElementById('rirSet').value = data.data.rir;
 	})
 
-	const addNewExercise = () => {
-
+	const addNewExercise = async () => {
+		const exercisesName = document.getElementById('exercisesName').value;
+		const response = await fetch('new-exercise', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				exercisesName
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas dodawania ćwiczenia', error.status);
+		}
+		window.location.reload();
 	}
 
 	async function removeExercise() {
 		const id = this.dataset.exerciseId;
-
 		const response = await fetch('/delete-exercise', {
 			method: 'POST',
 			headers: {
@@ -265,6 +277,7 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas usuwania ćwiczenia', error.status);
 		}
+		window.location.reload();
 	}
 
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

@@ -119,6 +119,17 @@ class TrainingController
         echo json_encode($set);
     }
 
+    public function newExercise()
+    {
+        session_start();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $name = $data['exercisesName'];
+        $trainingId = $_SESSION['trainingId'];
+
+        $exercise = $this->service->createNewExercises($name, $trainingId);
+        echo json_encode($exercise);
+    }
+
     public function deleteExercise()
     {
         header('Content-Type: application/json');

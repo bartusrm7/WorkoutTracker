@@ -158,6 +158,22 @@ class TrainingService
         ];
     }
 
+    public function createNewExercises($name, $trainingId)
+    {
+        if (empty($trainingId)) {
+            return ['success' => false, 'error' => 'ID treningu jest niepoprawne'];
+        }
+        if (empty($name)) {
+            return ['success' => false, 'error' => 'Nazwa ćwiczenia musi być podana'];
+        }
+        $exercise = $this->repository->createNewExercisesQuery($name, $trainingId);
+
+        return [
+            'success' => true,
+            'data' => $exercise
+        ];
+    }
+
     public function deleteExercise($id)
     {
         if (!$id) {
