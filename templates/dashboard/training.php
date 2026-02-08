@@ -106,6 +106,7 @@
 					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>">Dodaj serie</button>
 				<?php endforeach ?>
 
+				<button class="training__exercises-data-btn custom-accent-btn btn w-100 mt-5" data-bs-toggle="modal" data-bs-target="#trainingFormModal" data-exercise-id="<?= $row['id'] ?>">Dodaj nowe ćwiczenie</button>
 			</div>
 		</div>
 
@@ -178,6 +179,28 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="trainingFormModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content exercises-form-modal">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Nowe ćwiczenie</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="trainings__form-container">
+							<form action="/create-exercises" id="exercisesForm">
+								<div class="form-floating">
+									<input class="form-control exercises-input" type="text" name="exercisesName" id="exercisesName" required placeholder="">
+									<label for="exercisesName">Nazwa ćwiczenia</label>
+								</div>
+								<button type="button" class="custom-btn btn float-end px-5 mt-3" onclick="createNewTraining()">Dodaj</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 </body>
@@ -220,6 +243,10 @@
 		document.getElementById('repsSet').value = data.data.reps;
 		document.getElementById('rirSet').value = data.data.rir;
 	})
+
+	const addNewExercise = () => {
+		
+	}
 
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));

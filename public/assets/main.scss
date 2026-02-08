@@ -1,25 +1,39 @@
-$background: #0d0d18;
-$text: #eaeaf0;
-$primary: #9597d8;
-$secondary: #212388;
-$accent: #353ae4;
+$background: #222222;
+$text: rgb(235, 235, 235);
+$primary: #cccccc;
+$secondary: #424242;
+$third: #f5f1f0;
+$accent: #fc7260;
 
 body {
 	background-color: $background;
 	color: $text;
 }
+
 .custom-btn {
 	background-color: $secondary;
 	color: $text;
+	font-weight: 500;
 	&:hover {
 		background-color: $accent;
+		color: $secondary;
+	}
+}
+
+.custom-accent-btn {
+	background-color: $accent;
+	color: $background;
+	font-weight: 500;
+	&:hover {
+		background-color: $secondary;
+		color: $text;
 	}
 }
 
 .auth {
 	&__container {
 		width: 500px;
-		background-color: #9597d8;
+		background-color: $third;
 	}
 	&__label {
 		color: $background;
@@ -31,7 +45,7 @@ body {
 
 .nav {
 	&__navbar {
-		border-bottom: 1px solid rgb(80, 80, 80);
+		border-bottom: 1px solid $accent;
 		overflow: hidden;
 	}
 	&__menu-btn {
@@ -42,15 +56,14 @@ body {
 		top: 0;
 		width: 250px;
 		background-color: $background;
-		border-right: 1px solid rgb(80, 80, 80);
+		border-right: 1px solid $accent;
 		z-index: 1;
 	}
 	&__label {
-		color: $primary;
+		color: $accent;
 	}
 	&__nav {
 		a {
-			&:hover,
 			&:focus {
 				color: $text;
 			}
@@ -62,14 +75,25 @@ body {
 		}
 	}
 }
+
+.dashboard {
+	&__container {
+		background-color: $third;
+	}
+}
+
 .trainings {
 	&__create-workout-btn {
 		transform: rotate(-30deg);
 	}
+	&__training-container {
+		background-color: $third;
+	}
 }
+
 .training {
 	&__training-container {
-		background-color: #c6c7cc;
+		background-color: $third;
 		color: $secondary;
 	}
 	&__th {

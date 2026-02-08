@@ -1,61 +1,80 @@
 body {
-  background-color: #0d0d18;
-  color: #eaeaf0;
+  background-color: #222222;
+  color: rgb(235, 235, 235);
 }
 
 .custom-btn {
-  background-color: #212388;
-  color: #eaeaf0;
+  background-color: #424242;
+  color: rgb(235, 235, 235);
+  font-weight: 500;
 }
 .custom-btn:hover {
-  background-color: #353ae4;
+  background-color: #fc7260;
+  color: #424242;
+}
+
+.custom-accent-btn {
+  background-color: #fc7260;
+  color: #222222;
+  font-weight: 500;
+}
+.custom-accent-btn:hover {
+  background-color: #424242;
+  color: rgb(235, 235, 235);
 }
 
 .auth__container {
   width: 500px;
-  background-color: #9597d8;
+  background-color: #f5f1f0;
 }
 .auth__label {
-  color: #0d0d18;
+  color: #222222;
 }
 .auth li {
   list-style: none;
 }
 
 .nav__navbar {
-  border-bottom: 1px solid rgb(80, 80, 80);
+  border-bottom: 1px solid #fc7260;
   overflow: hidden;
 }
 .nav__menu-btn {
-  border: 1px solid #eaeaf0;
+  border: 1px solid rgb(235, 235, 235);
 }
 .nav__sidebar {
   position: fixed;
   top: 0;
   width: 250px;
-  background-color: #0d0d18;
-  border-right: 1px solid rgb(80, 80, 80);
+  background-color: #222222;
+  border-right: 1px solid #fc7260;
   z-index: 1;
 }
 .nav__label {
-  color: #9597d8;
+  color: #fc7260;
 }
-.nav__nav a:hover, .nav__nav a:focus {
-  color: #eaeaf0;
+.nav__nav a:focus {
+  color: rgb(235, 235, 235);
 }
 .nav__nav a:active {
-  color: #eaeaf0;
-  border: 1px solid #eaeaf0;
+  color: rgb(235, 235, 235);
+  border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
+}
+
+.dashboard__container {
+  background-color: #f5f1f0;
 }
 
 .trainings__create-workout-btn {
   transform: rotate(-30deg);
 }
+.trainings__training-container {
+  background-color: #f5f1f0;
+}
 
 .training__training-container {
-  background-color: #c6c7cc;
-  color: #212388;
+  background-color: #f5f1f0;
+  color: #424242;
 }
 .training__th {
   position: relative;

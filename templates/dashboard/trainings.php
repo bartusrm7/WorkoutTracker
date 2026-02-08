@@ -43,7 +43,7 @@
     <main class="trainings container">
 
         <button type="button" class="custom-btn btn px-4 py-2 float-end" data-bs-toggle="modal" data-bs-target="#trainingFormModal">
-            <i class="trainings__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz treninig
+            <i class="trainings__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz nowy trening
         </button>
 
         <div class="modal fade" id="trainingFormModal" aria-hidden="true">
@@ -89,9 +89,10 @@
         </div>
 
         <div class="trainings__main-container pt-5">
-            <div class="row gap-3">
+            <h3 class="text-center">Moje treningi</h3>
+            <div class="row gap-3 justify-content-center my-3 mx-1">
                 <?php foreach ($trainings as $training): ?>
-                    <div class="card text-bg-warning col-3">
+                    <div class="trainings__training-container card col-sm-5 col-lg-3">
                         <div class="card-header">
                             <h5 class="card-title"><?= $training['name'] ?></h5>
                         </div>

@@ -15,31 +15,56 @@
 
     <div>
         <header class="nav__navbar d-flex justify-content-end align-items-center mb-3 p-2">
-			<h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
-			<button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
-				<i class="fa-solid fa-bars fs-3 text-white"></i>
-			</button>
-		</header>
+            <h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
+            <button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
+                <i class="fa-solid fa-bars fs-3 text-white"></i>
+            </button>
+        </header>
 
         <nav class="nav__sidebar min-vh-100 d-flex flex-column flex-shrink-0 p-3">
-			<h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
-			<hr>
-			<ul class="nav__nav nav flex-column mb-auto">
-				<li class="nav-item mb-2">
-					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
-				</li>
-				<li class="nav-item mb-2">
-					<a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
-				</li>
-				<li class="nav-item mb-2">
-					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
-				</li>
-			</ul>
-			<a href="/logout" class="custom-btn btn">Wyloguj</a>
-		</nav>
+            <h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
+            <hr>
+            <ul class="nav__nav nav flex-column mb-auto">
+                <li class="nav-item mb-2">
+                    <a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
+                </li>
+            </ul>
+            <a href="/logout" class="custom-btn btn">Wyloguj</a>
+        </nav>
     </div>
 
-    <main class="dashboard"></main>
+    <main class="dashboard">
+
+        <div class="container">
+            <div class="row m-2 my-4 mb-3 justify-content-center gap-4">
+                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
+                    <h3>Ostatni trening</h3>
+                    <div></div>
+                </div>
+                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
+                    <h3>Liczba treningów w tym tygodniu</h3>
+                    <div></div>
+                </div>
+            </div>
+            <div class="row m-2 my-4 justify-content-center gap-4">
+                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
+                    <h3>Najważniejszy rekord tygodnia</h3>
+                    <div></div>
+                </div>
+                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
+                    <h3>Łączny czas treningów w ostatnim tygodniu</h3>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 </body>
 
 </html>
