@@ -35,7 +35,7 @@
                     <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
                 </li>
             </ul>
-            <a href="/logout" class="custom-btn btn">Wyloguj</a>
+            <a href="/logout" class="custom-accent-btn btn">Wyloguj</a>
         </nav>
     </div>
 

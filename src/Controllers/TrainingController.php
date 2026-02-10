@@ -34,6 +34,29 @@ class TrainingController
         echo json_encode($training);
     }
 
+    public function editTraining()
+    {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+        $name = $data['name'];
+
+        $result = $this->service->editTrainingName($id, $name);
+        echo json_encode($result);
+    }
+
+    public function deleteTraining()
+    {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+
+        $result = $this->service->deleteTraining($id);
+        echo json_encode($result);
+    }
+
     public function exerciseSet()
     {
         session_start();

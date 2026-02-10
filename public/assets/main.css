@@ -70,7 +70,29 @@ body {
 .trainings__training-container {
   background-color: #f5f1f0;
 }
+.trainings__empty-training-list {
+  color: #fc7260;
+}
+.trainings__dropdown-menu-btn {
+  background-color: #fff;
+  border: 1px solid #fc7260;
+}
+.trainings__dropdown-menu-btn:hover {
+  background-color: #cccccc;
+}
+.trainings__dropdown-menu {
+  background-color: #cccccc;
+}
+.trainings__dropdown-menu .dropdown-item {
+  border: 1px solid #fc7260;
+}
+.trainings__main-container {
+  padding-top: 5rem;
+}
 
+.training__main-container {
+  padding-top: 5rem;
+}
 .training__training-container {
   background-color: #f5f1f0;
   color: #424242;

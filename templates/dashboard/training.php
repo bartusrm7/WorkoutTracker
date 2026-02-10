@@ -36,13 +36,15 @@
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
 				</li>
 			</ul>
-			<a href="/logout" class="custom-btn btn">Wyloguj</a>
+			<a href="/logout" class="custom-accent-btn btn">Wyloguj</a>
 		</nav>
 	</div>
 
 	<main class="training container">
 
-		<div class="training__main-container pt-5">
+		<a href="/trainings" class="custom-accent-btn btn px-5 mt-3 float-end">Wróć</a>
+
+		<div class="training__main-container">
 			<div class="training__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
 				<div class="training__">
 					<h2 class="traning__trainin-plan-label mb-0">

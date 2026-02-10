@@ -36,13 +36,13 @@
                     <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
                 </li>
             </ul>
-            <a href="/logout" class="custom-btn btn">Wyloguj</a>
+            <a href="/logout" class="custom-accent-btn btn">Wyloguj</a>
         </nav>
     </div>
 
     <main class="trainings container">
 
-        <button type="button" class="custom-btn btn px-4 py-2 float-end" data-bs-toggle="modal" data-bs-target="#trainingFormModal">
+        <button type="button" class="custom-accent-btn btn px-4 mt-3 float-end" data-bs-toggle="modal" data-bs-target="#trainingFormModal">
             <i class="trainings__create-workout-btn fa-solid fa-dumbbell me-3"></i>Utwórz nowy trening
         </button>
 
@@ -88,19 +88,59 @@
             </div>
         </div>
 
-        <div class="trainings__main-container pt-5">
+        <div class="trainings__main-container">
             <h3 class="text-center">Moje treningi</h3>
             <div class="row gap-3 justify-content-center my-3 mx-1">
-                <?php foreach ($trainings as $training): ?>
-                    <div class="trainings__training-container card col-sm-5 col-lg-3">
-                        <div class="card-header">
-                            <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
+                <?php if (!empty($trainings)): ?>
+                    <?php foreach ($trainings as $training): ?>
+                        <div class="trainings__training-container card col-sm-5 col-lg-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
+                                <div class="dropdown">
+                                    <button class="trainings__dropdown-menu-btn btn" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+                                    </button>
+
+                                    <ul class="trainings__dropdown-menu dropdown-menu p-0">
+                                        <li>
+                                            <button class="dropdown-item btn custom-btn" id="editTrainingBtn" data-training-id="<?= $training['id'] ?>" data-training-name="<?= $training['name'] ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item btn custom-btn" class="" id="removeTrainingBtn" data-training-id="<?= $training['id'] ?>" onclick="removeTraining.call(this)">Usuń</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body my-2">
+                                <a href="/training?id=<?= $training['id'] ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
+                            </div>
                         </div>
-                        <div class="card-body my-2">
-                            <a href="/training?id=<?= $training['id'] ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
+                    <?php endforeach ?>
+                <?php else: ?>
+                    <h3 class="trainings__empty-training-list text-center">Brak utworzonych treningów, dodaj nowy trening</h3>
+                <?php endif ?>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editTrainingFormModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content training-form-modal">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 fw-bold">Edytuj nazwę treningu</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="trainings__form-container">
+                            <form action="/edit-training" method="post">
+                                <div class="form-floating">
+                                    <input class="form-control training-input" type="text" name="name" id="editTrainingName" required placeholder="">
+                                    <label for="editTrainingName">Nazwa treningu</label>
+                                </div>
+                                <button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="editTraining()">Edytuj</button>
+                            </form>
                         </div>
                     </div>
-                <?php endforeach ?>
+                </div>
             </div>
         </div>
 
@@ -158,6 +198,63 @@
             method: 'POST',
             body: formData
         });
+        if (!response.ok) {
+            throw new Error('Błąd podczas tworzenia treningu', error.status);
+        }
         const data = await response.json();
+        if (!data.success === false) {
+            window.location.reload();
+        }
+    }
+
+    let trainingId;
+    let trainingName;
+    document.getElementById('editTrainingBtn').addEventListener('click', function(e) {
+        trainingId = e.target.dataset.trainingId;
+        trainingName = e.target.dataset.trainingName;
+        document.getElementById('editTrainingName').value = trainingName;
+    });
+
+    async function editTraining() {
+        const id = trainingId;
+        const name = document.getElementById('editTrainingName').value;
+
+        const response = await fetch('/edit-training', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name
+            })
+        });
+        if (!response.ok) {
+            throw new Error('Błąd podczas edycji nazwy treningu', error.status);
+        }
+        const data = await response.json();
+        if (!data.success === false) {
+            window.location.reload();
+        }
+    }
+
+    async function removeTraining() {
+        const id = trainingId.dataset.trainingId;
+        const response = await fetch('/delete-training', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+        if (!response.ok) {
+            throw new Error('Błąd podczas usuwania treningu', error.status);
+        }
+        const data = await response.json();
+        if (!data.success === false) {
+            window.location.reload();
+        }
     }
 </script>

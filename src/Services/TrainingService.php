@@ -43,6 +43,35 @@ class TrainingService
         ];
     }
 
+    public function editTrainingName($id, $name)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        if (empty($name)) {
+            return ['success' => false, 'error' => 'Nazwa treningu musi być podana'];
+        }
+        $training = $this->repository->editTrainingNameQuery($id, $name);
+
+        return [
+            'success' => true,
+            'data' => $training
+        ];
+    }
+
+    public function deleteTraining($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        $result = $this->repository->deleteTrainingQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function createExerciseDataSet($sets, $weight, $reps, $rir, $exerciseId, $createdAt)
     {
         if (!$sets) {

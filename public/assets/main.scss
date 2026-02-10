@@ -88,9 +88,31 @@ body {
 	&__training-container {
 		background-color: $third;
 	}
+	&__empty-training-list {
+		color: $accent;
+	}
+	&__dropdown-menu-btn {
+		background-color: #fff;
+		border: 1px solid $accent;
+		&:hover {
+			background-color: $primary;
+		}
+	}
+	&__dropdown-menu {
+		background-color: $primary;
+		.dropdown-item {
+			border: 1px solid $accent;
+		}
+	}
+	&__main-container {
+		padding-top: 5rem;
+	}
 }
 
 .training {
+	&__main-container {
+		padding-top: 5rem;
+	}
 	&__training-container {
 		background-color: $third;
 		color: $secondary;
