@@ -106,7 +106,7 @@
                                             <button class="dropdown-item btn custom-btn" id="editTrainingBtn" data-training-id="<?= $training['id'] ?>" data-training-name="<?= $training['name'] ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
                                         </li>
                                         <li>
-                                            <button class="dropdown-item btn custom-btn" class="" id="removeTrainingBtn" data-training-id="<?= $training['id'] ?>" onclick="removeTraining.call(this)">Usuń</button>
+                                            <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= $training['id'] ?>" onclick="removeTraining.call(this)">Usuń</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -124,7 +124,7 @@
 
         <div class="modal fade" id="editTrainingFormModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content training-form-modal">
+                <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 fw-bold">Edytuj nazwę treningu</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +133,7 @@
                         <div class="trainings__form-container">
                             <form action="/edit-training" method="post">
                                 <div class="form-floating">
-                                    <input class="form-control training-input" type="text" name="name" id="editTrainingName" required placeholder="">
+                                    <input class="form-control" type="text" name="name" id="editTrainingName" required placeholder="">
                                     <label for="editTrainingName">Nazwa treningu</label>
                                 </div>
                                 <button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="editTraining()">Edytuj</button>
@@ -209,7 +209,7 @@
 
     let trainingId;
     let trainingName;
-    document.getElementById('editTrainingBtn').addEventListener('click', function(e) {
+    document.getElementById('editTrainingBtn').addEventListener('click', e => {
         trainingId = e.target.dataset.trainingId;
         trainingName = e.target.dataset.trainingName;
         document.getElementById('editTrainingName').value = trainingName;

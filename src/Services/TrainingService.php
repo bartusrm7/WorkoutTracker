@@ -203,6 +203,22 @@ class TrainingService
         ];
     }
 
+    public function editExercise($id, $name)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        if (empty($name)) {
+            return ['success' => false, 'error' => 'Nazwa ćwiczenia musi być podana'];
+        }
+        $result = $this->repository->editExerciseQuery($id, $name);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function deleteExercise($id)
     {
         if (!$id) {

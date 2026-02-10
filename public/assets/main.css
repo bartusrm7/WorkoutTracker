@@ -1,11 +1,11 @@
 body {
   background-color: #222222;
-  color: rgb(235, 235, 235);
+  color: #ebebeb;
 }
 
 .custom-btn {
   background-color: #424242;
-  color: rgb(235, 235, 235);
+  color: #ebebeb;
   font-weight: 500;
 }
 .custom-btn:hover {
@@ -20,7 +20,7 @@ body {
 }
 .custom-accent-btn:hover {
   background-color: #424242;
-  color: rgb(235, 235, 235);
+  color: #ebebeb;
 }
 
 .auth__container {
@@ -39,7 +39,7 @@ body {
   overflow: hidden;
 }
 .nav__menu-btn {
-  border: 1px solid rgb(235, 235, 235);
+  border: 1px solid #ebebeb;
 }
 .nav__sidebar {
   position: fixed;
@@ -53,10 +53,10 @@ body {
   color: #fc7260;
 }
 .nav__nav a:focus {
-  color: rgb(235, 235, 235);
+  color: #ebebeb;
 }
 .nav__nav a:active {
-  color: rgb(235, 235, 235);
+  color: #ebebeb;
   border-radius: 8px;
 }
 
@@ -74,11 +74,10 @@ body {
   color: #fc7260;
 }
 .trainings__dropdown-menu-btn {
-  background-color: #fff;
-  border: 1px solid #fc7260;
+  background-color: #cccccc;
 }
 .trainings__dropdown-menu-btn:hover {
-  background-color: #cccccc;
+  border: 1px solid #fc7260;
 }
 .trainings__dropdown-menu {
   background-color: #cccccc;
@@ -96,6 +95,18 @@ body {
 .training__training-container {
   background-color: #f5f1f0;
   color: #424242;
+}
+.training__dropdown-menu-btn {
+  background-color: #cccccc;
+}
+.training__dropdown-menu-btn:hover {
+  border: 1px solid #fc7260;
+}
+.training__dropdown-menu {
+  background-color: #cccccc;
+}
+.training__dropdown-menu .dropdown-item {
+  border: 1px solid #fc7260;
 }
 .training__th {
   position: relative;

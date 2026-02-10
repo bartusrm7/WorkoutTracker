@@ -1,5 +1,5 @@
 $background: #222222;
-$text: rgb(235, 235, 235);
+$text: #ebebeb;
 $primary: #cccccc;
 $secondary: #424242;
 $third: #f5f1f0;
@@ -92,10 +92,9 @@ body {
 		color: $accent;
 	}
 	&__dropdown-menu-btn {
-		background-color: #fff;
-		border: 1px solid $accent;
+		background-color: $primary;
 		&:hover {
-			background-color: $primary;
+			border: 1px solid $accent;
 		}
 	}
 	&__dropdown-menu {
@@ -116,6 +115,18 @@ body {
 	&__training-container {
 		background-color: $third;
 		color: $secondary;
+	}
+	&__dropdown-menu-btn {
+		background-color: $primary;
+		&:hover {
+			border: 1px solid $accent;
+		}
+	}
+	&__dropdown-menu {
+		background-color: $primary;
+		.dropdown-item {
+			border: 1px solid $accent;
+		}
 	}
 	&__th {
 		position: relative;

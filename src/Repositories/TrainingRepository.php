@@ -142,6 +142,18 @@ class TrainingRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function editExerciseQuery($id, $name)
+    {
+        $stmt = $this->pdo->prepare('UPDATE exercises SET name = :name WHERE id = :id');
+        $stmt->execute([':id' => $id, ':name' => $name]);
+
+        return new ExercisesModel(
+            $id,
+            $name,
+            null
+        );
+    }
+
     public function deleteExerciseQuery($id)
     {
         $stmt = $this->pdo->prepare('DELETE FROM exercises WHERE id = :id');

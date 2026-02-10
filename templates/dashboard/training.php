@@ -46,10 +46,13 @@
 
 		<div class="training__main-container">
 			<div class="training__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
-				<div class="training__">
-					<h2 class="traning__trainin-plan-label mb-0">
-						<?= ucfirst($trainingName) ?>
-					</h2>
+				<div>
+					<div class="d-flex justify-content-between">
+						<h2 class="traning__trainin-plan-label mb-0">
+							<?= ucfirst($trainingName) ?>
+						</h2>
+						<button class="custom-accent-btn btn px-3">Rozpocznij trening</button>
+					</div>
 					<hr>
 					<div>
 						<h5>Szczegóły treningu</h5>
@@ -70,9 +73,20 @@
 									<h5 class="traning__exercise-name mb-0">
 										<?= ucfirst($row['name']) ?>
 									</h5>
-									<button class="btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">
-										<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
-									</button>
+									<div class="dropdown">
+										<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
+											<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+										</button>
+
+										<ul class="training__dropdown-menu dropdown-menu p-0">
+											<li>
+												<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= $row['id'] ?>" data-exercise-name="<?= $row['name'] ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
+											</li>
+											<li>
+												<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">Usuń</button>
+											</li>
+										</ul>
+									</div>
 								</div>
 								<thead>
 									<tr>
@@ -111,6 +125,28 @@
 				<?php endforeach ?>
 
 				<button class="training__exercises-data-btn custom-accent-btn btn w-100 mt-5" data-bs-toggle="modal" data-bs-target="#trainingFormModal" data-exercise-id="<?= $row['id'] ?>">Dodaj nowe ćwiczenie</button>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editExerciseFormModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Edytuj nazwę treningu</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<form action="/edit-training" method="post">
+								<div class="form-floating">
+									<input class="form-control" type="text" name="name" id="editExerciseName" required placeholder="">
+									<label for="editExerciseName">Nazwa treningu</label>
+								</div>
+								<button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="editExercise()">Edytuj</button>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -191,7 +227,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<div class="trainings__form-container">
+						<div class="training__form-container">
 							<form action="/new-exercise" id="exercisesForm">
 								<div class="form-floating">
 									<input class="form-control exercises-input" type="text" name="name" id="exercisesName" required placeholder="">
@@ -262,7 +298,41 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania ćwiczenia', error.status);
 		}
-		window.location.reload();
+		const data = await response.json();
+		if (!data.success === false) {
+			window.location.reload();
+		}
+	}
+
+	let exerciseId;
+	let exerciseName;
+	document.getElementById('editExerciseBtn').addEventListener('click', e => {
+		exerciseId = e.target.dataset.exerciseId;
+		exerciseName = e.target.dataset.exerciseName;
+		document.getElementById('editExerciseName').value = exerciseName;
+	})
+
+	async function editExercise() {
+		const id = exerciseId;
+		const name = document.getElementById('editExerciseName').value;
+
+		const response = await fetch('/edit-exercise', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: id,
+				name: name
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas edytowania ćwiczenia', error.status);
+		}
+		const data = await response.json();
+		if (!data.success === false) {
+			window.location.reload();
+		}
 	}
 
 	async function removeExercise() {
@@ -279,7 +349,10 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas usuwania ćwiczenia', error.status);
 		}
-		window.location.reload();
+		const data = await response.json();
+		if (!data.success === false) {
+			window.location.reload();
+		}
 	}
 
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
