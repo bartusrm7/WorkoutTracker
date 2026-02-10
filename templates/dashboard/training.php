@@ -96,19 +96,22 @@
 								<thead>
 									<tr>
 										<th class="training__th col-2">S
-											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 										<th class="training__th col-2">C
-											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 										<th class="training__th col-2">P
-											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 										<th class="training__th col-2">Z
-											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+										</th>
+										<th class="training__th col-2">N
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Notatka dla serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 										<th class="training__th col-2">E
-											<span type="button" class="training__tool-tip-btn mx-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
+											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 									</tr>
 								</thead>
@@ -119,6 +122,7 @@
 											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
 											<td><?= $set['reps'] ?></td>
 											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
+											<td></td>
 											<td>
 												<div class="dropdown">
 													<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
@@ -127,7 +131,7 @@
 
 													<ul class="training__dropdown-menu dropdown-menu p-0">
 														<li>
-															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Dodaj notatkę</button>
+															<button class="dropdown-item btn custom-btn noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Dodaj notatkę</button>
 														</li>
 														<li>
 															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
@@ -137,7 +141,6 @@
 														</li>
 													</ul>
 												</div>
-
 											</td>
 										</tr>
 									<?php endforeach ?>
@@ -166,7 +169,7 @@
 									<input class="form-control" type="text" name="note" id="noteExercise" required placeholder="">
 									<label for="noteExercise">Dodaj notatkę...</label>
 								</div>
-								<button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="noteExercise()">Dodaj</button>
+								<button type="button" class="custom-btn btn px-5 mt-3 float-end" id="setNoteExerciseBtn">Dodaj</button>
 							</form>
 						</div>
 					</div>
@@ -352,6 +355,37 @@
 
 	let exerciseId;
 	let exerciseName;
+
+	document.getElementById('noteExerciseFormModal').addEventListener('show.bs.modal', function(e) {
+		exerciseId = e.relatedTarget.dataset.id;
+	});
+
+	document.getElementById('setNoteExerciseBtn').addEventListener('click', async () => {
+		const note = document.getElementById('noteExercise').value;
+		await noteExercise(exerciseId, note);
+	})
+
+	async function noteExercise(id, note) {
+		const response = await fetch('/note-exercise-set', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id,
+				note
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas dodawania notatki', error.status);
+		}
+		const data = await response.text();
+		console.log(data);
+		if (!data.success === false) {
+			window.location.reload();
+		}
+	}
+
 	document.getElementById('editExerciseBtn').addEventListener('click', e => {
 		exerciseId = e.target.dataset.exerciseId;
 		exerciseName = e.target.dataset.exerciseName;

@@ -108,6 +108,7 @@ class TrainingService
             return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
         }
         $exercises = $this->repository->getSetsDataByExerciseIdQuery($exerciseId);
+
         return [
             'success' => true,
             'data' => $exercises
@@ -120,6 +121,7 @@ class TrainingService
             return ['success' => false, 'error' => 'Brak ID użytkownika'];
         }
         $trainings = $this->repository->displayAllTrainingPlansQuery($userId);
+
         return [
             'success' => true,
             'data' => $trainings
@@ -153,11 +155,27 @@ class TrainingService
         if (!$exerciseId) {
             return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
         }
-
         $exerciseSet = $this->repository->editExerciseSetQuery($id, $sets, $weight, $reps, $rir, $exerciseId);
+
         return [
             'success' => true,
             'data' => $exerciseSet
+        ];
+    }
+
+    public function addNoteSet($id, $note)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID serii'];
+        }
+        if (empty($note)) {
+            return ['success' => false, 'error' => 'Pole notatki musi być uzupełnione'];
+        }
+        $result = $this->repository->addNoteSetQuery($id, $note);
+
+        return [
+            'success' => true,
+            'data' => $result
         ];
     }
 

@@ -132,6 +132,18 @@ class TrainingController
         header("Location: /training?id=$trainingId");
     }
 
+    public function addNote()
+    {
+        header('Content-Type: application/json');
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+        $note = $data['note'];
+
+        $result = $this->service->addNoteSet($id, $note);
+        echo json_encode($result);
+    }
+
     public function getEditSet()
     {
         header('Content-Type: application/json');

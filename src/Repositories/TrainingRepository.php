@@ -77,6 +77,7 @@ class TrainingRepository
             $weight,
             $reps,
             $rir,
+            '',
             $createdAt,
             $exerciseId
         );
@@ -108,6 +109,13 @@ class TrainingRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function addNoteSetQuery($id, $note)
+    {
+        $stmt = $this->pdo->prepare('UPDATE exercises_data SET note = :note WHERE id = :id');
+        $result = $stmt->execute([':id' => $id, ':note' => $note]);
+        return $result;
+    }
+
     public function editExerciseSetQuery($id, $sets, $weight, $reps, $rir, $exerciseId)
     {
         $stmt = $this->pdo->prepare('UPDATE exercises_data SET sets = :sets, weight = :weight, reps = :reps, rir = :rir WHERE id = :id AND exercise_id = :exercise_id');
@@ -119,6 +127,7 @@ class TrainingRepository
             $weight,
             $reps,
             $rir,
+            '',
             null,
             $exerciseId
         );

@@ -78,6 +78,7 @@ class Database
             weight INT,
             reps INT NOT NULL,
             rir INT,
+            note VARCHAR(255),
             created_at DATE NOT NULL,
             exercise_id INT,
             CONSTRAINT fk_exercises_data

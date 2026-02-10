@@ -24,16 +24,25 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/set-id', [TrainingController::class, 'getEditSet']);
 
     // POST
+
+    // AUTH
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
+
+    // TRAINING
     $r->addRoute('POST', '/create-training', [TrainingController::class, 'addTraining']);
     $r->addRoute('POST', '/edit-training', [TrainingController::class, 'editTraining']);
     $r->addRoute('POST', '/delete-training', [TrainingController::class, 'deleteTraining']);
-    $r->addRoute('POST', '/add-exercise-set', [TrainingController::class, 'exerciseSet']);
-    $r->addRoute('POST', '/edit-exercise-set', [TrainingController::class, 'editSet']);
+
+    // EXERCISE
     $r->addRoute('POST', '/new-exercise', [TrainingController::class, 'newExercise']);
     $r->addRoute('POST', '/edit-exercise', [TrainingController::class, 'editExercise']);
     $r->addRoute('POST', '/delete-exercise', [TrainingController::class, 'deleteExercise']);
+
+    // SET
+    $r->addRoute('POST', '/add-exercise-set', [TrainingController::class, 'exerciseSet']);
+    $r->addRoute('POST', '/note-exercise-set', [TrainingController::class, 'addNote']);
+    $r->addRoute('POST', '/edit-exercise-set', [TrainingController::class, 'editSet']);
 
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
