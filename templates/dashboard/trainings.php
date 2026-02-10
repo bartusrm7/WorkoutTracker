@@ -30,7 +30,10 @@
                     <a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
+                    <a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="/trainings" class="custom-btn btn nav-link"> Historia </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
@@ -98,7 +101,7 @@
                                 <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
                                 <div class="dropdown">
                                     <button class="trainings__dropdown-menu-btn btn" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+                                        <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
                                     </button>
 
                                     <ul class="trainings__dropdown-menu dropdown-menu p-0">
@@ -111,7 +114,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body my-2">
+                            <div class="card-body my-1">
                                 <a href="/training?id=<?= $training['id'] ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
                             </div>
                         </div>
@@ -239,7 +242,7 @@
     }
 
     async function removeTraining() {
-        const id = trainingId.dataset.trainingId;
+        const id = this.dataset.trainingId;
         const response = await fetch('/delete-training', {
             method: "POST",
             headers: {

@@ -30,7 +30,10 @@
 					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
 				</li>
 				<li class="nav-item mb-2">
-					<a href="/trainings" class="custom-btn btn nav-link"> Trening </a>
+					<a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="/trainings" class="custom-btn btn nav-link"> Historia </a>
 				</li>
 				<li class="nav-item mb-2">
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
@@ -69,23 +72,25 @@
 					<div class="container mt-3">
 						<div class="row">
 							<table class="table table-bordered mb-0 text-center">
-								<div class="d-flex justify-content-between align-items-center mb-2">
-									<h5 class="traning__exercise-name mb-0">
-										<?= ucfirst($row['name']) ?>
-									</h5>
-									<div class="dropdown">
-										<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
-											<i class="fa-solid fa-ellipsis-vertical fs-4"></i>
-										</button>
+								<div>
+									<div class="d-flex justify-content-between align-items-center mb-2">
+										<h5 class="traning__exercise-name mb-0">
+											<?= ucfirst($row['name']) ?>
+										</h5>
+										<div class="dropdown">
+											<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
+												<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
+											</button>
 
-										<ul class="training__dropdown-menu dropdown-menu p-0">
-											<li>
-												<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= $row['id'] ?>" data-exercise-name="<?= $row['name'] ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
-											</li>
-											<li>
-												<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">Usuń</button>
-											</li>
-										</ul>
+											<ul class="training__dropdown-menu dropdown-menu p-0">
+												<li>
+													<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= $row['id'] ?>" data-exercise-name="<?= $row['name'] ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
+												</li>
+												<li>
+													<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">Usuń</button>
+												</li>
+											</ul>
+										</div>
 									</div>
 								</div>
 								<thead>
@@ -114,7 +119,26 @@
 											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
 											<td><?= $set['reps'] ?></td>
 											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
-											<td><button class="custom-btn btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></button></td>
+											<td>
+												<div class="dropdown">
+													<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
+														<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
+													</button>
+
+													<ul class="training__dropdown-menu dropdown-menu p-0">
+														<li>
+															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Dodaj notatkę</button>
+														</li>
+														<li>
+															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
+														</li>
+														<li>
+															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Usuń</button>
+														</li>
+													</ul>
+												</div>
+
+											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -125,6 +149,28 @@
 				<?php endforeach ?>
 
 				<button class="training__exercises-data-btn custom-accent-btn btn w-100 mt-5" data-bs-toggle="modal" data-bs-target="#trainingFormModal" data-exercise-id="<?= $row['id'] ?>">Dodaj nowe ćwiczenie</button>
+			</div>
+		</div>
+
+		<div class="modal fade" id="noteExerciseFormModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Dodaj notatkę do ćwiczenia</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<form action="/note-training" method="post">
+								<div class="form-floating">
+									<input class="form-control" type="text" name="note" id="noteExercise" required placeholder="">
+									<label for="noteExercise">Dodaj notatkę...</label>
+								</div>
+								<button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="noteExercise()">Dodaj</button>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 

@@ -108,6 +108,16 @@ body {
 .training__dropdown-menu .dropdown-item {
   border: 1px solid #fc7260;
 }
+.training .dropdown-set-menu-btn {
+  background-color: #f5f1f0;
+  border: 1px solid #fc7260;
+}
+.training .dropdown-set-menu-btn:hover {
+  border: 1px solid #cccccc;
+}
+.training__exercise-extra-note {
+  background-color: #cccccc;
+}
 .training__th {
   position: relative;
 }

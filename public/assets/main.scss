@@ -128,6 +128,16 @@ body {
 			border: 1px solid $accent;
 		}
 	}
+	.dropdown-set-menu-btn {
+		background-color: $third;
+		border: 1px solid $accent;
+		&:hover {
+			border: 1px solid $primary;
+		}
+	}
+	&__exercise-extra-note {
+		background-color: $primary;
+	}
 	&__th {
 		position: relative;
 	}
