@@ -62,6 +62,7 @@ class Database
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
+            note VARCHAR(255),
             training_id INT,
             CONSTRAINT fk_training_exercises
             FOREIGN KEY (training_id) 
@@ -78,7 +79,6 @@ class Database
             weight INT,
             reps INT NOT NULL,
             rir INT,
-            note VARCHAR(255),
             created_at DATE NOT NULL,
             exercise_id INT,
             CONSTRAINT fk_exercises_data

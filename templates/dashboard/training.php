@@ -92,10 +92,13 @@
 											</ul>
 										</div>
 									</div>
+									<div class="mb-2">
+										<span id="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>">Dodaj notatkę...</span>
+									</div>
 								</div>
 								<thead>
 									<tr>
-										<th class="training__th col-2">S
+										<th class=" training__th col-2">S
 											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 										<th class="training__th col-2">C
@@ -131,9 +134,6 @@
 
 													<ul class="training__dropdown-menu dropdown-menu p-0">
 														<li>
-															<button class="dropdown-item btn custom-btn noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Dodaj notatkę</button>
-														</li>
-														<li>
 															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
 														</li>
 														<li>
@@ -164,7 +164,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="training__form-container">
-							<form action="/note-training" method="post">
+							<form action="/note-exercise-set" method="post">
 								<div class="form-floating">
 									<input class="form-control" type="text" name="note" id="noteExercise" required placeholder="">
 									<label for="noteExercise">Dodaj notatkę...</label>
@@ -355,14 +355,21 @@
 
 	let exerciseId;
 	let exerciseName;
+	let exerciseNote;
+
+	document.getElementById('noteExerciseFormModalBtn').addEventListener('click', e => {
+		exerciseId = e.target.dataset.exerciseId;
+		exerciseNote = e.target.dataset.exerciseNote;
+		document.getElementById('noteExercise').value = exerciseNote;
+	})
 
 	document.getElementById('noteExerciseFormModal').addEventListener('show.bs.modal', function(e) {
-		exerciseId = e.relatedTarget.dataset.id;
+		exerciseId = e.relatedTarget.dataset.exerciseId;
 	});
 
 	document.getElementById('setNoteExerciseBtn').addEventListener('click', async () => {
 		const note = document.getElementById('noteExercise').value;
-		await noteExercise(exerciseId, note);
+		noteExercise(exerciseId, note)
 	})
 
 	async function noteExercise(id, note) {
@@ -372,18 +379,15 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				id,
-				note
+				id: id,
+				note: note
 			})
 		});
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania notatki', error.status);
 		}
 		const data = await response.text();
-		console.log(data);
-		if (!data.success === false) {
-			window.location.reload();
-		}
+		window.location.reload();
 	}
 
 	document.getElementById('editExerciseBtn').addEventListener('click', e => {

@@ -61,6 +61,7 @@ class TrainingRepository
         return new ExercisesModel(
             $id,
             $name,
+            '',
             $trainingId,
         );
     }
@@ -77,7 +78,6 @@ class TrainingRepository
             $weight,
             $reps,
             $rir,
-            '',
             $createdAt,
             $exerciseId
         );
@@ -111,7 +111,7 @@ class TrainingRepository
 
     public function addNoteSetQuery($id, $note)
     {
-        $stmt = $this->pdo->prepare('UPDATE exercises_data SET note = :note WHERE id = :id');
+        $stmt = $this->pdo->prepare('UPDATE exercises SET note = :note WHERE id = :id');
         $result = $stmt->execute([':id' => $id, ':note' => $note]);
         return $result;
     }
@@ -127,7 +127,6 @@ class TrainingRepository
             $weight,
             $reps,
             $rir,
-            '',
             null,
             $exerciseId
         );
@@ -159,6 +158,7 @@ class TrainingRepository
         return new ExercisesModel(
             $id,
             $name,
+            '',
             null
         );
     }
