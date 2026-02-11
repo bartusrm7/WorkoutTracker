@@ -90,4 +90,51 @@ class Database
             ON DELETE CASCADE
         )');
     }
+
+    public function createTrainingHistoryTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS training_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            start DATETIME,
+            end DATETIME,
+            duration INT,
+            user_id INT,
+            CONSTRAINT fk_exercises_history_data
+            FOREIGN KEY (user_id) 
+            REFERENCES users(id) 
+            ON DELETE CASCADE
+        )');
+    }
+
+    public function createExercisesHistoryTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            note VARCHAR(255),
+            training_id INT,
+            CONSTRAINT fk_training_history_exercises
+            FOREIGN KEY (training_id) 
+            REFERENCES training_history(id) 
+            ON DELETE CASCADE
+        )');
+    }
+
+    public function createExercisesHistoryDataTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises_history_data (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            sets INT NOT NULL,
+            weight INT,
+            reps INT NOT NULL,
+            rir INT,
+            created_at DATE NOT NULL,
+            exercise_id INT,
+            CONSTRAINT fk_exercises_history_datas
+            FOREIGN KEY (exercise_id) 
+            REFERENCES exercises_history(id) 
+            ON DELETE CASCADE
+        )');
+    }
 }

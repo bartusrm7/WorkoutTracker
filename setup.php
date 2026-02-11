@@ -14,3 +14,6 @@ $db->createUserTable();
 $db->createTrainingTable();
 $db->createExercisesTable();
 $db->createExercisesDataTable();
+$db->createTrainingHistoryTable();
+$db->createExercisesHistoryTable();
+$db->createExercisesHistoryDataTable();
