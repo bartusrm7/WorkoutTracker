@@ -168,9 +168,6 @@ class TrainingService
         if (!$id) {
             return ['success' => false, 'error' => 'Brak ID serii'];
         }
-        if (empty($note)) {
-            return ['success' => false, 'error' => 'Pole notatki musi być uzupełnione'];
-        }
         $result = $this->repository->addNoteSetQuery($id, $note);
 
         return [

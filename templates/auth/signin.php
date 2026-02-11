@@ -37,7 +37,7 @@
         </form>
 
         <div class="mt-5">
-            <a class="btn custom-btn w-100" href="/signup-form">Rejestracja</a>
+            <a class="btn custom-accent-btn w-100" href="/signup-form">Rejestracja</a>
         </div>
     </div>
 

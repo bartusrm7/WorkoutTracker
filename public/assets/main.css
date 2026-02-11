@@ -96,6 +96,13 @@ body {
   background-color: #f5f1f0;
   color: #424242;
 }
+.training .noteExerciseFormModalBtn {
+  color: #fc7260;
+  cursor: pointer;
+}
+.training__exercise-extra-note {
+  background-color: #cccccc;
+}
 .training__dropdown-menu-btn {
   background-color: #cccccc;
 }
@@ -114,9 +121,6 @@ body {
 }
 .training .dropdown-set-menu-btn:hover {
   border: 1px solid #cccccc;
-}
-.training__exercise-extra-note {
-  background-color: #cccccc;
 }
 .training__th {
   position: relative;

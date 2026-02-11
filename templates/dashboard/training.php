@@ -54,7 +54,8 @@
 						<h2 class="traning__trainin-plan-label mb-0">
 							<?= ucfirst($trainingName) ?>
 						</h2>
-						<button class="custom-accent-btn btn px-3">Rozpocznij trening</button>
+						<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+						<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
 					</div>
 					<hr>
 					<div>
@@ -93,7 +94,11 @@
 										</div>
 									</div>
 									<div class="mb-2">
-										<span id="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>">Dodaj notatkę...</span>
+										<?php if ($row['note']): ?>
+											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>"><?= ucfirst($row['note']) ?></div>
+										<?php else: ?>
+											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>">Dodaj notatkę...</div>
+										<?php endif ?>
 									</div>
 								</div>
 								<thead>
@@ -355,21 +360,16 @@
 
 	let exerciseId;
 	let exerciseName;
-	let exerciseNote;
-
-	document.getElementById('noteExerciseFormModalBtn').addEventListener('click', e => {
-		exerciseId = e.target.dataset.exerciseId;
-		exerciseNote = e.target.dataset.exerciseNote;
-		document.getElementById('noteExercise').value = exerciseNote;
-	})
 
 	document.getElementById('noteExerciseFormModal').addEventListener('show.bs.modal', function(e) {
 		exerciseId = e.relatedTarget.dataset.exerciseId;
+		exerciseNote = e.relatedTarget.dataset.exerciseNote;
+		document.getElementById('noteExercise').value = exerciseNote;
 	});
 
 	document.getElementById('setNoteExerciseBtn').addEventListener('click', async () => {
 		const note = document.getElementById('noteExercise').value;
-		noteExercise(exerciseId, note)
+		await noteExercise(exerciseId, note)
 	})
 
 	async function noteExercise(id, note) {

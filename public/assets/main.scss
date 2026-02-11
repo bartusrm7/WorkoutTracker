@@ -116,6 +116,13 @@ body {
 		background-color: $third;
 		color: $secondary;
 	}
+	.noteExerciseFormModalBtn {
+		color: $accent;
+		cursor: pointer;
+	}
+	&__exercise-extra-note {
+		background-color: $primary;
+	}
 	&__dropdown-menu-btn {
 		background-color: $primary;
 		&:hover {
@@ -134,9 +141,6 @@ body {
 		&:hover {
 			border: 1px solid $primary;
 		}
-	}
-	&__exercise-extra-note {
-		background-color: $primary;
 	}
 	&__th {
 		position: relative;

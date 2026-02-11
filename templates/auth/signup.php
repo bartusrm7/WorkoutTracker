@@ -41,7 +41,7 @@
         </form>
 
         <div class="mt-5">
-            <a class="btn custom-btn w-100" href="/signin-form">Zaloguj się</a>
+            <a class="btn custom-accent-btn w-100" href="/signin-form">Zaloguj się</a>
         </div>
     </div>
 
