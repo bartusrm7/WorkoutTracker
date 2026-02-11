@@ -54,8 +54,8 @@
 						<h2 class="traning__trainin-plan-label mb-0">
 							<?= ucfirst($trainingName) ?>
 						</h2>
-						<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
-						<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+						<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+						<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
 					</div>
 					<hr>
 					<div>
@@ -338,6 +338,67 @@
 		document.getElementById('rirSet').value = data.data.rir;
 	})
 
+	let trainingStarted = false;
+	let durationTraining;
+
+	const handleStartTrainingSession = async () => {
+		const startBtn = document.getElementById('startTrainingSessionBtn');
+		const id = startBtn.dataset.trainingId;
+		const currentDate = new Date();
+		const start = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+
+		const response = await fetch('/start-training', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: id,
+				start: start
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas rozpoczynania treningu', error.status);
+			console.log(trainingStarted);
+		}
+		const data = await response.text();
+		trainingStarted = true;
+		handleSwapTrainingStatusBtns();
+	}
+
+	const handleEndTrainingSession = async () => {
+		const stopBtn = document.getElementById('stopTrainingSessionBtn');
+		const id = stopBtn.dataset.trainingId;
+		const currentDate = new Date();
+		const end = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+
+		const response = await fetch('/end-training', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: id,
+				end: end
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas zakończenia treningu', error.status);
+		}
+		trainingStarted = false;
+		handleSwapTrainingStatusBtns();
+	}
+
+	const handleSwapTrainingStatusBtns = () => {
+		if (!trainingStarted) {
+			document.getElementById('startTrainingSessionBtn').classList.remove('d-none');
+			document.getElementById('stopTrainingSessionBtn').classList.add('d-none');
+		} else {
+			document.getElementById('startTrainingSessionBtn').classList.add('d-none');
+			document.getElementById('stopTrainingSessionBtn').classList.remove('d-none');
+		}
+	}
+
 	const addNewExercise = async () => {
 		const exercisesName = document.getElementById('exercisesName').value;
 		const response = await fetch('new-exercise', {
@@ -386,7 +447,7 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania notatki', error.status);
 		}
-		const data = await response.text();
+		const data = await response.json();
 		window.location.reload();
 	}
 

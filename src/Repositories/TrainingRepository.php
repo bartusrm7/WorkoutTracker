@@ -33,6 +33,20 @@ class TrainingRepository
         );
     }
 
+    public function startTrainingTimeQuery($id, $start)
+    {
+        $stmt = $this->pdo->prepare('UPDATE training SET start = :start WHERE id = :id');
+        $result = $stmt->execute([':id' => $id, ':start' => $start]);
+        return $result;
+    }
+
+    public function endTrainingTimeQuery($id, $end)
+    {
+        $stmt = $this->pdo->prepare('UPDATE training SET end = :end WHERE id = :id');
+        $result = $stmt->execute([':id' => $id, ':end' => $end]);
+        return $result;
+    }
+
     public function editTrainingNameQuery($id, $name)
     {
         $stmt = $this->pdo->prepare('UPDATE training SET name = :name WHERE id = :id');

@@ -33,6 +33,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('POST', '/create-training', [TrainingController::class, 'addTraining']);
     $r->addRoute('POST', '/edit-training', [TrainingController::class, 'editTraining']);
     $r->addRoute('POST', '/delete-training', [TrainingController::class, 'deleteTraining']);
+    $r->addRoute('POST', '/start-training', [TrainingController::class, 'startTraining']);
+    $r->addRoute('POST', '/end-training', [TrainingController::class, 'endTraining']);
 
     // EXERCISE
     $r->addRoute('POST', '/new-exercise', [TrainingController::class, 'newExercise']);

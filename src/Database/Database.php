@@ -49,6 +49,9 @@ class Database
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS training (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
+            start DATETIME,
+            end DATETIME,
+            duration INT,
             user_id INT,
             CONSTRAINT fk_user_training
             FOREIGN KEY (user_id) 

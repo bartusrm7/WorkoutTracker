@@ -43,6 +43,38 @@ class TrainingService
         ];
     }
 
+    public function startTraining($id, $start)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        if (empty($start)) {
+            return ['success' => false, 'error' => 'Nie podano rozpoczęcia czasu treningu'];
+        }
+        $result = $this->repository->startTrainingTimeQuery($id, $start);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
+    public function endTraining($id, $end)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
+        }
+        if (empty($end)) {
+            return ['success' => false, 'error' => 'Nie podano rozpoczęcia czasu treningu'];
+        }
+        $result = $this->repository->endTrainingTimeQuery($id, $end);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function editTrainingName($id, $name)
     {
         if (!$id) {
