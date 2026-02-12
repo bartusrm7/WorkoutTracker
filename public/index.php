@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Controllers\HistoryController;
 use App\Controllers\TrainingController;
 use App\Middlewares\AuthMiddleware;
 
@@ -35,6 +36,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('POST', '/delete-training', [TrainingController::class, 'deleteTraining']);
     $r->addRoute('POST', '/start-training', [TrainingController::class, 'startTraining']);
     $r->addRoute('POST', '/end-training', [TrainingController::class, 'endTraining']);
+    $r->addRoute('POST', '/save-training-history', [HistoryController::class, 'saveTrainingHistory']);
 
     // EXERCISE
     $r->addRoute('POST', '/new-exercise', [TrainingController::class, 'newExercise']);
@@ -50,6 +52,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
+    $r->addRoute('GET', '/history', [HistoryController::class, 'history']);
 });
 
 // Fetch method and URI from somewhere

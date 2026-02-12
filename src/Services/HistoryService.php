@@ -2,9 +2,61 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Services;
 
 use App\Repositories\HistoryRepository;
-use DateTime;
 
-class HistoryService {}
+class HistoryService
+{
+    private HistoryRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new HistoryRepository();
+    }
+
+    public function saveTrainingToHistory($id)
+    {
+        if (empty($id)) {
+            return ['success' => false, 'error' => 'Brak ID treningu'];
+        }
+
+        $training = $this->repository->getSavedTrainingQuery($id);
+        $saveTraining = $this->repository->saveTrainingToHistoryQuery(
+            $training['name'],
+            $training['start'],
+            $training['end'],
+            $training['duration'],
+            $training['user_id']
+        );
+
+        $exercises = $this->repository->getSavedExercisesQuery($id);
+        foreach ($exercises as $exercise) {
+            $saveExercises = $this->repository->saveExercisesToHistoryQuery(
+                $exercise['name'],
+                $exercise['note'],
+                $saveTraining->getId()
+            );
+
+            $exercisesData = $this->repository->getSavedExercisesDataQuery($exercise['id']);
+            foreach ($exercisesData as $set) {
+                $saveExercisesData = $this->repository->saveExercisesDataToHistoryQuery(
+                    $set['sets'],
+                    $set['weight'],
+                    $set['reps'],
+                    $set['rir'],
+                    $saveExercises->getId(),
+                    $set['created_at']
+                );
+            }
+        }
+
+        return [
+            'success' => true,
+            'data' => [
+                'training' => $training,
+                'exercises' => $exercises,
+            ]
+        ];
+    }
+}

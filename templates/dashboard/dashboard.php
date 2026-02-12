@@ -32,7 +32,7 @@
                     <a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="/trainings" class="custom-btn btn nav-link"> Historia </a>
+                    <a href="/history" class="custom-btn btn nav-link"> Historia </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>

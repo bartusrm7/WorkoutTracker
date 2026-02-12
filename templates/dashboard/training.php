@@ -33,7 +33,7 @@
 					<a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
 				</li>
 				<li class="nav-item mb-2">
-					<a href="/trainings" class="custom-btn btn nav-link"> Historia </a>
+					<a href="/history" class="custom-btn btn nav-link"> Historia </a>
 				</li>
 				<li class="nav-item mb-2">
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
@@ -142,7 +142,7 @@
 															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
 														</li>
 														<li>
-															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Usuń</button>
+															<button class="dropdown-item btn custom-btn" id="" data-bs-toggle="modal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Usuń</button>
 														</li>
 													</ul>
 												</div>
@@ -387,6 +387,21 @@
 		}
 		trainingStarted = false;
 		handleSwapTrainingStatusBtns();
+		handleSaveTrainingToHistory();
+	}
+
+	const handleSaveTrainingToHistory = async () => {
+		const response = await fetch('/save-training-history', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas dodawania treningu do historii', error.status);
+		}
+		const data = await response.json();
+		console.log(data);
 	}
 
 	const handleSwapTrainingStatusBtns = () => {
