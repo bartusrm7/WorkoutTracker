@@ -158,6 +158,17 @@ class TrainingController
         header("Location: /training?id=$trainingId");
     }
 
+    public function deleteSet()
+    {
+        session_start();
+        header('Content-Type: application/json');
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+
+        $result = $this->service->deleteExerciseSet($id);
+        echo json_encode($result);
+    }
+
     public function addNote()
     {
         header('Content-Type: application/json');

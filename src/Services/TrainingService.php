@@ -195,6 +195,19 @@ class TrainingService
         ];
     }
 
+    public function deleteExerciseSet($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID serii'];
+        }
+        $exerciseSet = $this->repository->deleteExerciseSetQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $exerciseSet
+        ];
+    }
+
     public function addNoteSet($id, $note)
     {
         if (!$id) {

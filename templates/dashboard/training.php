@@ -138,7 +138,7 @@
 															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
 														</li>
 														<li>
-															<button class="dropdown-item btn custom-btn" id="" data-bs-toggle="modal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Usuń</button>
+															<button class="dropdown-item btn custom-btn" data-id="<?= $set['id'] ?>" onclick="deleteSet.call(this)">Usuń</button>
 														</li>
 													</ul>
 												</div>
@@ -334,6 +334,26 @@
 		document.getElementById('rirSet').value = data.data.rir;
 	})
 
+	async function deleteSet() {
+		const id = this.dataset.id;
+		const response = await fetch('/remove-set', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: id,
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas usuwania serii', error.status);
+		}
+		const data = await response.json();
+		if (data.success === true) {
+			window.location.reload();
+		}
+	}
+
 	let trainingStarted = false;
 	let durationTraining;
 
@@ -357,7 +377,6 @@
 			throw new Error('Błąd podczas rozpoczynania treningu', error.status);
 			console.log(trainingStarted);
 		}
-		const data = await response.text();
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
 	}
@@ -399,7 +418,6 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania treningu do historii', error.status);
 		}
-		const data = await response.json();
 	}
 
 	const handleSwapTrainingStatusBtns = () => {

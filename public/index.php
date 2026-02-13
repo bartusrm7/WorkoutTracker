@@ -48,6 +48,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // SET
     $r->addRoute('POST', '/add-exercise-set', [TrainingController::class, 'exerciseSet']);
     $r->addRoute('POST', '/edit-exercise-set', [TrainingController::class, 'editSet']);
+    $r->addRoute('POST', '/remove-set', [TrainingController::class, 'deleteSet']);
 
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);

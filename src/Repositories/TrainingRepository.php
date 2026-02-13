@@ -146,6 +146,13 @@ class TrainingRepository
         );
     }
 
+    public function deleteExerciseSetQuery($id)
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM exercises_data WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount();
+    }
+
     public function getEditSetDataQuery($id)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE id = :id');

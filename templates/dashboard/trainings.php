@@ -93,10 +93,10 @@
 
         <div class="trainings__main-container">
             <h3 class="text-center">Moje treningi</h3>
-            <div class="row gap-3 justify-content-center my-3 mx-1">
+            <div class="row gap-3 justify-content-center my-3 mx-1 ">
                 <?php if (!empty($trainings)): ?>
                     <?php foreach ($trainings as $training): ?>
-                        <div class="trainings__training-container card col-sm-5 col-lg-3">
+                        <div class="trainings__training-container card col-sm-5 col-xl-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
                                 <div class="dropdown">
