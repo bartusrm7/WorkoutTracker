@@ -115,22 +115,18 @@
 										<th class="training__th col-2">Z
 											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
 										</th>
-										<th class="training__th col-2">N
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Notatka dla serii"><i class="bi bi-info-circle"></i></span>
-										</th>
 										<th class="training__th col-2">E
 											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
 										</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="setsData">
 									<?php foreach ($row['sets'] as $set): ?>
-										<tr>
+										<tr data-set-id="<?= $set['sets'] ?>">
 											<th><?= $set['setNum'] ?></th>
 											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
 											<td><?= $set['reps'] ?></td>
 											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
-											<td></td>
 											<td>
 												<div class="dropdown">
 													<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
@@ -387,21 +383,23 @@
 		}
 		trainingStarted = false;
 		handleSwapTrainingStatusBtns();
-		handleSaveTrainingToHistory();
+		handleSaveTrainingToHistory(id);
 	}
 
-	const handleSaveTrainingToHistory = async () => {
+	const handleSaveTrainingToHistory = async (id) => {
 		const response = await fetch('/save-training-history', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
+			body: JSON.stringify({
+				id
+			})
 		});
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania treningu do historii', error.status);
 		}
 		const data = await response.json();
-		console.log(data);
 	}
 
 	const handleSwapTrainingStatusBtns = () => {

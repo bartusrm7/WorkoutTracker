@@ -17,6 +17,10 @@ class HistoryService
 
     public function saveTrainingToHistory($id)
     {
+        $saveTraining = [];
+        $saveExercises = [];
+        $saveExercisesData = [];
+
         if (empty($id)) {
             return ['success' => false, 'error' => 'Brak ID treningu'];
         }
@@ -32,20 +36,21 @@ class HistoryService
 
         $exercises = $this->repository->getSavedExercisesQuery($id);
         foreach ($exercises as $exercise) {
-            $saveExercises = $this->repository->saveExercisesToHistoryQuery(
+            $exerciseId = $this->repository->saveExercisesToHistoryQuery(
                 $exercise['name'],
                 $exercise['note'],
-                $saveTraining->getId()
+                $saveTraining
             );
+            $saveExercises[] = $exerciseId;
 
             $exercisesData = $this->repository->getSavedExercisesDataQuery($exercise['id']);
             foreach ($exercisesData as $set) {
-                $saveExercisesData = $this->repository->saveExercisesDataToHistoryQuery(
+                $saveExercisesData[] = $this->repository->saveExercisesDataToHistoryQuery(
                     $set['sets'],
                     $set['weight'],
                     $set['reps'],
                     $set['rir'],
-                    $saveExercises->getId(),
+                    $exerciseId,
                     $set['created_at']
                 );
             }
@@ -54,8 +59,10 @@ class HistoryService
         return [
             'success' => true,
             'data' => [
-                'training' => $training,
-                'exercises' => $exercises,
+                'training' => $saveTraining,
+                'exercises' => $saveExercises,
+                'exercisesData' => $saveExercisesData
+
             ]
         ];
     }

@@ -28,17 +28,17 @@ class HistoryRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getSavedExercisesQuery($id)
+    public function getSavedExercisesQuery($trainingId)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM exercises WHERE id = :id');
-        $stmt->execute([':id' => $id]);
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises WHERE training_id = :training_id');
+        $stmt->execute([':training_id' => $trainingId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSavedExercisesDataQuery($id)
+    public function getSavedExercisesDataQuery($exerciseId)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE id = :id');
-        $stmt->execute([':id' => $id]);
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE exercise_id = :exercise_id');
+        $stmt->execute([':exercise_id' => $exerciseId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -46,46 +46,20 @@ class HistoryRepository
     {
         $stmt = $this->pdo->prepare('INSERT INTO training_history (name, start, end, duration, user_id) VALUES (:name, :start, :end, :duration, :user_id)');
         $stmt->execute([':name' => $name, ':start' => $start, ':end' => $end, ':duration' => $duration, ':user_id' => $userId]);
-        $id = (int) $this->pdo->lastInsertId();
-
-        return new TrainingHistoryModel(
-            $id,
-            $name,
-            $start,
-            $end,
-            $duration,
-            $userId
-        );
+        return (int) $this->pdo->lastInsertId();
     }
 
     public function saveExercisesToHistoryQuery($name, $note, $trainingId)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO exercises (name, note, training_id) VALUES (:name, :note, :training_id)');
+        $stmt = $this->pdo->prepare('INSERT INTO exercises_history (name, note, training_id) VALUES (:name, :note, :training_id)');
         $stmt->execute([':name' => $name, ':note' => $note, ':training_id' => $trainingId]);
-        $id = (int) $this->pdo->lastInsertId();
-
-        return new ExercisesHistoryModel(
-            $id,
-            $name,
-            $note,
-            $trainingId,
-        );
+        return (int) $this->pdo->lastInsertId();
     }
 
     public function saveExercisesDataToHistoryQuery($sets, $weight, $reps, $rir, $exerciseId, $createdAt)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO exercises_data (sets, weight, reps, rir, created_at, exercise_id) VALUES (:sets, :weight, :reps, :rir, :created_at, :exercise_id)');
+        $stmt = $this->pdo->prepare('INSERT INTO exercises_history_data (sets, weight, reps, rir, created_at, exercise_id) VALUES (:sets, :weight, :reps, :rir, :created_at, :exercise_id)');
         $stmt->execute([':sets' => $sets, ':weight' => $weight, ':reps' => $reps, ':rir' => $rir, ':exercise_id' => $exerciseId, ':created_at' => $createdAt]);
-        $id = (int) $this->pdo->lastInsertId();
-
-        return new ExercisesHistoryDataModel(
-            $id,
-            $sets,
-            $weight,
-            $reps,
-            $rir,
-            $createdAt,
-            $exerciseId
-        );
+        return (int) $this->pdo->lastInsertId();
     }
 }
