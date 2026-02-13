@@ -23,6 +23,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/trainings', [TrainingController::class, 'displayAllTrainings']);
     $r->addRoute('GET', '/training', [TrainingController::class, 'displayTraining']);
     $r->addRoute('GET', '/set-id', [TrainingController::class, 'getEditSet']);
+    $r->addRoute('GET', '/filter-trainings', [HistoryController::class, 'filterTrainings']);
 
     // POST
 

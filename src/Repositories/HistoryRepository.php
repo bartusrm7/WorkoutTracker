@@ -62,4 +62,25 @@ class HistoryRepository
         $stmt->execute([':sets' => $sets, ':weight' => $weight, ':reps' => $reps, ':rir' => $rir, ':exercise_id' => $exerciseId, ':created_at' => $createdAt]);
         return (int) $this->pdo->lastInsertId();
     }
+
+    public function filterTrainingByDateQuery($start, $end)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE start >= :start AND end <= :end');
+        $stmt->execute([':start' => $start, ':end' => $end]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findExercisesByTrainingQuery($trainingId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises_history WHERE training_id = :training_id');
+        $stmt->execute([':training_id' => $trainingId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findExercisesDataByExercisesQuery($exerciseId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM exercises_history_data WHERE exercise_id = :exercise_id');
+        $stmt->execute([':exercise_id' => $exerciseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -18,6 +18,7 @@ class HistoryController
 
     public function history()
     {
+        session_start();
         require '../templates/dashboard/history.php';
     }
 
@@ -30,5 +31,18 @@ class HistoryController
         $training = $this->service->saveTrainingToHistory($trainingId);
 
         echo json_encode($training);
+    }
+
+    public function filterTrainings()
+    {
+        $start = $_GET['startDate'];
+        $end = $_GET['endDate'];
+
+        $training = $this->service->filterTrainingByDate($start, $end);
+        // echo '<pre>';
+        // var_dump($training);
+        // exit;
+        header('Location: /history');
+        return $training;
     }
 }

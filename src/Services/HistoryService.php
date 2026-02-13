@@ -66,4 +66,32 @@ class HistoryService
             ]
         ];
     }
+
+    public function filterTrainingByDate($start, $end)
+    {
+        if (empty($start) || empty($end)) {
+            return ['success' => false, 'error' => 'Brak podanej daty początkowej i końcowej'];
+        }
+        $trainings = $this->repository->filterTrainingByDateQuery($start, $end);
+        $exercises = [];
+        $exercisesData = [];
+
+        foreach ($trainings as $training) {
+            $exercises = $this->repository->findExercisesByTrainingQuery($training['id']);
+            $exerciseId[$training['id']] = $exercises;
+
+            foreach ($exercises as $exercise) {
+                $exercisesData[$exercise['id']] = $this->repository->findExercisesDataByExercisesQuery($exercise['id']);
+            }
+        }
+
+        return [
+            'success' => true,
+            'data' => [
+                'trainings' => $trainings,
+                'exercises' => $exercises,
+                'exercisesData' => $exercisesData
+            ]
+        ];
+    }
 }
