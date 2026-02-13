@@ -40,7 +40,7 @@ class HistoryController
 
         $training = $this->service->filterTrainingByDate($start, $end);
         // echo '<pre>';
-        // var_dump($training);
+        // var_dump($training['data']);
         // exit;
         header('Location: /history');
         return $training;

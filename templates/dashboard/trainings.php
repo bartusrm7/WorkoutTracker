@@ -106,7 +106,7 @@
 
                                     <ul class="trainings__dropdown-menu dropdown-menu p-0">
                                         <li>
-                                            <button class="dropdown-item btn custom-btn" id="editTrainingBtn" data-training-id="<?= $training['id'] ?>" data-training-name="<?= $training['name'] ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
+                                            <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= $training['id'] ?>" data-training-name="<?= $training['name'] ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
                                         </li>
                                         <li>
                                             <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= $training['id'] ?>" onclick="removeTraining.call(this)">Usuń</button>
@@ -212,11 +212,13 @@
 
     let trainingId;
     let trainingName;
-    document.getElementById('editTrainingBtn').addEventListener('click', e => {
-        trainingId = e.target.dataset.trainingId;
-        trainingName = e.target.dataset.trainingName;
-        document.getElementById('editTrainingName').value = trainingName;
-    });
+    document.querySelectorAll('.edit-training-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            trainingId = e.target.dataset.trainingId;
+            trainingName = e.target.dataset.trainingName;
+            document.getElementById('editTrainingName').value = trainingName;
+        });
+    })
 
     async function editTraining() {
         const id = trainingId;

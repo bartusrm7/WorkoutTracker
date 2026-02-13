@@ -61,11 +61,6 @@
 
         <div class="history__main-container">
 
-      <?php foreach ($data['trainings'] as $row): ?>
-    <?= $row['name'] ?>
-<?php endforeach ?>
-
-
             <?php foreach ($training as $row): ?>
                 <div class="container mt-3">
                     <div class="row">
