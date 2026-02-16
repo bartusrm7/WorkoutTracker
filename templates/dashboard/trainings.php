@@ -22,7 +22,7 @@
             </button>
         </header>
 
-        <nav class="nav__sidebar min-vh-100 d-flex flex-column flex-shrink-0 p-3">
+        <nav class="nav__sidebar min-vh-100 d-none flex-column flex-shrink-0 p-3">
             <h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
             <hr>
             <ul class="nav__nav nav flex-column mb-auto">
@@ -63,7 +63,7 @@
                                     <input class="form-control training-input" type="text" name="trainingName" id="trainingName" required placeholder="">
                                     <label for="trainingName">Nazwa treningu</label>
                                 </div>
-                                <button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="handleToggleFormContainer()">Dalej</button>
+                                <button type="button" class="trainings__add-training-btn custom-btn btn px-5 mt-3 float-end" onclick="handleToggleFormContainer()">Dalej</button>
                             </form>
                         </div>
                     </div>
@@ -80,14 +80,18 @@
                                     <input class="form-control exercises-input" type="text" name="exercisesName" id="exercisesName" required placeholder="">
                                     <label for="exercisesName">Nazwa ćwiczenia</label>
                                 </div>
-                                <div class="float-end">
+                                <div class="trainings__save-training-container float-sm-end">
                                     <button type="button" class="custom-btn btn px-5 mt-3" onclick="saveExercises()">Dalej</button>
-                                    <button type="button" class="custom-btn btn px-5 mt-3" onclick="createNewTraining()">Zakończ</button>
+                                    <button type="button" class="custom-accent-btn btn px-5 mt-3" onclick="createNewTraining()">Zakończ</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="trainings__alert alert alert-primary fs-5 d-none px-5 text-center" role="alert">
+                Nazwa treningu została dodana!
             </div>
         </div>
 
@@ -159,11 +163,13 @@
 
         const isHidden = sideBar.classList.toggle('d-none');
         if (isHidden) {
-            menuBtn.classList.remove('fa-bars');
-            menuBtn.classList.add('fa-bars-staggered');
-        } else {
+            sideBar.classList.remove('d-flex');
             menuBtn.classList.add('fa-bars');
             menuBtn.classList.remove('fa-bars-staggered');
+        } else {
+            sideBar.classList.add('d-flex');
+            menuBtn.classList.remove('fa-bars');
+            menuBtn.classList.add('fa-bars-staggered');
         }
     };
 
@@ -177,16 +183,28 @@
     let exercises = []
 
     const saveTrainingName = () => {
-        const trainingName = document.querySelector('.training-input').value
+        const trainingName = document.querySelector('.training-input').value;
         trainingData.push({
             training: trainingName
-        })
+        });
+        const alertTraining = document.querySelector('.trainings__alert');
+        alertTraining.classList.remove('d-none');
+        setTimeout(() => {
+            alertTraining.classList.add('d-none');
+        }, 3000);
     }
 
     const saveExercises = () => {
-        const exercisesName = document.querySelector('.exercises-input').value
-        exercises.push(exercisesName)
-        document.querySelector('.exercises-input').value = ''
+        const exercisesName = document.querySelector('.exercises-input').value;
+        exercises.push(exercisesName);
+        document.querySelector('.exercises-input').value = '';
+
+        const alertTraining = document.querySelector('.trainings__alert');
+        alertTraining.textContent = `Ćwiczenie ${exercisesName} zostało dodane`;
+        alertTraining.classList.remove('d-none');
+        setTimeout(() => {
+            alertTraining.classList.add('d-none');
+        }, 3000);
     }
 
     const createNewTraining = async () => {
@@ -205,8 +223,14 @@
             throw new Error('Błąd podczas tworzenia treningu', error.status);
         }
         const data = await response.json();
+        const alertTraining = document.querySelector('.trainings__alert');
         if (!data.success === false) {
             window.location.reload();
+            alertTraining.textContent = 'Trening został zapisany';
+            alertTraining.classList.remove('d-none');
+            setTimeout(() => {
+                alertTraining.classList.add('d-none');
+            }, 3000);
         }
     }
 
@@ -262,4 +286,7 @@
             window.location.reload();
         }
     }
+
+    const alertList = document.querySelectorAll('.alert')
+    const alerts = [...alertList].map(element => new bootstrap.Alert(element))
 </script>

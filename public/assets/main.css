@@ -67,6 +67,27 @@ body {
 .trainings__create-workout-btn {
   transform: rotate(-30deg);
 }
+@media (max-width: 568px) {
+  .trainings__add-training-btn {
+    width: 100%;
+  }
+}
+@media (max-width: 568px) {
+  .trainings__save-training-container {
+    display: block;
+  }
+  .trainings__save-training-container button {
+    width: 100%;
+  }
+}
+.trainings__alter {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 100%;
+  max-width: 500px;
+  transform: translate(-50%, -50%);
+}
 .trainings__training-container {
   background-color: #f5f1f0;
 }

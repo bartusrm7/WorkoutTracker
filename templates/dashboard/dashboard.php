@@ -21,7 +21,7 @@
             </button>
         </header>
 
-        <nav class="nav__sidebar min-vh-100 d-flex flex-column flex-shrink-0 p-3">
+        <nav class="nav__sidebar min-vh-100 d-none flex-column flex-shrink-0 p-3">
             <h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
             <hr>
             <ul class="nav__nav nav flex-column mb-auto">
@@ -79,11 +79,13 @@
 
         const isHidden = sideBar.classList.toggle('d-none');
         if (isHidden) {
-            menuBtn.classList.remove('fa-bars');
-            menuBtn.classList.add('fa-bars-staggered');
-        } else {
+            sideBar.classList.remove('d-flex');
             menuBtn.classList.add('fa-bars');
             menuBtn.classList.remove('fa-bars-staggered');
+        } else {
+            sideBar.classList.add('d-flex');
+            menuBtn.classList.remove('fa-bars');
+            menuBtn.classList.add('fa-bars-staggered');
         }
     };
 </script>

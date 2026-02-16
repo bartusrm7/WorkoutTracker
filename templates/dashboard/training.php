@@ -22,7 +22,7 @@
 			</button>
 		</header>
 
-		<nav class="nav__sidebar min-vh-100 d-flex flex-column flex-shrink-0 p-3">
+		<nav class="nav__sidebar min-vh-100 d-none flex-column flex-shrink-0 p-3">
 			<h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
 			<hr>
 			<ul class="nav__nav nav flex-column mb-auto">
@@ -298,18 +298,20 @@
 </html>
 <script>
 	const handleOpenMenu = () => {
-		const sideBar = document.querySelector(" .nav__sidebar");
-		const menuBtn = document.querySelector('.nav__menu-btn i');
+        const sideBar = document.querySelector(".nav__sidebar");
+        const menuBtn = document.querySelector('.nav__menu-btn i');
 
-		const isHidden = sideBar.classList.toggle('d-none');
-		if (isHidden) {
-			menuBtn.classList.remove('fa-bars');
-			menuBtn.classList.add('fa-bars-staggered');
-		} else {
-			menuBtn.classList.add('fa-bars');
-			menuBtn.classList.remove('fa-bars-staggered');
-		}
-	};
+        const isHidden = sideBar.classList.toggle('d-none');
+        if (isHidden) {
+            sideBar.classList.remove('d-flex');
+            menuBtn.classList.add('fa-bars');
+            menuBtn.classList.remove('fa-bars-staggered');
+        } else {
+            sideBar.classList.add('d-flex');
+            menuBtn.classList.remove('fa-bars');
+            menuBtn.classList.add('fa-bars-staggered');
+        }
+    };
 
 	const handleAddSetExercisesData = () => {
 		document.getElementById('exercisesDataModal').classList.toggle('d-none');

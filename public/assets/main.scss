@@ -85,6 +85,27 @@ body {
 	&__create-workout-btn {
 		transform: rotate(-30deg);
 	}
+	&__add-training-btn {
+		@media (max-width: 568px) {
+			width: 100%;
+		}
+	}
+	&__save-training-container {
+		@media (max-width: 568px) {
+			display: block;
+			button {
+				width: 100%;
+			}
+		}
+	}
+	&__alert {
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		width: 100%;
+		max-width: 500px;
+		transform: translate(-50%, -50%);
+	}
 	&__training-container {
 		background-color: $third;
 	}
