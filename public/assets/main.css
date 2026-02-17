@@ -80,7 +80,7 @@ body {
     width: 100%;
   }
 }
-.trainings__alter {
+.trainings__alert {
   position: absolute;
   top: 20%;
   left: 50%;
@@ -151,6 +151,27 @@ body {
   top: 0;
   right: 0;
   opacity: 0.25;
+}
+
+.history__main-container:first-of-type {
+  padding-top: 4rem;
+}
+.history__main-container:last-of-type {
+  padding-bottom: 4rem;
+}
+.history__training-container {
+  background-color: #f5f1f0;
+  color: #424242;
+}
+.history__note-field {
+  color: #fc7260;
+}
+.history__empty-training-history {
+  padding-top: 4rem;
+}
+.history__empty-training-list {
+  padding-top: 4rem;
+  color: #fc7260;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -35,14 +35,27 @@ class HistoryController
 
     public function filterTrainings()
     {
-        $start = $_GET['startDate'];
-        $end = $_GET['endDate'];
+        session_start();
+        $start = $_POST['startDate'];
+        $end = $_POST['endDate'];
 
-        $training = $this->service->filterTrainingByDate($start, $end);
-        // echo '<pre>';
-        // var_dump($training['data']);
-        // exit;
-        header('Location: /history');
-        return $training;
+        $trainings = $this->service->filterTrainingByDate($start, $end);
+
+        foreach ($trainings['data']['trainings'] as $training) {
+
+            foreach ($training['exercises'] as $exercise) {
+                $trainingId = $exercise['training_id'];
+                $exercises = $this->service->getAmoutOfSets($trainingId);
+
+                foreach ($exercises['data'] as $set) {
+                    $setsVolume[] = $set['sets'];
+                }
+                echo '<pre>';
+                var_dump($setsVolume);
+                exit;
+            }
+        }
+
+        require '../templates/dashboard/history.php';
     }
 }

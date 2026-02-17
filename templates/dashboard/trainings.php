@@ -97,7 +97,7 @@
 
         <div class="trainings__main-container">
             <h3 class="text-center">Moje treningi</h3>
-            <div class="row gap-3 justify-content-center my-3 mx-1 ">
+            <div class="row gap-3 justify-content-center my-3 mx-1">
                 <?php if (!empty($trainings)): ?>
                     <?php foreach ($trainings as $training): ?>
                         <div class="trainings__training-container card col-sm-5 col-xl-3">

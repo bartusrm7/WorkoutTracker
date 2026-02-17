@@ -45,88 +45,99 @@
 
     <main class="history container">
 
-        <form class="row justify-content-center align-items-end" action="/filter-trainings" method="get">
+        <form class="row justify-content-center align-items-end" action="/filter-trainings" method="post">
             <div class="col-6 col-md-4 col-lg-3">
-                <label for="exampleFormControlInput1" class="form-label mb-0">Data od</label>
-                <input type="date" class="form-control" name="startDate" id="exampleFormControlInput1" required placeholder="">
+                <label for="startDate" class="form-label mb-0">Data od</label>
+                <input type="date" class="form-control" value="<?= date('Y-m-d') ?>" name="startDate" id="startDate" required placeholder="">
             </div>
             <div class="col-6 col-md-4 col-lg-3">
-                <label for="exampleFormControlInput1" class="form-label mb-0">Data do</label>
-                <input type="date" class="form-control" name="endDate" id="exampleFormControlInput1" required placeholder="">
+                <label for="endDate" class="form-label mb-0">Data do</label>
+                <input type="date" class="form-control" value="<?= date('Y-m-d', strtotime('+1 day')) ?>" name="endDate" id="endDate" required placeholder="">
             </div>
             <div class="col-md-4 col-lg-3 mt-3 mt-md-0">
                 <button type="submit" class="custom-accent-btn btn w-100">Szukaj</button>
             </div>
         </form>
 
-        <div class="history__main-container">
+        <?php if (empty($trainings['data']['trainings'])): ?>
+            <h3 class="history__empty-training-list text-center">Wybierz datę potrzebną do wyświetlenia historii treningów</h3>
+        <?php else: ?>
+            <?php foreach ($trainings['data']['trainings'] as $training): ?>
 
-            <?php foreach ($training as $row): ?>
-                <div class="container mt-3">
-                    <div class="row">
-                        <table class="table table-bordered mb-0 text-center">
+                <div class="history__main-container my-3 mx-1">
+                    <div class="history__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <h2 class="traning__trainin-plan-label mb-0">
+                                    <?= $training['name'] ?>
+                                </h2>
+                            </div>
+                            <hr>
                             <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="traning__exercise-name mb-0">
-                                        <?= ucfirst($row['name']) ?>
-                                    </h5>
-                                </div>
-                                <div class="mb-2">
-                                    <?php if ($row['note']): ?>
-                                        <?= $row['note'] ?>
-                                    <?php endif ?>
+                                <h5>Szczegóły treningu</h5>
+                                <div class="d-lg-flex">
+                                    <div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
+                                    <div class="me-lg-3">Objętość: <span class="fw-bold">kg</span></div>
+                                    <div class="me-lg-3">Ilość serii: <span class="fw-bold"></span></div>
                                 </div>
                             </div>
-                            <thead>
-                                <tr>
-                                    <th class=" training__th col-2">S
-                                        <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
-                                    </th>
-                                    <th class="training__th col-2">C
-                                        <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
-                                    </th>
-                                    <th class="training__th col-2">P
-                                        <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
-                                    </th>
-                                    <th class="training__th col-2">Z
-                                        <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
-                                    </th>
-                                    <th class="training__th col-2">E
-                                        <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="setsData">
-                                <?php foreach ($row['sets'] as $set): ?>
-                                    <tr data-set-id="<?= $set['sets'] ?>">
-                                        <th><?= $set['setNum'] ?></th>
-                                        <td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
-                                        <td><?= $set['reps'] ?></td>
-                                        <td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
-                                                    <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
-                                                </button>
+                        </div>
+                        <hr>
 
-                                                <ul class="training__dropdown-menu dropdown-menu p-0">
-                                                    <li>
-                                                        <button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
-                                                    </li>
-                                                    <li>
-                                                        <button class="dropdown-item btn custom-btn" id="" data-bs-toggle="modal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Usuń</button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+                        <div class="container mt-3">
+                            <div class="row">
+                                <table class="table table-bordered mb-0 text-center">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h5 class="traning__exercise-name mb-0">
+                                                <?= ucfirst($training['name']) ?>
+                                            </h5>
+                                        </div>
+                                        <div class="mb-2">
+                                            <?php foreach ($training['exercises'] as $exercise): ?>
+                                                <?php if ($exercise['note']): ?>
+                                                    <div class="history__note-field">
+                                                        <?= $exercise['note'] ?>
+                                                    </div>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        </div>
+                                    </div>
+                                    <?php foreach ($training['exercises'] as $exercise): ?>
+                                        <thead>
+                                            <tr>
+                                                <th class=" training__th col-2">S
+                                                    <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
+                                                </th>
+                                                <th class="training__th col-2">C
+                                                    <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
+                                                </th>
+                                                <th class="training__th col-2">P
+                                                    <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
+                                                </th>
+                                                <th class="training__th col-2">Z
+                                                    <span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="setsData">
+                                            <?php foreach ($exercise['sets'] as $set): ?>
+                                                <tr data-set-id="<?= $set['sets'] ?>">
+                                                    <th><?= $set['sets'] ?></th>
+                                                    <td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
+                                                    <td><?= $set['reps'] ?></td>
+                                                    <td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    <?php endforeach ?>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php endforeach ?>
-        </div>
+        <?php endif ?>
 
     </main>
 </body>

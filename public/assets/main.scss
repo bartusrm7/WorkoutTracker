@@ -173,3 +173,28 @@ body {
 		opacity: 0.25;
 	}
 }
+
+.history {
+	&__main-container {
+		&:first-of-type {
+			padding-top: 4rem;
+		}
+		&:last-of-type {
+			padding-bottom: 4rem;
+		}
+	}
+	&__training-container {
+		background-color: $third;
+		color: $secondary;
+	}
+	&__note-field {
+		color: $accent;
+	}
+	&__empty-training-history {
+		padding-top: 4rem;
+	}
+	&__empty-training-list {
+		padding-top: 4rem;
+		color: $accent;
+	}
+}

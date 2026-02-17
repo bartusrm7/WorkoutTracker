@@ -76,22 +76,35 @@ class HistoryService
         $exercises = [];
         $exercisesData = [];
 
-        foreach ($trainings as $training) {
+        foreach ($trainings as $i => $training) {
             $exercises = $this->repository->findExercisesByTrainingQuery($training['id']);
+            $trainings[$i]['exercises'] = $exercises;
             $exerciseId[$training['id']] = $exercises;
 
-            foreach ($exercises as $exercise) {
-                $exercisesData[$exercise['id']] = $this->repository->findExercisesDataByExercisesQuery($exercise['id']);
+            foreach ($exercises as $j => $exercise) {
+                $exercisesData = $this->repository->findExercisesDataByExercisesQuery($exercise['id']);
+                $trainings[$i]['exercises'][$j]['sets'] = $exercisesData;
             }
         }
 
         return [
             'success' => true,
             'data' => [
-                'trainings' => $trainings,
-                'exercises' => $exercises,
-                'exercisesData' => $exercisesData
+                'trainings' => $trainings
             ]
+        ];
+    }
+
+    public function getAmoutOfSets($trainingId)
+    {
+        if (!$trainingId) {
+            return ['success' => false, 'error' => 'Brak ID treningu'];
+        }
+        $result = $this->repository->getAmoutOfSetsQuery($trainingId);
+
+        return [
+            'success' => true,
+            'data' => $result
         ];
     }
 }
