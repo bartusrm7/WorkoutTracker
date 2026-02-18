@@ -128,7 +128,7 @@ class TrainingController
         }
 
         $setsVolume = $this->service->countSetsVolume($trainingId);
-        $setsVolumeWeight = strval(array_sum(array_column($setsVolume['data'], 'weight')));
+        $setsVolumeWeight = 0;
         $setsVolumeAmount = strval(count($setsVolume['data']));
 
         foreach ($training['data'] as $k => $exercise) {
@@ -136,6 +136,7 @@ class TrainingController
 
             foreach ($training['data'][$k]['sets'] as $i => $set) {
                 $training['data'][$k]['sets'][$i]['setNum'] = $i + 1;
+                $setsVolumeWeight += $set['weight'] * $set['reps'];
             }
         };
 

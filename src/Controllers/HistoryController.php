@@ -49,7 +49,7 @@ class HistoryController
 
                 foreach ($exercise['sets'] as $set) {
                     $totalWeight += $set['weight'] * $set['reps'];
-                    $totalSets += $set['sets'];
+                    $totalSets++;
                 }
             }
             $training['weightVolume'] = $totalWeight;
