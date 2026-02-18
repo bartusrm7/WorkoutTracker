@@ -104,9 +104,6 @@ class TrainingController
         $userId = (int)($_SESSION['id'] ?? 0);
         $result = $this->service->displayAllTrainingPlans($userId);
         $trainings = $result['data'] ?? [];
-        foreach ($trainings as $training) {
-            $_SESSION['trainingName'] = $training['name'];
-        }
 
         require '../templates/dashboard/trainings.php';
     }
@@ -119,12 +116,13 @@ class TrainingController
         if (!$trainingId) {
             return 'Brak ID treiningu';
         }
+        $trainingIdName = $this->service->getTrainingName($trainingId);
 
         $training = $this->service->displayTrainingPlan($userId, $trainingId);
-        $trainingName = $_SESSION['trainingName'];
+        $trainingName = $trainingIdName['data']['name'];
 
         if (!is_array($training)) {
-            return 'Zmienna nie jest pętlą';
+            return 'Dane treningu nie są tablicą';
         }
 
         $setsVolume = $this->service->countSetsVolume($trainingId);

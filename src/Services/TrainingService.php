@@ -160,6 +160,19 @@ class TrainingService
         ];
     }
 
+    public function getTrainingName($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID treningu'];
+        }
+        $trainingId = $this->repository->getTrainingNameQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $trainingId
+        ];
+    }
+
     public function displayTrainingPlan($userId, $trainingId)
     {
         if (empty($userId)) {

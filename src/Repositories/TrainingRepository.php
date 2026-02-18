@@ -111,6 +111,13 @@ class TrainingRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTrainingNameQuery($id)
+    {
+        $stmt = $this->pdo->prepare('SELECT name FROM training WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function displayTrainingPlanQuery($userId, $trainingId)
     {
         $stmt = $this->pdo->prepare(
