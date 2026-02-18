@@ -91,6 +91,9 @@ body {
 .trainings__training-container {
   background-color: #f5f1f0;
 }
+.trainings__training-container .card-header {
+  background-color: transparent;
+}
 .trainings__empty-training-list {
   color: #fc7260;
 }
@@ -162,6 +165,9 @@ body {
 .history__training-container {
   background-color: #f5f1f0;
   color: #424242;
+}
+.history__training-date {
+  color: #fc7260;
 }
 .history__note-field {
   color: #fc7260;

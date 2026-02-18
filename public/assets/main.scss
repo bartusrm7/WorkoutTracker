@@ -108,6 +108,9 @@ body {
 	}
 	&__training-container {
 		background-color: $third;
+		.card-header {
+			background-color: transparent;
+		}
 	}
 	&__empty-training-list {
 		color: $accent;
@@ -186,6 +189,9 @@ body {
 	&__training-container {
 		background-color: $third;
 		color: $secondary;
+	}
+	&__training-date {
+		color: $accent;
 	}
 	&__note-field {
 		color: $accent;

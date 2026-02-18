@@ -41,20 +41,22 @@ class HistoryController
 
         $trainings = $this->service->filterTrainingByDate($start, $end);
 
-        foreach ($trainings['data']['trainings'] as $training) {
+        foreach ($trainings['data']['trainings'] as &$training) {
+            $totalWeight = 0;
+            $totalSets = 0;
 
             foreach ($training['exercises'] as $exercise) {
-                $trainingId = $exercise['training_id'];
-                $exercises = $this->service->getAmoutOfSets($trainingId);
 
-                foreach ($exercises['data'] as $set) {
-                    $setsVolume[] = $set['sets'];
+                foreach ($exercise['sets'] as $set) {
+                    $totalWeight += $set['weight'] * $set['reps'];
+                    $totalSets += $set['sets'];
                 }
-                echo '<pre>';
-                var_dump($setsVolume);
-                exit;
             }
+            $training['weightVolume'] = $totalWeight;
+            $training['setsVolume'] = $totalSets;
         }
+        unset($training);
+
 
         require '../templates/dashboard/history.php';
     }

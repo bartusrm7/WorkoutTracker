@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Database\Database;
-use App\Models\ExercisesHistoryDataModel;
-use App\Models\ExercisesHistoryModel;
-use App\Models\TrainingHistoryModel;
-use DateTime;
 use PDO;
 
 class HistoryRepository
@@ -81,18 +77,6 @@ class HistoryRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_history_data WHERE exercise_id = :exercise_id');
         $stmt->execute([':exercise_id' => $exerciseId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getAmoutOfSetsQuery($trainingId)
-    {
-        $stmt = $this->pdo->prepare(
-            'SELECT exercises_history_data.* FROM exercises_history_data
-            INNER JOIN exercises_history ON exercises_history_data.id = exercises_history.id
-            WHERE exercises_history.training_id = :training_id
-            '
-        );
-        $stmt->execute([':training_id' => $trainingId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

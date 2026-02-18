@@ -67,43 +67,44 @@
                 <div class="history__main-container my-3 mx-1">
                     <div class="history__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
                         <div>
-                            <div class="d-flex justify-content-between">
-                                <h2 class="traning__trainin-plan-label mb-0">
-                                    <?= $training['name'] ?>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="history__training-plan-label mb-0">
+                                    <?= ucfirst($training['name']) ?>
                                 </h2>
+                                <div class="history__training-date">
+                                    <?= date('d.m.Y', strtotime($training['start'])) ?>
+                                </div>
                             </div>
                             <hr>
                             <div>
                                 <h5>Szczegóły treningu</h5>
                                 <div class="d-lg-flex">
                                     <div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
-                                    <div class="me-lg-3">Objętość: <span class="fw-bold">kg</span></div>
-                                    <div class="me-lg-3">Ilość serii: <span class="fw-bold"></span></div>
+                                    <div class="me-lg-3">Objętość: <span class="fw-bold"><?= $training['weightVolume'] ?>kg</span></div>
+                                    <div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= $training['setsVolume'] ?></span></div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="mb-0">
 
-                        <div class="container mt-3">
+                        <div class="container">
                             <div class="row">
-                                <table class="table table-bordered mb-0 text-center">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="traning__exercise-name mb-0">
-                                                <?= ucfirst($training['name']) ?>
-                                            </h5>
-                                        </div>
-                                        <div class="mb-2">
-                                            <?php foreach ($training['exercises'] as $exercise): ?>
+                                <?php foreach ($training['exercises'] as $exercise): ?>
+                                    <table class="table table-bordered mb-0 text-center">
+                                        <div class="mt-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h5 class="traning__exercise-name mb-0">
+                                                    <?= ucfirst($exercise['name']) ?>
+                                                </h5>
+                                            </div>
+                                            <div class="mb-2">
                                                 <?php if ($exercise['note']): ?>
                                                     <div class="history__note-field">
                                                         <?= $exercise['note'] ?>
                                                     </div>
                                                 <?php endif ?>
-                                            <?php endforeach ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <?php foreach ($training['exercises'] as $exercise): ?>
                                         <thead>
                                             <tr>
                                                 <th class=" training__th col-2">S
@@ -130,8 +131,8 @@
                                                 </tr>
                                             <?php endforeach ?>
                                         </tbody>
-                                    <?php endforeach ?>
-                                </table>
+                                    </table>
+                                <?php endforeach ?>
                             </div>
                         </div>
                     </div>

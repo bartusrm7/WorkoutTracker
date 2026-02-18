@@ -94,17 +94,4 @@ class HistoryService
             ]
         ];
     }
-
-    public function getAmoutOfSets($trainingId)
-    {
-        if (!$trainingId) {
-            return ['success' => false, 'error' => 'Brak ID treningu'];
-        }
-        $result = $this->repository->getAmoutOfSetsQuery($trainingId);
-
-        return [
-            'success' => true,
-            'data' => $result
-        ];
-    }
 }
