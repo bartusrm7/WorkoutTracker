@@ -15,7 +15,7 @@
         <h3 class="auth__label text-center mb-3">Logowanie</h3>
 
         <form action="/signin" method="post">
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
+            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
             <div class="form-floating mt-2">
                 <input type="email" name="email" class="form-control" placeholder="">
                 <label for="email">Email</label>

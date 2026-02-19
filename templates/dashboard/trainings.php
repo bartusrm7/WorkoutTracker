@@ -16,7 +16,7 @@
 
     <div>
         <header class="nav__navbar d-flex justify-content-end align-items-center mb-3 p-2">
-            <h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
+            <h5 class="float-end mb-0 me-3"><?= htmlspecialchars($_SESSION['name']) ?></h5>
             <button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
                 <i class="fa-solid fa-bars fs-3 text-white"></i>
             </button>
@@ -102,7 +102,7 @@
                     <?php foreach ($trainings as $training): ?>
                         <div class="trainings__training-container card col-sm-5 col-xl-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title my-2"><?= ucfirst($training['name']) ?></h5>
+                                <h5 class="card-title my-2"><?= htmlspecialchars(ucfirst($training['name'])) ?></h5>
                                 <div class="dropdown">
                                     <button class="trainings__dropdown-menu-btn btn" data-bs-toggle="dropdown">
                                         <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
@@ -110,16 +110,16 @@
 
                                     <ul class="trainings__dropdown-menu dropdown-menu p-0">
                                         <li>
-                                            <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= $training['id'] ?>" data-training-name="<?= $training['name'] ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
+                                            <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" data-training-name="<?= htmlspecialchars($training['name']) ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
                                         </li>
                                         <li>
-                                            <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= $training['id'] ?>" onclick="removeTraining.call(this)">Usuń</button>
+                                            <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" onclick="removeTraining.call(this)">Usuń</button>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body my-1">
-                                <a href="/training?id=<?= $training['id'] ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
+                                <a href="/training?id=<?= htmlspecialchars($training['id']) ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
                             </div>
                         </div>
                     <?php endforeach ?>

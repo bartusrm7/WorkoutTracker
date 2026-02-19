@@ -15,7 +15,7 @@
 
     <div>
         <header class="nav__navbar d-flex justify-content-end align-items-center mb-3 p-2">
-            <h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
+            <h5 class="float-end mb-0 me-3"><?= htmlspecialchars($_SESSION['name']) ?></h5>
             <button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
                 <i class="fa-solid fa-bars fs-3 text-white"></i>
             </button>

@@ -16,7 +16,7 @@
 
 	<div>
 		<header class="nav__navbar d-flex justify-content-end align-items-center mb-3 p-2">
-			<h5 class="float-end mb-0 me-3"><?= $_SESSION['name'] ?></h5>
+			<h5 class="float-end mb-0 me-3"><?= htmlspecialchars($_SESSION['name']) ?></h5>
 			<button class="nav__menu-btn btn float-end" onclick="handleOpenMenu()">
 				<i class="fa-solid fa-bars fs-3 text-white"></i>
 			</button>
@@ -52,22 +52,22 @@
 				<div>
 					<div class="d-flex justify-content-between">
 						<h2 class="traning__trainin-plan-label mb-0">
-							<?= ucfirst($trainingName) ?>
+							<?= htmlspecialchars(ucfirst($trainingName)) ?>
 						</h2>
 						<?php if (!empty($_SESSION['training_started'])): ?>
-							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
-							<button class="custom-accent-btn btn px-3 d-none" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+							<button class="custom-accent-btn btn px-3 d-none" id="startTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
 						<?php else: ?>
-							<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
-							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
+							<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
 					</div>
 					<hr>
 					<div>
 						<h5>Szczegóły treningu</h5>
 						<div class="d-lg-flex">
 							<div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
-							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= $setsVolumeWeight ?>kg</span></div>
-							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= $setsVolumeAmount ?></span></div>
+							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
+							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
 						</div>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 								<div>
 									<div class="d-flex justify-content-between align-items-center mb-2">
 										<h5 class="traning__exercise-name mb-0">
-											<?= ucfirst($row['name']) ?>
+											<?= htmlspecialchars(ucfirst($row['name'])) ?>
 										</h5>
 										<div class="dropdown">
 											<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
@@ -89,19 +89,19 @@
 
 											<ul class="training__dropdown-menu dropdown-menu p-0">
 												<li>
-													<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= $row['id'] ?>" data-exercise-name="<?= $row['name'] ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
+													<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
 												</li>
 												<li>
-													<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= $row['id'] ?>" onclick="removeExercise.call(this)">Usuń</button>
+													<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" onclick="removeExercise.call(this)">Usuń</button>
 												</li>
 											</ul>
 										</div>
 									</div>
 									<div class="mb-2">
 										<?php if ($row['note']): ?>
-											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>"><?= ucfirst($row['note']) ?></div>
+											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>"><?= htmlspecialchars(ucfirst($row['note'])) ?></div>
 										<?php else: ?>
-											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= $row['note'] ?>">Dodaj notatkę...</div>
+											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>">Dodaj notatkę...</div>
 										<?php endif ?>
 									</div>
 								</div>
@@ -126,11 +126,11 @@
 								</thead>
 								<tbody id="setsData">
 									<?php foreach ($row['sets'] as $set): ?>
-										<tr data-set-id="<?= $set['sets'] ?>">
-											<th><?= $set['setNum'] ?></th>
-											<td><?= $set['weight'] == 0 ? '' : $set['weight'] ?></td>
-											<td><?= $set['reps'] ?></td>
-											<td><?= $set['rir'] == 0 ? '' : $set['rir'] ?></td>
+										<tr data-set-id="<?= htmlspecialchars($set['sets']) ?>">
+											<th><?= htmlspecialchars($set['setNum']) ?></th>
+											<td><?= $set['weight'] == 0 ? '' : htmlspecialchars($set['weight']) ?></td>
+											<td><?= htmlspecialchars($set['reps']) ?></td>
+											<td><?= $set['rir'] == 0 ? '' : htmlspecialchars($set['rir']) ?></td>
 											<td>
 												<div class="dropdown">
 													<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
@@ -139,10 +139,10 @@
 
 													<ul class="training__dropdown-menu dropdown-menu p-0">
 														<li>
-															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= $set['sets'] ?>" data-id="<?= $set['id'] ?>">Edytuj</button>
+															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= htmlspecialchars($set['sets']) ?>" data-id="<?= htmlspecialchars($set['id']) ?>">Edytuj</button>
 														</li>
 														<li>
-															<button class="dropdown-item btn custom-btn" data-id="<?= $set['id'] ?>" onclick="deleteSet.call(this)">Usuń</button>
+															<button class="dropdown-item btn custom-btn" data-id="<?= htmlspecialchars($set['id']) ?>" onclick="deleteSet.call(this)">Usuń</button>
 														</li>
 													</ul>
 												</div>
@@ -153,10 +153,10 @@
 							</table>
 						</div>
 					</div>
-					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= $row['id'] ?>">Dodaj serie</button>
+					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= htmlspecialchars($row['id']) ?>">Dodaj serie</button>
 				<?php endforeach ?>
 
-				<button class="training__exercises-data-btn custom-accent-btn btn w-100 mt-5" data-bs-toggle="modal" data-bs-target="#trainingFormModal" data-exercise-id="<?= $row['id'] ?>">Dodaj nowe ćwiczenie</button>
+				<button class="training__exercises-data-btn custom-accent-btn btn w-100 mt-5" data-bs-toggle="modal" data-bs-target="#trainingFormModal" data-exercise-id="<?= htmlspecialchars($row['id']) ?>">Dodaj nowe ćwiczenie</button>
 			</div>
 		</div>
 
