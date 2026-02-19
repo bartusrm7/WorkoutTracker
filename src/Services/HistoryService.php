@@ -67,6 +67,19 @@ class HistoryService
         ];
     }
 
+    public function deleteAllSetsAfterFinishedTraining($trainingId)
+    {
+        if (!$trainingId) {
+            return ['success' => false, 'error' => 'Brak ID treningu'];
+        }
+        $result = $this->repository->deleteAllSetsAfterFinishedTrainingQuery($trainingId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function filterTrainingByDate($start, $end)
     {
         if (empty($start) || empty($end)) {

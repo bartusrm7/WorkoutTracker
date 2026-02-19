@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\HistoryService;
-use DateTime;
 
 class HistoryController
 {
@@ -29,6 +28,8 @@ class HistoryController
 
         $trainingId = $_SESSION['trainingId'];
         $training = $this->service->saveTrainingToHistory($trainingId);
+
+        $setsData = $this->service->deleteAllSetsAfterFinishedTraining($trainingId);
 
         echo json_encode($training);
     }

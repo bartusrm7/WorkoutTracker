@@ -43,6 +43,9 @@ class TrainingController
         $id = $_SESSION['trainingId'];
         $start = $data['start'];
 
+        $_SESSION['training_started'] = true;
+        $_SESSION['training_duration'] = $start;
+
         $result = $this->service->startTraining($id, $start);
         echo json_encode($result);
     }
@@ -56,7 +59,10 @@ class TrainingController
         $id = $_SESSION['trainingId'];
         $end = $data['end'];
 
+        unset($_SESSION['training_started']);
+
         $result = $this->service->endTraining($id, $end);
+
         echo json_encode($result);
     }
 
@@ -140,6 +146,8 @@ class TrainingController
 
         require '../templates/dashboard/training.php';
     }
+
+    public function deleteAllSetsData() {}
 
     public function editSet()
     {

@@ -54,8 +54,12 @@
 						<h2 class="traning__trainin-plan-label mb-0">
 							<?= ucfirst($trainingName) ?>
 						</h2>
-						<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
-						<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+						<?php if (!empty($_SESSION['training_started'])): ?>
+							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+							<button class="custom-accent-btn btn px-3 d-none" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+						<?php else: ?>
+							<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
+							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= $_SESSION['trainingId'] ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
 					</div>
 					<hr>
 					<div>
@@ -298,20 +302,20 @@
 </html>
 <script>
 	const handleOpenMenu = () => {
-        const sideBar = document.querySelector(".nav__sidebar");
-        const menuBtn = document.querySelector('.nav__menu-btn i');
+		const sideBar = document.querySelector(".nav__sidebar");
+		const menuBtn = document.querySelector('.nav__menu-btn i');
 
-        const isHidden = sideBar.classList.toggle('d-none');
-        if (isHidden) {
-            sideBar.classList.remove('d-flex');
-            menuBtn.classList.add('fa-bars');
-            menuBtn.classList.remove('fa-bars-staggered');
-        } else {
-            sideBar.classList.add('d-flex');
-            menuBtn.classList.remove('fa-bars');
-            menuBtn.classList.add('fa-bars-staggered');
-        }
-    };
+		const isHidden = sideBar.classList.toggle('d-none');
+		if (isHidden) {
+			sideBar.classList.remove('d-flex');
+			menuBtn.classList.add('fa-bars');
+			menuBtn.classList.remove('fa-bars-staggered');
+		} else {
+			sideBar.classList.add('d-flex');
+			menuBtn.classList.remove('fa-bars');
+			menuBtn.classList.add('fa-bars-staggered');
+		}
+	};
 
 	const handleAddSetExercisesData = () => {
 		document.getElementById('exercisesDataModal').classList.toggle('d-none');
@@ -377,7 +381,6 @@
 		});
 		if (!response.ok) {
 			throw new Error('Błąd podczas rozpoczynania treningu', error.status);
-			console.log(trainingStarted);
 		}
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
@@ -419,6 +422,10 @@
 		});
 		if (!response.ok) {
 			throw new Error('Błąd podczas dodawania treningu do historii', error.status);
+		}
+		const data = await response.json();
+		if (!data.success === false) {
+			window.location.reload();
 		}
 	}
 
