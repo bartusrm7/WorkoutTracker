@@ -55,11 +55,11 @@
 							<?= htmlspecialchars(ucfirst($trainingName)) ?>
 						</h2>
 						<?php if (!empty($_SESSION['training_started'])): ?>
-							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleOpenEndTrainingSessionFunction()" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
 							<button class="custom-accent-btn btn px-3 d-none" id="startTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
 						<?php else: ?>
 							<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
-							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleEndTrainingSession()"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
+							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleOpenEndTrainingSessionFunction()" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
 					</div>
 					<hr>
 					<div>
@@ -297,6 +297,25 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="confirmTraining" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content exercises-form-modal">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Potwierdzenie treningu</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<div>
+								<div>Czy na pewno chcesz zakończyć trening?</div>
+								<button class="custom-btn btn px-5 mt-3 float-sm-end" type="button" onclick="handleEndTrainingSession()">Zakończ trening</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 </body>
@@ -419,6 +438,8 @@
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
 	}
+
+	const handleOpenEndTrainingSessionFunction = () => {}
 
 	const handleEndTrainingSession = async () => {
 		const stopBtn = document.getElementById('stopTrainingSessionBtn');
