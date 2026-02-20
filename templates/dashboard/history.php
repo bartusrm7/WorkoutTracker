@@ -79,7 +79,8 @@
                             <div>
                                 <h5>Szczegóły treningu</h5>
                                 <div class="d-lg-flex">
-                                    <div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
+                                    <?php $duration = $training['duration'] ?? 0 ?>
+                                    <div class="me-lg-3">Czas trwania: <span class="fw-bold"><?= htmlspecialchars($duration) ?></span></div>
                                     <div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($training['weightVolume']) ?>kg</span></div>
                                     <div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($training['setsVolume']) ?></span></div>
                                 </div>

@@ -53,12 +53,12 @@ class HistoryController
                     $totalSets++;
                 }
             }
+
             $training['weightVolume'] = $totalWeight;
             $training['setsVolume'] = $totalSets;
         }
         unset($training);
-
-
+     
         require '../templates/dashboard/history.php';
     }
 }
