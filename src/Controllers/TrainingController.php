@@ -58,12 +58,12 @@ class TrainingController
         $data = json_decode(file_get_contents('php://input'), true);
         $id = $_SESSION['trainingId'];
         $end = $data['end'];
-
-        $result = $this->service->endTraining($id, $end);
+        $duration = $data['duration'];
 
         unset($_SESSION['training_started']);
         unset($_SESSION['training_duration']);
 
+        $result = $this->service->endTraining($id, $end, $duration);
         echo json_encode($result);
     }
 

@@ -66,7 +66,8 @@
 						<h5>Szczegóły treningu</h5>
 						<div class="d-lg-flex">
 							<?php $trainingDuration = $_SESSION['training_duration'] ?? '' ?>
-							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>"></span></div>
+							<input type="hidden" data-duration-training-hidden="<?= htmlspecialchars($trainingDuration) ?>" id="trainingDurationInputHidden">
+							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>">0</span></div>
 							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
 							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
 						</div>
@@ -378,7 +379,9 @@
 			const minutes = Math.floor((diffrences % 3600) / 60);
 			const seconds = diffrences % 60;
 			const formatDiffrences = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+
 			trainingDurationElement.innerHTML = formatDiffrences;
+			document.getElementById('trainingDurationInputHidden').value = seconds;
 		}, 1000);
 	}
 
@@ -410,8 +413,7 @@
 		}
 		const data = await response.json();
 		if (data.success) {
-			const trainingDurationElement = document.getElementById('trainingDuration');
-			trainingDurationElement.dataset.durationTraining = start;
+			document.getElementById('trainingDuration').dataset.durationTraining = start;
 			countingTrainingTimestampDuration();
 		}
 		trainingStarted = true;
@@ -423,6 +425,7 @@
 		const id = stopBtn.dataset.trainingId;
 		const currentDate = new Date();
 		const end = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+		const duration = document.getElementById('trainingDurationInputHidden');
 
 		const response = await fetch('/end-training', {
 			method: 'POST',
@@ -431,8 +434,8 @@
 			},
 			body: JSON.stringify({
 				id: id,
-				end: end
-				// duration: duration
+				end: end,
+				duration: duration.value
 			})
 		});
 		if (!response.ok) {

@@ -40,10 +40,10 @@ class TrainingRepository
         return $result;
     }
 
-    public function endTrainingTimeQuery($id, $end)
+    public function endTrainingTimeQuery($id, $end, $duration)
     {
-        $stmt = $this->pdo->prepare('UPDATE training SET end = :end WHERE id = :id');
-        $result = $stmt->execute([':id' => $id, ':end' => $end]);
+        $stmt = $this->pdo->prepare('UPDATE training SET end = :end, duration = :duration WHERE id = :id');
+        $result = $stmt->execute([':id' => $id, ':end' => $end, ':duration' => $duration]);
         return $result;
     }
 

@@ -59,7 +59,7 @@ class TrainingService
         ];
     }
 
-    public function endTraining($id, $end)
+    public function endTraining($id, $end, $duration)
     {
         if (!$id) {
             return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
@@ -67,7 +67,10 @@ class TrainingService
         if (empty($end)) {
             return ['success' => false, 'error' => 'Nie podano rozpoczęcia czasu treningu'];
         }
-        $result = $this->repository->endTrainingTimeQuery($id, $end);
+        if (!$duration) {
+            return ['success' => false, 'error' => 'Brak czasu wykonywanego treningu'];
+        }
+        $result = $this->repository->endTrainingTimeQuery($id, $end, $duration);
 
         return [
             'success' => true,
