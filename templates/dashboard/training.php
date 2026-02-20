@@ -65,7 +65,8 @@
 					<div>
 						<h5>Szczegóły treningu</h5>
 						<div class="d-lg-flex">
-							<div class="me-lg-3">Czas trwania: <span class="fw-bold">0</span></div>
+							<?php $trainingDuration = $_SESSION['training_duration'] ?? '' ?>
+							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>"></span></div>
 							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
 							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
 						</div>
@@ -355,13 +356,38 @@
 			throw new Error('Błąd podczas usuwania serii', error.status);
 		}
 		const data = await response.json();
-		if (data.success === true) {
+		if (data.success) {
 			window.location.reload();
 		}
 	}
 
 	let trainingStarted = false;
-	let durationTraining;
+
+	const countingTrainingTimestampDuration = () => {
+		if (trainingStarted) return;
+		trainingStarted = true;
+
+		const trainingDurationElement = document.getElementById('trainingDuration');
+		const startTime = Math.floor(new Date(trainingDurationElement.dataset.durationTraining.replace(' ', 'T') + 'Z').getTime() / 1000);
+
+		setInterval(() => {
+			const now = Math.floor(Date.now() / 1000);
+			const diffrences = now - startTime;
+
+			const hours = Math.floor(diffrences / 3600);
+			const minutes = Math.floor((diffrences % 3600) / 60);
+			const seconds = diffrences % 60;
+			const formatDiffrences = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+			trainingDurationElement.innerHTML = formatDiffrences;
+		}, 1000);
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const trainingDurationElement = document.getElementById('trainingDuration');
+		if (trainingDurationElement && trainingDurationElement.dataset.durationTraining) {
+			countingTrainingTimestampDuration();
+		}
+	})
 
 	const handleStartTrainingSession = async () => {
 		const startBtn = document.getElementById('startTrainingSessionBtn');
@@ -382,6 +408,12 @@
 		if (!response.ok) {
 			throw new Error('Błąd podczas rozpoczynania treningu', error.status);
 		}
+		const data = await response.json();
+		if (data.success) {
+			const trainingDurationElement = document.getElementById('trainingDuration');
+			trainingDurationElement.dataset.durationTraining = start;
+			countingTrainingTimestampDuration();
+		}
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
 	}
@@ -400,6 +432,7 @@
 			body: JSON.stringify({
 				id: id,
 				end: end
+				// duration: duration
 			})
 		});
 		if (!response.ok) {

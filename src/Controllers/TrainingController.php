@@ -59,9 +59,10 @@ class TrainingController
         $id = $_SESSION['trainingId'];
         $end = $data['end'];
 
-        unset($_SESSION['training_started']);
-
         $result = $this->service->endTraining($id, $end);
+
+        unset($_SESSION['training_started']);
+        unset($_SESSION['training_duration']);
 
         echo json_encode($result);
     }
