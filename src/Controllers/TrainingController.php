@@ -43,6 +43,7 @@ class TrainingController
         $id = $_SESSION['trainingId'];
         $start = $data['start'];
 
+        $_SESSION['training_id_started'] = $id;
         $_SESSION['training_started'] = true;
         $_SESSION['training_duration'] = $start;
 
@@ -60,6 +61,7 @@ class TrainingController
         $end = $data['end'];
         $duration = $data['duration'];
 
+        unset($_SESSION['training_id_started']);
         unset($_SESSION['training_started']);
         unset($_SESSION['training_duration']);
 
