@@ -27,7 +27,8 @@ class HistoryController
         header('Content-Type: application/json');
 
         $trainingId = $_SESSION['trainingId'];
-        $training = $this->service->saveTrainingToHistory($trainingId);
+        $userId = $_SESSION['id'];
+        $training = $this->service->saveTrainingToHistory($trainingId, $userId);
 
         $setsData = $this->service->deleteAllSetsAfterFinishedTraining($trainingId);
 
@@ -39,8 +40,9 @@ class HistoryController
         session_start();
         $start = $_POST['startDate'];
         $end = $_POST['endDate'];
+        $userId = $_SESSION['id'];
 
-        $trainings = $this->service->filterTrainingByDate($start, $end);
+        $trainings = $this->service->filterTrainingByDate($start, $end, $userId);
 
         foreach ($trainings['data']['trainings'] as &$training) {
             $totalWeight = 0;
@@ -58,7 +60,7 @@ class HistoryController
             $training['setsVolume'] = $totalSets;
         }
         unset($training);
-     
+
         require '../templates/dashboard/history.php';
     }
 }

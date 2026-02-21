@@ -15,7 +15,7 @@ class HistoryService
         $this->repository = new HistoryRepository();
     }
 
-    public function saveTrainingToHistory($id)
+    public function saveTrainingToHistory($id, $userId)
     {
         $saveTraining = [];
         $saveExercises = [];
@@ -24,8 +24,11 @@ class HistoryService
         if (empty($id)) {
             return ['success' => false, 'error' => 'Brak ID treningu'];
         }
+        if (empty($userId)) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
 
-        $training = $this->repository->getSavedTrainingQuery($id);
+        $training = $this->repository->getSavedTrainingQuery($id, $userId);
         $saveTraining = $this->repository->saveTrainingToHistoryQuery(
             $training['name'],
             $training['start'],
@@ -80,12 +83,16 @@ class HistoryService
         ];
     }
 
-    public function filterTrainingByDate($start, $end)
+    public function filterTrainingByDate($start, $end, $userId)
     {
         if (empty($start) || empty($end)) {
             return ['success' => false, 'error' => 'Brak podanej daty początkowej i końcowej'];
         }
-        $trainings = $this->repository->filterTrainingByDateQuery($start, $end);
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+
+        $trainings = $this->repository->filterTrainingByDateQuery($start, $end, $userId);
         $exercises = [];
         $exercisesData = [];
 

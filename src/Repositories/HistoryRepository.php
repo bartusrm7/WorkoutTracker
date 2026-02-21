@@ -17,10 +17,10 @@ class HistoryRepository
         $this->pdo = $db->getConnection();
     }
 
-    public function getSavedTrainingQuery($id)
+    public function getSavedTrainingQuery($id, $userId)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM training WHERE id = :id');
-        $stmt->execute([':id' => $id]);
+        $stmt = $this->pdo->prepare('SELECT * FROM training WHERE id = :id AND user_id = :user_id');
+        $stmt->execute([':id' => $id, ':user_id' => $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -70,10 +70,10 @@ class HistoryRepository
         return (int) $this->pdo->lastInsertId();
     }
 
-    public function filterTrainingByDateQuery($start, $end)
+    public function filterTrainingByDateQuery($start, $end, $userId)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE start >= :start AND end <= :end');
-        $stmt->execute([':start' => $start, ':end' => $end]);
+        $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE start >= :start AND end <= :end AND user_id = :user_id');
+        $stmt->execute([':start' => $start, ':end' => $end, ':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
