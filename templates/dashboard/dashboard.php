@@ -48,19 +48,22 @@
             <div class="row m-2 my-4 mb-3 justify-content-center gap-4">
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
                     <h3>Ostatni trening</h3>
-                    <div class="d-flex justify-content-center">
-                        <div><?= htmlspecialchars($lastTraining['data']['name']) ?></div>
-                        <div><?= htmlspecialchars($lastTraining['data']['end']) ?></div>
+                    <div>
+                        <h5><?= htmlspecialchars(ucfirst($lastTraining['data']['name'])) ?></h5>
+                        <div class="dashboard__last-training-date">
+                            <?php $date = new DateTime($lastTraining['data']['end']);
+                            echo $date->format('d-m-Y') ?>
+                        </div>
                     </div>
                 </div>
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Liczba treningów w tym tygodniu</h3>
+                    <h3>Treiningi w tym tygodniu</h3>
                     <div></div>
                 </div>
             </div>
             <div class="row m-2 my-4 justify-content-center gap-4">
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Najważniejszy rekord tygodnia</h3>
+                    <h3>Łączna objętość ostatnich 7 dni</h3>
                     <div></div>
                 </div>
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">

@@ -1,220 +1,209 @@
+$background: #222222;
+$text: #ebebeb;
+$primary: #cccccc;
+$secondary: #424242;
+$third: #f5f1f0;
+$accent: #fa6c5a;
+
 body {
-  background-color: #222222;
-  color: #ebebeb;
+	background-color: $background;
+	color: $text;
 }
 
 .custom-btn {
-  background-color: #424242;
-  color: #ebebeb;
-  font-weight: 500;
-}
-
-.custom-btn:hover {
-  background-color: #fc7260;
-  color: #424242;
+	background-color: $secondary;
+	color: $text;
+	font-weight: 500;
+	&:hover {
+		background-color: $accent;
+		color: $secondary;
+	}
 }
 
 .custom-accent-btn {
-  background-color: #fc7260;
-  color: #222222;
-  font-weight: 500;
+	background-color: $accent;
+	color: $background;
+	font-weight: 500;
+	&:hover {
+		background-color: $secondary;
+		color: $text;
+	}
 }
 
-.custom-accent-btn:hover {
-  background-color: #424242;
-  color: #ebebeb;
+.auth {
+	&__container {
+		width: 500px;
+		background-color: $third;
+	}
+	&__label {
+		color: $background;
+	}
+	li {
+		list-style: none;
+	}
 }
 
-.auth__container {
-  width: 500px;
-  background-color: #f5f1f0;
+.nav {
+	&__navbar {
+		border-bottom: 1px solid $accent;
+		overflow: hidden;
+	}
+	&__menu-btn {
+		border: 1px solid $text;
+	}
+	&__sidebar {
+		position: fixed;
+		top: 0;
+		width: 250px;
+		background-color: $background;
+		border-right: 1px solid $accent;
+		z-index: 1;
+	}
+	&__label {
+		color: $accent;
+	}
+	&__nav {
+		a {
+			&:focus {
+				color: $text;
+			}
+			&:active {
+				color: $text;
+				border-radius: 8px;
+			}
+		}
+	}
 }
 
-.auth__label {
-  color: #222222;
+.dashboard {
+	&__container {
+		background-color: $third;
+	}
+	&__last-training-date {
+		color: $accent;
+	}
 }
 
-.auth li {
-  list-style: none;
+.trainings {
+	&__create-workout-btn {
+		transform: rotate(-30deg);
+	}
+	&__add-training-btn {
+		@media (max-width: 568px) {
+			width: 100%;
+		}
+	}
+	&__save-training-container {
+		@media (max-width: 568px) {
+			display: block;
+			button {
+				width: 100%;
+			}
+		}
+	}
+	&__alert {
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		width: 100%;
+		max-width: 500px;
+		transform: translate(-50%, -50%);
+	}
+	&__training-container {
+		background-color: $third;
+		.card-header {
+			background-color: transparent;
+		}
+	}
+	&__empty-training-list {
+		color: $accent;
+	}
+	&__dropdown-menu-btn {
+		background-color: $primary;
+		&:hover {
+			border: 1px solid $accent;
+		}
+	}
+	&__dropdown-menu {
+		background-color: $primary;
+		.dropdown-item {
+			border: 1px solid $accent;
+		}
+	}
+	&__main-container {
+		padding-top: 5rem;
+	}
 }
 
-.nav__navbar {
-  border-bottom: 1px solid #fc7260;
-  overflow: hidden;
+.training {
+	&__main-container {
+		padding-top: 5rem;
+	}
+	&__training-container {
+		background-color: $third;
+		color: $secondary;
+	}
+	.noteExerciseFormModalBtn {
+		color: $accent;
+		cursor: pointer;
+	}
+	&__exercise-extra-note {
+		background-color: $primary;
+	}
+	&__dropdown-menu-btn {
+		background-color: $primary;
+		&:hover {
+			border: 1px solid $accent;
+		}
+	}
+	&__dropdown-menu {
+		background-color: $primary;
+		.dropdown-item {
+			border: 1px solid $accent;
+		}
+	}
+	.dropdown-set-menu-btn {
+		background-color: $third;
+		border: 1px solid $accent;
+		&:hover {
+			border: 1px solid $primary;
+		}
+	}
+	&__th {
+		position: relative;
+	}
+	&__tool-tip-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		opacity: 0.25;
+	}
 }
 
-.nav__menu-btn {
-  border: 1px solid #ebebeb;
+.history {
+	&__main-container {
+		&:first-of-type {
+			padding-top: 4rem;
+		}
+		&:last-of-type {
+			padding-bottom: 4rem;
+		}
+	}
+	&__training-container {
+		background-color: $third;
+		color: $secondary;
+	}
+	&__training-date {
+		color: $accent;
+	}
+	&__note-field {
+		color: $accent;
+	}
+	&__empty-training-history {
+		padding-top: 4rem;
+	}
+	&__empty-training-list {
+		padding-top: 4rem;
+		color: $accent;
+	}
 }
-
-.nav__sidebar {
-  position: fixed;
-  top: 0;
-  width: 250px;
-  background-color: #222222;
-  border-right: 1px solid #fc7260;
-  z-index: 1;
-}
-
-.nav__label {
-  color: #fc7260;
-}
-
-.nav__nav a:focus {
-  color: #ebebeb;
-}
-
-.nav__nav a:active {
-  color: #ebebeb;
-  border-radius: 8px;
-}
-
-.dashboard__container {
-  background-color: #f5f1f0;
-}
-
-.trainings__create-workout-btn {
-  transform: rotate(-30deg);
-}
-
-@media (max-width: 568px) {
-  .trainings__add-training-btn {
-    width: 100%;
-  }
-}
-@media (max-width: 568px) {
-  .trainings__save-training-container {
-    display: block;
-  }
-  .trainings__save-training-container button {
-    width: 100%;
-  }
-}
-.trainings__alert {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  width: 100%;
-  max-width: 500px;
-  transform: translate(-50%, -50%);
-}
-
-.trainings__training-container {
-  background-color: #f5f1f0;
-}
-
-.trainings__training-container .card-header {
-  background-color: transparent;
-}
-
-.trainings__empty-training-list {
-  color: #fc7260;
-}
-
-.trainings__dropdown-menu-btn {
-  background-color: #cccccc;
-}
-
-.trainings__dropdown-menu-btn:hover {
-  border: 1px solid #fc7260;
-}
-
-.trainings__dropdown-menu {
-  background-color: #cccccc;
-}
-
-.trainings__dropdown-menu .dropdown-item {
-  border: 1px solid #fc7260;
-}
-
-.trainings__main-container {
-  padding-top: 5rem;
-}
-
-.training__main-container {
-  padding-top: 5rem;
-}
-
-.training__training-container {
-  background-color: #f5f1f0;
-  color: #424242;
-}
-
-.training .noteExerciseFormModalBtn {
-  color: #fc7260;
-  cursor: pointer;
-}
-
-.training__exercise-extra-note {
-  background-color: #cccccc;
-}
-
-.training__dropdown-menu-btn {
-  background-color: #cccccc;
-}
-
-.training__dropdown-menu-btn:hover {
-  border: 1px solid #fc7260;
-}
-
-.training__dropdown-menu {
-  background-color: #cccccc;
-}
-
-.training__dropdown-menu .dropdown-item {
-  border: 1px solid #fc7260;
-}
-
-.training .dropdown-set-menu-btn {
-  background-color: #f5f1f0;
-  border: 1px solid #fc7260;
-}
-
-.training .dropdown-set-menu-btn:hover {
-  border: 1px solid #cccccc;
-}
-
-.training__th {
-  position: relative;
-}
-
-.training__tool-tip-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  opacity: 0.25;
-}
-
-.history__main-container:first-of-type {
-  padding-top: 4rem;
-}
-
-.history__main-container:last-of-type {
-  padding-bottom: 4rem;
-}
-
-.history__training-container {
-  background-color: #f5f1f0;
-  color: #424242;
-}
-
-.history__training-date {
-  color: #fc7260;
-}
-
-.history__note-field {
-  color: #fc7260;
-}
-
-.history__empty-training-history {
-  padding-top: 4rem;
-}
-
-.history__empty-training-list {
-  padding-top: 4rem;
-  color: #fc7260;
-}
-
-
-
-/*# sourceMappingURL=main.scss.map */

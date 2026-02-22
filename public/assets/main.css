@@ -9,12 +9,12 @@ body {
   font-weight: 500;
 }
 .custom-btn:hover {
-  background-color: #fc7260;
+  background-color: #fa6c5a;
   color: #424242;
 }
 
 .custom-accent-btn {
-  background-color: #fc7260;
+  background-color: #fa6c5a;
   color: #222222;
   font-weight: 500;
 }
@@ -35,7 +35,7 @@ body {
 }
 
 .nav__navbar {
-  border-bottom: 1px solid #fc7260;
+  border-bottom: 1px solid #fa6c5a;
   overflow: hidden;
 }
 .nav__menu-btn {
@@ -46,11 +46,11 @@ body {
   top: 0;
   width: 250px;
   background-color: #222222;
-  border-right: 1px solid #fc7260;
+  border-right: 1px solid #fa6c5a;
   z-index: 1;
 }
 .nav__label {
-  color: #fc7260;
+  color: #fa6c5a;
 }
 .nav__nav a:focus {
   color: #ebebeb;
@@ -62,6 +62,9 @@ body {
 
 .dashboard__container {
   background-color: #f5f1f0;
+}
+.dashboard__last-training-date {
+  color: #fa6c5a;
 }
 
 .trainings__create-workout-btn {
@@ -95,19 +98,19 @@ body {
   background-color: transparent;
 }
 .trainings__empty-training-list {
-  color: #fc7260;
+  color: #fa6c5a;
 }
 .trainings__dropdown-menu-btn {
   background-color: #cccccc;
 }
 .trainings__dropdown-menu-btn:hover {
-  border: 1px solid #fc7260;
+  border: 1px solid #fa6c5a;
 }
 .trainings__dropdown-menu {
   background-color: #cccccc;
 }
 .trainings__dropdown-menu .dropdown-item {
-  border: 1px solid #fc7260;
+  border: 1px solid #fa6c5a;
 }
 .trainings__main-container {
   padding-top: 5rem;
@@ -121,7 +124,7 @@ body {
   color: #424242;
 }
 .training .noteExerciseFormModalBtn {
-  color: #fc7260;
+  color: #fa6c5a;
   cursor: pointer;
 }
 .training__exercise-extra-note {
@@ -131,17 +134,17 @@ body {
   background-color: #cccccc;
 }
 .training__dropdown-menu-btn:hover {
-  border: 1px solid #fc7260;
+  border: 1px solid #fa6c5a;
 }
 .training__dropdown-menu {
   background-color: #cccccc;
 }
 .training__dropdown-menu .dropdown-item {
-  border: 1px solid #fc7260;
+  border: 1px solid #fa6c5a;
 }
 .training .dropdown-set-menu-btn {
   background-color: #f5f1f0;
-  border: 1px solid #fc7260;
+  border: 1px solid #fa6c5a;
 }
 .training .dropdown-set-menu-btn:hover {
   border: 1px solid #cccccc;
@@ -167,17 +170,17 @@ body {
   color: #424242;
 }
 .history__training-date {
-  color: #fc7260;
+  color: #fa6c5a;
 }
 .history__note-field {
-  color: #fc7260;
+  color: #fa6c5a;
 }
 .history__empty-training-history {
   padding-top: 4rem;
 }
 .history__empty-training-list {
   padding-top: 4rem;
-  color: #fc7260;
+  color: #fa6c5a;
 }
 
 /*# sourceMappingURL=main.css.map */
