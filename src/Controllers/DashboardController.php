@@ -17,6 +17,7 @@ class DashboardController
     {
         $userId = $_SESSION['id'];
         $lastTraining = $this->service->getLastTrainingNameQuery($userId);
+        $last7TrainingsVolume = $this->service->countVolumeLast7Days($userId);
 
         require '../templates/dashboard/dashboard.php';
     }
