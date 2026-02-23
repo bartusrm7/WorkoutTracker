@@ -69,7 +69,7 @@
 						<div class="d-lg-flex">
 							<?php $trainingDuration = $_SESSION['training_duration'] ?? '' ?>
 							<input type="hidden" data-duration-training-hidden="<?= htmlspecialchars($trainingDuration) ?>" id="trainingDurationInputHidden">
-							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>">0</span></div>
+							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>">00:00:00</span></div>
 							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
 							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
 						</div>
@@ -402,7 +402,7 @@
 			const formatDiffrences = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
 
 			trainingDurationElement.innerHTML = formatDiffrences;
-			document.getElementById('trainingDurationInputHidden').value = seconds;
+			document.getElementById('trainingDurationInputHidden').value = diffrences;
 		}, 1000);
 	}
 

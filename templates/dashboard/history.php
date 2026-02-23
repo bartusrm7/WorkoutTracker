@@ -64,7 +64,7 @@
         <?php else: ?>
             <?php foreach ($trainings['data']['trainings'] as $training): ?>
 
-                <div class="history__main-container my-3 mx-1">
+                <div class="history__main-container my-1  mx-1">
                     <div class="history__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
