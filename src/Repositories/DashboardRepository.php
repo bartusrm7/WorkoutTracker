@@ -24,6 +24,13 @@ class DashboardRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function amountOfTrainingsThisWeekQuery($userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT id FROM training WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(), 1)');
+        $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function countVolumeLast7DaysQuery($userId)
     {
         $stmt = $this->pdo->prepare(
@@ -33,6 +40,13 @@ class DashboardRepository
             WHERE training_history.user_id = :user_id
             AND training_history.start >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)'
         );
+        $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function sumOfTrainigDurationsThisWeekQuery($userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT duration FROM training WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(),1)');
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

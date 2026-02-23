@@ -28,6 +28,19 @@ class DashboardService
         ];
     }
 
+    public function amountOfTrainingsThisWeek($userId)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->amountOfTrainingsThisWeekQuery($userId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function countVolumeLast7Days($userId)
     {
         if (!$userId) {
@@ -48,6 +61,33 @@ class DashboardService
             'data' => [
                 'volume' => $volume
             ]
+        ];
+    }
+
+    public function sumOfTrainigDurationsThisWeek($userId)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->sumOfTrainigDurationsThisWeekQuery($userId);
+        $durationSum = 0;
+
+        foreach ($result as $row) {
+            $durationSum += $row['duration'];
+            $minutes = intdiv($durationSum, 60);
+            $hours = intdiv($minutes, 60);
+            $rest = $durationSum % 60;
+            $time = $rest . 's';
+            if ($minutes > 0) {
+                $time = $minutes . ':' . $rest . 'm';
+            } else if ($hours > 0) {
+                $time = $hours . ':' . $minutes . ':' . $rest . 'h';
+            }
+        }
+
+        return [
+            'success' => true,
+            'data' => $time
         ];
     }
 }

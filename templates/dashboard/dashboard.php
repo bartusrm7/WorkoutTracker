@@ -58,17 +58,17 @@
                 </div>
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
                     <h3>Treningi w tym tygodniu</h3>
-                    <div></div>
+                    <div><?= htmlspecialchars(count($trainingsThisWeek['data'])) ?></div>
                 </div>
             </div>
             <div class="row m-2 my-4 justify-content-center gap-4">
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
                     <h3>Łączna objętość ostatnich 7 dni</h3>
-                    <div><?= $last7TrainingsVolume['data']['volume'] ?>kg</div>
+                    <div><?= htmlspecialchars($last7TrainingsVolume['data']['volume']) ?>kg</div>
                 </div>
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Łączny czas treningów w ostatnim tygodniu</h3>
-                    <div></div>
+                    <h3>Łączny czas treningów w tym tygodniu</h3>
+                    <div><?= htmlspecialchars($sumTrainingDuration['data']) ?></div>
                 </div>
             </div>
         </div>
