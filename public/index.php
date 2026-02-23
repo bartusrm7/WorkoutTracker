@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
 use App\Controllers\HistoryController;
+use App\Controllers\StatisticsController;
 use App\Controllers\TrainingController;
 use App\Middlewares\AuthMiddleware;
 
@@ -57,6 +58,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
     $r->addRoute('GET', '/history', [HistoryController::class, 'history']);
+    $r->addRoute('GET', '/statistics', [StatisticsController::class, 'statistics']);
 });
 
 // Fetch method and URI from somewhere
@@ -86,6 +88,7 @@ switch ($routeInfo[0]) {
             '/dashboard',
             '/trainings',
             '/training',
+            '/statistics',
         ];
         if (in_array($uri, $protectedRoutes, true)) {
             (new AuthMiddleware)->userAccess();
