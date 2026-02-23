@@ -43,10 +43,22 @@ class HistoryController
         $userId = $_SESSION['id'];
 
         $trainings = $this->service->filterTrainingByDate($start, $end, $userId);
+        $durationSum = 0;
 
         foreach ($trainings['data']['trainings'] as &$training) {
             $totalWeight = 0;
             $totalSets = 0;
+
+            $durationSum = $training['duration'];
+            $minutes = intdiv($durationSum, 60);
+            $hours = intdiv($minutes, 60);
+            $rest = $durationSum % 60;
+            $time = $rest . 's';
+            if ($minutes > 0) {
+                $time = $minutes . ':' . $rest . 'm';
+            } else if ($hours > 0) {
+                $time = $hours . ':' . $minutes . ':' . $rest . 'h';
+            }
 
             foreach ($training['exercises'] as $exercise) {
 
@@ -56,6 +68,7 @@ class HistoryController
                 }
             }
 
+            $training['duration'] = $time;
             $training['weightVolume'] = $totalWeight;
             $training['setsVolume'] = $totalSets;
         }

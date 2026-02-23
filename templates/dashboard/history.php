@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/7287626084.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
-    <title>Trening</title>
+    <title>Historia</title>
 </head>
 
 <body class="min-vh-100">
