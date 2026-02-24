@@ -30,6 +30,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // AUTH
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
+    $r->addRoute('POST', '/user-data', [AuthController::class, 'userData']);
 
     // TRAINING
     $r->addRoute('POST', '/create-training', [TrainingController::class, 'addTraining']);
@@ -56,6 +57,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
+    $r->addRoute('GET', '/user-data-form', [AuthController::class, 'userDataForm']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'dashboard']);
     $r->addRoute('GET', '/history', [HistoryController::class, 'history']);
     $r->addRoute('GET', '/statistics', [StatisticsController::class, 'statistics']);
@@ -85,6 +87,7 @@ switch ($routeInfo[0]) {
         $vars = $routeInfo[2];
 
         $protectedRoutes = [
+            '/user-data-form',
             '/dashboard',
             '/trainings',
             '/training',

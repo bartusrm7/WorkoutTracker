@@ -61,4 +61,33 @@ class AuthService
         }
         return $user;
     }
+
+    public function insertUserData($age, $height, $weight, $goalWeight, $goal, $userId)
+    {
+        if (empty($age) || empty($height) || empty($weight) || empty($goalWeight) || empty($goal)) {
+            return ['success' => false, 'error' => 'Wszystkie pola muszą być uzupełnione'];
+        }
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->insertUserDataQuery($age, $height, $weight, $goalWeight, $goal, $userId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
+    public function markIsProfileComplete($id)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->markIsProfileCompleteQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
 }

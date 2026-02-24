@@ -40,7 +40,25 @@ class Database
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            is_profile_complete TINYINT(1) DEFAULT 0
+        )');
+    }
+
+    public function createUserDataTable()
+    {
+        $this->pdo->exec('CREATE TABLE IF NOT EXISTS user_data (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            age INT NOT NULL,
+            height INT NOT NULL,
+            weight INT NOT NULL,
+            goal_weight INT NOT NULL,
+            goal VARCHAR(100) NOT NULL,
+            user_id INT,
+            CONSTRAINT fk_user_data
+            FOREIGN KEY (user_id)
+            REFERENCES users(id)
+            ON DELETE CASCADE
         )');
     }
 

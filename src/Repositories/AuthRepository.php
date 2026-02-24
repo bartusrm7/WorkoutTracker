@@ -31,7 +31,8 @@ class AuthRepository
             $id,
             '',
             $row['email'],
-            ''
+            '',
+            0
         );
     }
 
@@ -41,7 +42,7 @@ class AuthRepository
         $stmt->execute([':name' => $name, ':email' => $email, ':password' => $pass]);
         $id = (int) $this->pdo->lastInsertId();
 
-        return new AuthModel($id, $name, $email, $pass);
+        return new AuthModel($id, $name, $email, $pass, 0);
     }
 
     public function loginUserQuery($email)
@@ -58,6 +59,21 @@ class AuthRepository
             $row['name'],
             $row['email'],
             $row['password'],
+            $row['is_profile_complete']
         );
+    }
+
+    public function insertUserDataQuery($age, $height, $weight, $goalWeight, $goal, $userId)
+    {
+        $stmt = $this->pdo->prepare('INSERT INTO user_data (age, height, weight, goal_weight, goal, user_id) VALUES (:age, :height, :weight, :goal_weight, :goal, :user_id)');
+        $stmt->execute([':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, ':user_id' => $userId]);
+        return (int) $this->pdo->lastInsertId();
+    }
+
+    public function markIsProfileCompleteQuery($id)
+    {
+        $stmt = $this->pdo->prepare('UPDATE users SET is_profile_complete = 1 WHERE id = :id');
+        $result = $stmt->execute([':id' => $id]);
+        return $result;
     }
 }

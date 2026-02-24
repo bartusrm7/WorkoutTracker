@@ -54,12 +54,14 @@ class AuthController
             include __DIR__ .  '/../../templates/auth/signin.php';
             exit();
         }
-
         session_regenerate_id(true);
         $_SESSION['id'] = $user->getId();
         $_SESSION['name'] = $user->getName();
-
-        header('Location: /dashboard');
+        if ($user->getIsProfileComplete()) {
+            header('Location: /dashboard');
+        } else {
+            header('Location: /user-data-form');
+        }
         exit();
     }
 
@@ -88,5 +90,33 @@ class AuthController
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
         require '../templates/auth/signup.php';
+    }
+
+    public function userDataForm()
+    {
+        require '../templates/auth/userdataform.php';
+    }
+
+    public function userData()
+    {
+        session_start();
+        $userId = $_SESSION['id'];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $age = $data['age'];
+        $height = $data['height'];
+        $weight = $data['weight'];
+        $goalWeight = $data['goalWeight'];
+        $goal = $data['goal'];
+
+        $result = $this->service->insertUserData($age, $height, $weight, $goalWeight, $goal, $userId);
+        if ($result) {
+            $completedProfile = $this->service->markIsProfileComplete($userId);
+            echo json_encode($completedProfile);
+            exit;
+        }
+
+        echo json_encode($result);
+        exit;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 class AuthModel
 {
-    public function __construct(private int $id, private string $name, private string $email, private string $pass) {}
+    public function __construct(private int $id, private string $name, private string $email, private string $pass, private int $isProfileComplete) {}
 
     public function getId()
     {
@@ -21,5 +21,9 @@ class AuthModel
     public function getPass()
     {
         return $this->pass;
+    }
+    public function getIsProfileComplete()
+    {
+        return $this->isProfileComplete;
     }
 }
