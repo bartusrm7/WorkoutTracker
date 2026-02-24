@@ -54,6 +54,9 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // HISTORY
     $r->addRoute('POST', '/filter-trainings', [HistoryController::class, 'filterTrainings']);
 
+    // STATISTICS
+    $r->addRoute('POST', '/filter-exercise-statistics', [StatisticsController::class, 'filterExercisesStatistics']);
+
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);

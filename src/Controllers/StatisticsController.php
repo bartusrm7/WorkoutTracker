@@ -23,4 +23,17 @@ class StatisticsController
 
         require '../templates/dashboard/statistics.php';
     }
+
+    public function filterExercisesStatistics()
+    {
+        session_start();
+        $userId = $_SESSION['id'];
+        $data = json_decode(file_get_contents('php://input'), true);
+        $start = $data['start'];
+        $end = $data['end'];
+        $exercise = $data['exercise'];
+
+        $result = $this->service->filterExercisesStatisticsByDate($userId, $start, $end, $exercise);
+        echo json_encode($result);
+    }
 }

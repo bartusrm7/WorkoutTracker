@@ -47,18 +47,40 @@
         <div class="container">
             <div class="statistics__main-container">
                 <div class="row">
-                    <div class="statistics__container col-12 col-lg-8">
+                    <div class="statistics__container col-12 col-lg-6">
                         <h3>Waga</h3>
                         <canvas id="weightCharts"></canvas>
                     </div>
+                    <div class="statistics__container col-12 col-lg-6">
+                        <h3>Treningi</h3>
+                        <canvas id="trainingCharts"></canvas>
+                    </div>
                     <div class="statistics__container col-12 col-lg-8">
                         <h3>Ćwiczenia</h3>
-                        <select name="" id="">
-                            <option value="">pull ups</option>
-                            <option value="">chin ups</option>
-                            <option value="">dipy</option>
-                        </select>
-                        <canvas id="trainingCharts"></canvas>
+
+                        <form class="row justify-content-center align-items-end" action="/filter-exercise-statistics" method="post">
+                            <div class="col-6 col-md-4">
+                                <label for="start" class="form-label mb-0">Data od</label>
+                                <input type="date" class="form-control" value="<?= date('Y-m-d') ?>" name="start" id="start" required placeholder="">
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <label for="end" class="form-label mb-0">Data do</label>
+                                <input type="date" class="form-control" value="<?= date('Y-m-d', strtotime('+1 day')) ?>" name="end" id="end" required placeholder="">
+                            </div>
+                            <div class="form-floating col-md-4 mt-3 mt-md-0">
+                                <select name="exercise" id="exercise" class="form-select">
+                                    <option value="">pull ups</option>
+                                    <option value="chin ups">chin ups</option>
+                                    <option value="hip thrust">hip thrust</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mt-3 mt-md-0">
+                                <button type="button" class="custom-accent-btn btn w-100" onclick="filterExercisesStatisticsByDate()">Szukaj</button>
+                            </div>
+                        </form>
+
+
+                        <canvas class="bg-white" id="exerciseCharts"></canvas>
                     </div>
                 </div>
             </div>
@@ -136,4 +158,49 @@
         });
     }
     myChartsTrainings();
+
+    const myChartsExercises = () => {
+        new Chart(document.getElementById('exerciseCharts'), {
+            type: 'line',
+            data: {
+                labels: months.map(data => data),
+                datasets: [{
+                    label: 'Waga',
+                    data: weightData.map(weight => weight.weight),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    myChartsExercises();
+
+    async function filterExercisesStatisticsByDate() {
+        const start = document.getElementById('start').value;
+        const end = document.getElementById('end').value;
+        const exercise = document.getElementById('exercise').value;
+
+        const response = await fetch('/filter-exercise-statistics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                start: start,
+                end: end,
+                exercise: exercise
+            })
+        });
+        if (!response.ok) {
+            throw new Error('Błąd podczas wyszukiwania statystyk ćwiczenia', error.status);
+        }
+        const data = await response.text();
+        console.log(data);
+    }
 </script>

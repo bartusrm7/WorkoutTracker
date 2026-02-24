@@ -25,6 +25,20 @@ class StatisticsRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function filterExercisesStatisticsByDateQuery($userId, $start, $end, $exercise)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT * FROM training_history
+            INNER JOIN exercises_history ON exercises_history.training_id = training_history.id
+            INNER JOIN exercises_history_data ON exercises_history_data.exercise_id = exercises_history.id
+            WHERE training_history.user_id = :user_id
+            AND training_history.start >= :start
+            AND training_history.end <= :end
+            AND exercises_history.name = :name'
+        );
+        $stmt->execute([':user_id' => $userId, ':start' => $start, ':end' => $end, 'name' => $exercise]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getUserTrainingsQuery($id)
     {
