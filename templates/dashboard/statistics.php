@@ -45,14 +45,32 @@
     <main class="statistics">
 
         <div class="container">
-
+            <div class="statistics__main-container">
+                <div class="row">
+                    <div class="statistics__container col-12 col-lg-8">
+                        <h3>Waga</h3>
+                        <canvas id="weightCharts"></canvas>
+                    </div>
+                    <div class="statistics__container col-12 col-lg-8">
+                        <h3>Ćwiczenia</h3>
+                        <select name="" id="">
+                            <option value="">pull ups</option>
+                            <option value="">chin ups</option>
+                            <option value="">dipy</option>
+                        </select>
+                        <canvas id="trainingCharts"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
+
 </body>
 
 </html>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const handleOpenMenu = () => {
         const sideBar = document.querySelector(".nav__sidebar");
@@ -69,4 +87,53 @@
             menuBtn.classList.add('fa-bars-staggered');
         }
     };
+
+    const weightData = <?= json_encode($weightCharts['data']) ?>;
+    const trainingData = <?= json_encode($trainingCharts['data']) ?>;
+
+    const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+
+    const myChartsWeights = () => {
+        new Chart(document.getElementById('weightCharts'), {
+            type: 'line',
+            data: {
+                labels: months.map(data => data),
+                datasets: [{
+                    label: 'Waga',
+                    data: weightData.map(weight => weight.weight),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    myChartsWeights();
+
+    const myChartsTrainings = () => {
+        new Chart(document.getElementById('trainingCharts'), {
+            type: 'line',
+            data: {
+                labels: months.map(data => data),
+                datasets: [{
+                    label: 'Treningi',
+                    data: trainingData.map(training => training),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    myChartsTrainings();
 </script>
