@@ -45,17 +45,17 @@
     <main class="statistics">
 
         <div class="container">
-            <div class="statistics__main-container">
+            <div class="statistics__main-container my-5">
                 <div class="row">
-                    <div class="statistics__container col-12 col-lg-6">
+                    <div class="statistics__container text-center col-12 col-lg-6">
                         <h3>Waga</h3>
                         <canvas id="weightCharts"></canvas>
                     </div>
-                    <div class="statistics__container col-12 col-lg-6">
+                    <div class="statistics__container text-center col-12 col-lg-6">
                         <h3>Treningi</h3>
                         <canvas id="trainingCharts"></canvas>
                     </div>
-                    <div class="statistics__container col-12 col-lg-8">
+                    <div class="statistics__container text-center col-12 col-lg-8">
                         <h3>Ćwiczenia</h3>
 
                         <form class="row justify-content-center align-items-end" action="/filter-exercise-statistics" method="post">
@@ -114,6 +114,7 @@
     const trainingData = <?= json_encode($trainingCharts['data']) ?>;
 
     const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+    let scopeTime = [];
 
     const myChartsWeights = () => {
         new Chart(document.getElementById('weightCharts'), {
@@ -163,9 +164,9 @@
         new Chart(document.getElementById('exerciseCharts'), {
             type: 'line',
             data: {
-                labels: months.map(data => data),
+                labels: scopeTime.map(data => data),
                 datasets: [{
-                    label: 'Waga',
+                    label: 'Ćwiczenia',
                     data: weightData.map(weight => weight.weight),
                     borderWidth: 1
                 }]
@@ -179,12 +180,12 @@
             }
         });
     }
-    myChartsExercises();
 
     async function filterExercisesStatisticsByDate() {
         const start = document.getElementById('start').value;
         const end = document.getElementById('end').value;
         const exercise = document.getElementById('exercise').value;
+        scopeTime = [start, end]
 
         const response = await fetch('/filter-exercise-statistics', {
             method: 'POST',
@@ -200,7 +201,6 @@
         if (!response.ok) {
             throw new Error('Błąd podczas wyszukiwania statystyk ćwiczenia', error.status);
         }
-        const data = await response.text();
-        console.log(data);
+        myChartsExercises();
     }
 </script>
