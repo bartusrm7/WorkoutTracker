@@ -49,9 +49,9 @@
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
                     <h3>Ostatni trening</h3>
                     <div>
-                        <h5><?= htmlspecialchars(ucfirst($lastTraining['data']['name'])) ?></h5>
+                        <h5><?= htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? '')) ?></h5>
                         <div class="dashboard__last-training-date">
-                            <?php $date = new DateTime($lastTraining['data']['end']);
+                            <?php $date = new DateTime($lastTraining['data']['end'] ?? '');
                             echo $date->format('d-m-Y') ?>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
                     <h3>Łączny czas treningów w tym tygodniu</h3>
-                    <div><?= htmlspecialchars($sumTrainingDuration['data']) ?></div>
+                    <div><?= htmlspecialchars($sumTrainingDuration['data'] ?? 0) ?></div>
                 </div>
             </div>
         </div>

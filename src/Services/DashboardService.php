@@ -71,6 +71,7 @@ class DashboardService
         }
         $result = $this->repository->sumOfTrainigDurationsThisWeekQuery($userId);
         $durationSum = 0;
+        $time = 0;
 
         foreach ($result as $row) {
             $durationSum += $row['duration'];

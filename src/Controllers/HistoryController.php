@@ -49,7 +49,7 @@ class HistoryController
             $totalWeight = 0;
             $totalSets = 0;
 
-            $durationSum = $training['duration'];
+            $durationSum = (int)$training['duration'];
             $minutes = intdiv($durationSum, 60);
             $hours = intdiv($minutes, 60);
             $rest = $durationSum % 60;
