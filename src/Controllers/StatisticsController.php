@@ -20,6 +20,7 @@ class StatisticsController
         $userId = $_SESSION['id'];
         $weightCharts = $this->service->getUserWeights($userId);
         $trainingCharts = $this->service->getUserTrainings($userId);
+        $exercises = $this->service->getAllExercisesBelongForLoggedUser($userId);
 
         require '../templates/dashboard/statistics.php';
     }

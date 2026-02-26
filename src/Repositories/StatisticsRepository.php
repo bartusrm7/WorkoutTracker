@@ -20,7 +20,14 @@ class StatisticsRepository
 
     public function getUserWeightsQuery($userId)
     {
-        $stmt = $this->pdo->prepare('SELECT weight FROM user_data WHERE user_id = :user_id');
+        $stmt = $this->pdo->prepare('SELECT weight, updated_date FROM user_data WHERE user_id = :user_id');
+        $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserTrainingsQuery($userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE user_id = :user_id');
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -40,10 +47,14 @@ class StatisticsRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getUserTrainingsQuery($id)
+    public function getAllExercisesBelongForLoggedUserQuery($userId)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM training WHERE id = :id');
-        $stmt->execute([':id' => $id]);
+        $stmt = $this->pdo->prepare(
+            'SELECT DISTINCT exercises_history.name FROM exercises_history
+            INNER JOIN training_history ON exercises_history.training_id = training_history.id
+            WHERE training_history.user_id = :user_id'
+        );
+        $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -59,4 +59,17 @@ class StatisticsService
             'data' => $result
         ];
     }
+
+    public function getAllExercisesBelongForLoggedUser($userId)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->getAllExercisesBelongForLoggedUserQuery($userId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
 }

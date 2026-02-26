@@ -4,6 +4,7 @@ $primary: #cccccc;
 $secondary: #424242;
 $third: #f5f1f0;
 $accent: #fa6c5a;
+$accent-two: #ff4f18;
 
 body {
 	background-color: $background;
@@ -205,5 +206,12 @@ body {
 	&__empty-training-list {
 		padding-top: 4rem;
 		color: $accent;
+	}
+}
+
+.statistics {
+	&__search-exercise-select {
+		height: 38px !important;
+		min-height: 38px !important;
 	}
 }

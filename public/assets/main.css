@@ -183,4 +183,9 @@ body {
   color: #fa6c5a;
 }
 
+.statistics__search-exercise-select {
+  height: 38px !important;
+  min-height: 38px !important;
+}
+
 /*# sourceMappingURL=main.css.map */
