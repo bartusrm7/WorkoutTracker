@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://kit.fontawesome.com/7287626084.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
-    <title>Dashboard</title>
+    <title>Ustawienia</title>
 </head>
 
 <body class="min-vh-100">
@@ -48,32 +48,7 @@
     <main class="dashboard">
 
         <div class="container">
-            <div class="row m-2 my-4 mb-3 justify-content-center gap-4">
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Ostatni trening</h3>
-                    <div>
-                        <h5><?= htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? '')) ?></h5>
-                        <div class="dashboard__last-training-date">
-                            <?php $date = new DateTime($lastTraining['data']['end'] ?? '');
-                            echo $date->format('d-m-Y') ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Treningi w tym tygodniu</h3>
-                    <div><?= htmlspecialchars(count($trainingsThisWeek['data'])) ?></div>
-                </div>
-            </div>
-            <div class="row m-2 my-4 justify-content-center gap-4">
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Łączna objętość ostatnich 7 dni</h3>
-                    <div><?= htmlspecialchars($last7TrainingsVolume['data']['volume']) ?>kg</div>
-                </div>
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Łączny czas treningów w tym tygodniu</h3>
-                    <div><?= htmlspecialchars($sumTrainingDuration['data'] ?? 0) ?></div>
-                </div>
-            </div>
+            <div class="row m-2 my-4 mb-3 justify-content-center gap-4"></div>
         </div>
 
     </main>

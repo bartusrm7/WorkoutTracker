@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 use App\Database\Database;
 
-class SettingsRepository
+class ProfileRepository
 {
     private $pdo;
 

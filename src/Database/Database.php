@@ -55,7 +55,6 @@ class Database
             weight INT NOT NULL,
             goal_weight INT NOT NULL,
             goal VARCHAR(100) NOT NULL,
-            important_part VARCHAR(100) DEFAULT NULL,
             updated_date DATE,
             user_id INT,
             CONSTRAINT fk_user_data
