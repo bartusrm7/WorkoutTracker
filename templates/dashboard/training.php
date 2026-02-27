@@ -26,19 +26,19 @@
 			<h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
 			<hr>
 			<ul class="nav__nav nav flex-column mb-auto">
-				<li class="nav-item mb-2">
+				<li class="nav-item mb-3">
 					<a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
 				</li>
-				<li class="nav-item mb-2">
+				<li class="nav-item mb-3">
 					<a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
 				</li>
-				<li class="nav-item mb-2">
+				<li class="nav-item mb-3">
 					<a href="/history" class="custom-btn btn nav-link"> Historia </a>
 				</li>
-				<li class="nav-item mb-2">
+				<li class="nav-item mb-3">
 					<a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
 				</li>
-				<li class="nav-item mb-2">
+				<li class="nav-item mb-3">
 					<a href="/profile" class="custom-btn btn nav-link"> Profil </a>
 				</li>
 			</ul>
@@ -51,7 +51,7 @@
 		<a href="/trainings" class="custom-accent-btn btn px-5 mt-3 float-end">Wróć</a>
 
 		<div class="training__main-container">
-			<div class="training__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
+			<div class="training__training-container rounded-3 p-3 col-md-10 col-lg-8 col-xl-6 m-auto">
 				<div>
 					<div class="d-flex justify-content-between">
 						<h2 class="traning__trainin-plan-label mb-0">
@@ -72,93 +72,91 @@
 						<div class="d-lg-flex">
 							<?php $trainingDuration = $_SESSION['training_duration'] ?? '' ?>
 							<input type="hidden" data-duration-training-hidden="<?= htmlspecialchars($trainingDuration) ?>" id="trainingDurationInputHidden">
-							<div class="me-lg-3">Czas trwania: <span class="fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>">00:00:00</span></div>
-							<div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
-							<div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
+							<div class="me-lg-3">Czas trwania: <span class="training__details fw-bold" id="trainingDuration" data-duration-training="<?= htmlspecialchars($trainingDuration) ?>">00:00:00</span></div>
+							<div class="me-lg-3">Objętość: <span class="training__details fw-bold"><?= htmlspecialchars($setsVolumeWeight) ?>kg</span></div>
+							<div class="me-lg-3">Ilość serii: <span class="training__details fw-bold"><?= htmlspecialchars($setsVolumeAmount) ?></span></div>
 						</div>
 					</div>
 				</div>
 				<hr>
 
 				<?php foreach ($training['data'] as $row): ?>
-					<div class="container mt-3">
-						<div class="row">
-							<table class="table table-bordered mb-0 text-center">
-								<div>
-									<div class="d-flex justify-content-between align-items-center mb-2">
-										<h5 class="traning__exercise-name mb-0">
-											<?= htmlspecialchars(ucfirst($row['name'])) ?>
-										</h5>
-										<div class="dropdown">
-											<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
-												<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
-											</button>
+					<div class="mt-3">
+						<table class="table table-bordered mb-0 text-center rounded-3">
+							<div>
+								<div class="d-flex justify-content-between align-items-center mb-2">
+									<h5 class="traning__exercise-name mb-0">
+										<?= htmlspecialchars(ucfirst($row['name'])) ?>
+									</h5>
+									<div class="dropdown">
+										<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
+											<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
+										</button>
 
-											<ul class="training__dropdown-menu dropdown-menu p-0">
-												<li>
-													<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
-												</li>
-												<li>
-													<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" onclick="removeExercise.call(this)">Usuń</button>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="mb-2">
-										<?php if ($row['note']): ?>
-											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>"><?= htmlspecialchars(ucfirst($row['note'])) ?></div>
-										<?php else: ?>
-											<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>">Dodaj notatkę...</div>
-										<?php endif ?>
+										<ul class="training__dropdown-menu dropdown-menu p-0">
+											<li>
+												<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
+											</li>
+											<li>
+												<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" onclick="removeExercise.call(this)">Usuń</button>
+											</li>
+										</ul>
 									</div>
 								</div>
-								<thead>
-									<tr>
-										<th class=" training__th col-2">S
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
-										</th>
-										<th class="training__th col-2">C
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
-										</th>
-										<th class="training__th col-2">P
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
-										</th>
-										<th class="training__th col-2">Z
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
-										</th>
-										<th class="training__th col-2">E
-											<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
-										</th>
-									</tr>
-								</thead>
-								<tbody id="setsData">
-									<?php foreach ($row['sets'] as $set): ?>
-										<tr data-set-id="<?= htmlspecialchars($set['sets']) ?>">
-											<th><?= htmlspecialchars($set['setNum']) ?></th>
-											<td><?= $set['weight'] == 0 ? '' : htmlspecialchars($set['weight']) ?></td>
-											<td><?= htmlspecialchars($set['reps']) ?></td>
-											<td><?= $set['rir'] == 0 ? '' : htmlspecialchars($set['rir']) ?></td>
-											<td>
-												<div class="dropdown">
-													<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
-														<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
-													</button>
+								<div class="mb-2 note-container rounded-3 p-2">
+									<?php if ($row['note']): ?>
+										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>"><?= htmlspecialchars(ucfirst($row['note'])) ?></div>
+									<?php else: ?>
+										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>">Dodaj notatkę...</div>
+									<?php endif ?>
+								</div>
+							</div>
+							<thead>
+								<tr>
+									<th class=" training__th col-2">S
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">C
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">P
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">Z
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">E
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edycja serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="setsData">
+								<?php foreach ($row['sets'] as $set): ?>
+									<tr data-set-id="<?= htmlspecialchars($set['sets']) ?>">
+										<th><?= htmlspecialchars($set['setNum']) ?></th>
+										<td><?= $set['weight'] == 0 ? '' : htmlspecialchars($set['weight']) ?></td>
+										<td><?= htmlspecialchars($set['reps']) ?></td>
+										<td><?= $set['rir'] == 0 ? '' : htmlspecialchars($set['rir']) ?></td>
+										<td>
+											<div class="dropdown">
+												<button class="training__dropdown-menu-btn btn dropdown-set-menu-btn" data-bs-toggle="dropdown">
+													<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
+												</button>
 
-													<ul class="training__dropdown-menu dropdown-menu p-0">
-														<li>
-															<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= htmlspecialchars($set['sets']) ?>" data-id="<?= htmlspecialchars($set['id']) ?>">Edytuj</button>
-														</li>
-														<li>
-															<button class="dropdown-item btn custom-btn" data-id="<?= htmlspecialchars($set['id']) ?>" onclick="deleteSet.call(this)">Usuń</button>
-														</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
-									<?php endforeach ?>
-								</tbody>
-							</table>
-						</div>
+												<ul class="training__dropdown-menu dropdown-menu p-0">
+													<li>
+														<button class="dropdown-item btn custom-btn" data-bs-toggle="modal" data-bs-target="#exerciseSetEditModal" data-exercise-id="<?= $row['id'] ?>" data-set-id="<?= htmlspecialchars($set['sets']) ?>" data-id="<?= htmlspecialchars($set['id']) ?>">Edytuj</button>
+													</li>
+													<li>
+														<button class="dropdown-item btn custom-btn" data-id="<?= htmlspecialchars($set['id']) ?>" onclick="deleteSet.call(this)">Usuń</button>
+													</li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								<?php endforeach ?>
+							</tbody>
+						</table>
 					</div>
 					<button class="training__exercises-data-btn custom-btn btn w-100 mt-1" data-bs-toggle="modal" data-bs-target="#exercisesDataModal" data-exercise-id="<?= htmlspecialchars($row['id']) ?>">Dodaj serie</button>
 				<?php endforeach ?>
@@ -342,6 +340,20 @@
 			menuBtn.classList.add('fa-bars-staggered');
 		}
 	};
+	document.addEventListener('click', (e) => {
+		const sideBar = document.querySelector('.nav__sidebar');
+		const menuBtn = document.querySelector('.nav__menu-btn');
+
+		if (sideBar.classList.contains('d-none')) return;
+		if (sideBar.contains(e.target) || menuBtn.contains(e.target)) return;
+
+		sideBar.classList.add('d-none');
+		sideBar.classList.remove('d-flex');
+
+		const icon = document.querySelector('i');
+		icon.classList.add('fa-bars');
+		icon.classList.remove('fa-bars-staggered');
+	})
 
 	const handleAddSetExercisesData = () => {
 		document.getElementById('exercisesDataModal').classList.toggle('d-none');

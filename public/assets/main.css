@@ -6,6 +6,7 @@ body {
 .custom-btn {
   background-color: #424242;
   color: #ebebeb;
+  border: 1px solid rgba(255, 131, 114, 0.2470588235);
   font-weight: 500;
 }
 .custom-btn:hover {
@@ -25,7 +26,7 @@ body {
 
 .auth__container {
   width: 500px;
-  background-color: #f5f1f0;
+  background-color: #e4e4e4;
 }
 .auth__label {
   color: #222222;
@@ -61,7 +62,7 @@ body {
 }
 
 .dashboard__container {
-  background-color: #f5f1f0;
+  background-color: #e4e4e4;
 }
 .dashboard__last-training-date {
   color: #fa6c5a;
@@ -131,8 +132,16 @@ body {
   padding-top: 5rem;
 }
 .training__training-container {
-  background-color: #f5f1f0;
+  background-color: #e4e4e4;
   color: #424242;
+}
+.training__details {
+  color: #fa6c5a;
+}
+.training .note-container {
+  border: 1px solid rgba(255, 131, 114, 0.2470588235);
+  font-style: italic;
+  background-color: #cccccc;
 }
 .training .noteExerciseFormModalBtn {
   color: #fa6c5a;
@@ -154,14 +163,18 @@ body {
   border: 1px solid #fa6c5a;
 }
 .training .dropdown-set-menu-btn {
-  background-color: #f5f1f0;
+  background-color: #e4e4e4;
   border: 1px solid #fa6c5a;
 }
 .training .dropdown-set-menu-btn:hover {
   border: 1px solid #cccccc;
 }
+.training .table {
+  overflow: hidden;
+}
 .training__th {
   position: relative;
+  color: #fa6c5a;
 }
 .training__tool-tip-btn {
   position: absolute;
@@ -177,7 +190,7 @@ body {
   padding-bottom: 4rem;
 }
 .history__training-container {
-  background-color: #f5f1f0;
+  background-color: #e4e4e4;
   color: #424242;
 }
 .history__training-date {

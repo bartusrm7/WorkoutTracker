@@ -2,7 +2,8 @@ $background: #222222;
 $text: #ebebeb;
 $primary: #cccccc;
 $secondary: #424242;
-$third: #f5f1f0;
+$third: #e4e4e4;
+$light-accent: #ff83723f;
 $accent: #fa6c5a;
 $accent-two: #ff4f18;
 
@@ -14,6 +15,7 @@ body {
 .custom-btn {
 	background-color: $secondary;
 	color: $text;
+	border: 1px solid $light-accent;
 	font-weight: 500;
 	&:hover {
 		background-color: $accent;
@@ -155,6 +157,14 @@ body {
 		background-color: $third;
 		color: $secondary;
 	}
+	&__details {
+		color: $accent;
+	}
+	.note-container {
+		border: 1px solid $light-accent;
+		font-style: italic;
+		background-color: $primary;
+	}
 	.noteExerciseFormModalBtn {
 		color: $accent;
 		cursor: pointer;
@@ -181,8 +191,12 @@ body {
 			border: 1px solid $primary;
 		}
 	}
+	.table {
+		overflow: hidden;
+	}
 	&__th {
 		position: relative;
+		color: $accent;
 	}
 	&__tool-tip-btn {
 		position: absolute;

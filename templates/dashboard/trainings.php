@@ -26,19 +26,19 @@
             <h4 class="nav__label d-flex align-items-center mb-0">WorkoutTracker</h4>
             <hr>
             <ul class="nav__nav nav flex-column mb-auto">
-                <li class="nav-item mb-2">
+                <li class="nav-item mb-3">
                     <a href="/dashboard" class="custom-btn btn nav-link"> Dashboard </a>
                 </li>
-                <li class="nav-item mb-2">
+                <li class="nav-item mb-3">
                     <a href="/trainings" class="custom-btn btn nav-link"> Treningi </a>
                 </li>
-                <li class="nav-item mb-2">
+                <li class="nav-item mb-3">
                     <a href="/history" class="custom-btn btn nav-link"> Historia </a>
                 </li>
-                <li class="nav-item mb-2">
+                <li class="nav-item mb-3">
                     <a href="/statistics" class="custom-btn btn nav-link"> Statystyki </a>
                 </li>
-                <li class="nav-item mb-2">
+                <li class="nav-item mb-3">
                     <a href="/profile" class="custom-btn btn nav-link"> Profil </a>
                 </li>
             </ul>
@@ -177,6 +177,20 @@
             menuBtn.classList.add('fa-bars-staggered');
         }
     };
+    document.addEventListener('click', (e) => {
+        const sideBar = document.querySelector('.nav__sidebar');
+        const menuBtn = document.querySelector('.nav__menu-btn');
+
+        if (sideBar.classList.contains('d-none')) return;
+        if (sideBar.contains(e.target) || menuBtn.contains(e.target)) return;
+
+        sideBar.classList.add('d-none');
+        sideBar.classList.remove('d-flex');
+
+        const icon = document.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-bars-staggered');
+    })
 
     const handleToggleFormContainer = () => {
         document.querySelector('.training-form-modal').classList.add('d-none');
