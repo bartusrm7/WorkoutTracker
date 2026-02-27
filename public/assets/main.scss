@@ -1,5 +1,4 @@
 $background: #222222;
-$dark-color: #0f0d0d;
 $text: #ebebeb;
 $primary: #cccccc;
 $secondary: #424242;
@@ -112,18 +111,29 @@ body {
 		transform: translate(-50%, -50%);
 	}
 	&__training-container {
-		background-color: $third;
+		padding: 1rem;
+		background-color: $background;
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+		transition: 0.3s;
+		&:hover {
+			box-shadow: 0 8px 20px rgba(102, 102, 102, 0.5);
+			transform: translateY(-5px);
+		}
 		.card-header {
 			background-color: transparent;
+			border-bottom: 1px solid $secondary;
 		}
+	}
+	.card-title {
+		color: $primary;
 	}
 	&__empty-training-list {
 		color: $accent;
 	}
 	&__dropdown-menu-btn {
-		background-color: $primary;
+		color: $text;
 		&:hover {
-			border: 1px solid $accent;
+			background-color: $accent;
 		}
 	}
 	&__dropdown-menu {

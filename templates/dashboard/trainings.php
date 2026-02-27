@@ -99,30 +99,32 @@
         </div>
 
         <div class="trainings__main-container">
-            <h3 class="text-center">Moje treningi</h3>
-            <div class="row gap-3 justify-content-center my-3 mx-1">
+            <h3 class="text-center mb-4">Moje treningi</h3>
+            <div class="row g-4 justify-content-center my-3">
                 <?php if (!empty($trainings)): ?>
                     <?php foreach ($trainings as $training): ?>
-                        <div class="trainings__training-container card col-sm-5 col-xl-3">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title my-2"><?= htmlspecialchars(ucfirst($training['name'])) ?></h5>
-                                <div class="dropdown">
-                                    <button class="trainings__dropdown-menu-btn btn" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
-                                    </button>
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="trainings__training-container card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title my-2"><?= htmlspecialchars(ucfirst($training['name'])) ?></h5>
+                                    <div class="dropdown">
+                                        <button class="trainings__dropdown-menu-btn btn" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
+                                        </button>
 
-                                    <ul class="trainings__dropdown-menu dropdown-menu p-0">
-                                        <li>
-                                            <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" data-training-name="<?= htmlspecialchars($training['name']) ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" onclick="removeTraining.call(this)">Usuń</button>
-                                        </li>
-                                    </ul>
+                                        <ul class="trainings__dropdown-menu dropdown-menu p-0">
+                                            <li>
+                                                <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" data-training-name="<?= htmlspecialchars($training['name']) ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" onclick="removeTraining.call(this)">Usuń</button>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body my-1">
-                                <a href="/training?id=<?= htmlspecialchars($training['id']) ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
+                                <div class="card-body my-1">
+                                    <a href="/training?id=<?= htmlspecialchars($training['id']) ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach ?>

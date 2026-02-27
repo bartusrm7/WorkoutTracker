@@ -92,19 +92,30 @@ body {
   transform: translate(-50%, -50%);
 }
 .trainings__training-container {
-  background-color: #f5f1f0;
+  padding: 1rem;
+  background-color: #222222;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+.trainings__training-container:hover {
+  box-shadow: 0 8px 20px rgba(102, 102, 102, 0.5);
+  transform: translateY(-5px);
 }
 .trainings__training-container .card-header {
   background-color: transparent;
+  border-bottom: 1px solid #424242;
+}
+.trainings .card-title {
+  color: #cccccc;
 }
 .trainings__empty-training-list {
   color: #fa6c5a;
 }
 .trainings__dropdown-menu-btn {
-  background-color: #cccccc;
+  color: #ebebeb;
 }
 .trainings__dropdown-menu-btn:hover {
-  border: 1px solid #fa6c5a;
+  background-color: #fa6c5a;
 }
 .trainings__dropdown-menu {
   background-color: #cccccc;
