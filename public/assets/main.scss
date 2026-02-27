@@ -1,4 +1,5 @@
 $background: #222222;
+$dark-color: #0f0d0d;
 $text: #ebebeb;
 $primary: #cccccc;
 $secondary: #424242;
@@ -213,5 +214,19 @@ body {
 	&__search-exercise-select {
 		height: 38px !important;
 		min-height: 38px !important;
+	}
+}
+
+.profile {
+	&__card {
+		background-color: $background;
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+	}
+	&__card-label {
+		color: $primary;
+	}
+	&__card-text-name {
+		color: $text;
+		font-weight: bold;
 	}
 }

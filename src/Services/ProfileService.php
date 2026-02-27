@@ -14,4 +14,17 @@ class ProfileService
     {
         $this->repository = new ProfileRepository();
     }
+
+    public function getUserProfileData($userId)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->getUserProfileDataQuery($userId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
 }

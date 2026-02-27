@@ -188,4 +188,16 @@ body {
   min-height: 38px !important;
 }
 
+.profile__card {
+  background-color: #222222;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+.profile__card-label {
+  color: #cccccc;
+}
+.profile__card-text-name {
+  color: #ebebeb;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=main.css.map */

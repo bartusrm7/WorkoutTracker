@@ -17,7 +17,9 @@ class ProfileController
 
     public function Profile()
     {
-        session_start();
+        $userId = $_SESSION['id'];
+        $userData = $this->service->getUserProfileData($userId);
+
         require '../templates/dashboard/profile.php';
     }
 }

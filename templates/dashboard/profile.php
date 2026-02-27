@@ -47,8 +47,58 @@
 
     <main class="dashboard">
 
-        <div class="container">
-            <div class="row m-2 my-4 mb-3 justify-content-center gap-4"></div>
+        <div class="profile container">
+            <h3 class="text-center mb-5">Profil użytkownika <?= $_SESSION['name'] ?></h3>
+            <div class="row justify-content-center g-4">
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Płeć</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['sex'] ?></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Wiek</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['age'] ?>lat</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Wzrost</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['height'] ?>cm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Waga</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['weight'] ?>kg</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Waga docelowa</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['goal_weight'] ?>kg</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="profile__card p-3 p-md-4 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="profile__card-label">Cel trenigowy</div>
+                            <div class="profile__card-text-name"><?= $userData['data']['goal'] ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
