@@ -103,13 +103,14 @@ class AuthController
         $userId = $_SESSION['id'];
         $data = json_decode(file_get_contents('php://input'), true);
 
+        $sex = $data['sex'];
         $age = $data['age'];
         $height = $data['height'];
         $weight = $data['weight'];
         $goalWeight = $data['goalWeight'];
         $goal = $data['goal'];
 
-        $result = $this->service->insertUserData($age, $height, $weight, $goalWeight, $goal, $userId);
+        $result = $this->service->insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId);
         if ($result) {
             $completedProfile = $this->service->markIsProfileComplete($userId);
             echo json_encode($completedProfile);

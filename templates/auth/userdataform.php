@@ -15,7 +15,14 @@
         <h3 class="auth__label text-center mb-3">Uzupełnij profil użytkownika</h3>
 
         <form action="/user-data" method="post">
-            <div id="age" class="form-floating mt-2">
+            <div id="sex" class="form-floating mt-2">
+                <select name="sex" class="form-select py-0">
+                    <option selected>Wybierz płeć</option>
+                    <option value="Kobieta">Kobieta</option>
+                    <option value="Mężczyzna">Mężczyzna</option>
+                </select>
+            </div>
+            <div id="age" class="form-floating mt-2 d-none">
                 <input min="12" max="99" type="number" name="age" class="form-control" placeholder="" required>
                 <label for="age">Wiek</label>
             </div>
@@ -51,13 +58,14 @@
 
 <script>
     let userData = {
+        sex: null,
         age: null,
         height: null,
         weight: null,
         goalWeight: null,
         goal: null
     };
-    const steps = ['age', 'height', 'weight', 'goalWeight', 'goal'];
+    const steps = ['sex', 'age', 'height', 'weight', 'goalWeight', 'goal'];
     let currentStep = 0;
 
     const handleNextStepUserFormData = () => {

@@ -49,11 +49,13 @@ class Database
     {
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS user_data (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            sex VARCHAR(50) NOT NULL,
             age INT NOT NULL,
             height INT NOT NULL,
             weight INT NOT NULL,
             goal_weight INT NOT NULL,
             goal VARCHAR(100) NOT NULL,
+            important_part VARCHAR(100) DEFAULT NULL,
             updated_date DATE,
             user_id INT,
             CONSTRAINT fk_user_data
