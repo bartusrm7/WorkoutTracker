@@ -86,7 +86,7 @@ body {
 		color: $text;
 		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 		border: 1px solid $light-accent;
-		transition: 0.3s;
+		transition: 0.2s;
 		div {
 			color: $third;
 		}
@@ -134,7 +134,7 @@ body {
 		background-color: $background;
 		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 		border: 1px solid $light-accent;
-		transition: 0.3s;
+		transition: 0.2s;
 		&:hover {
 			box-shadow: 0 8px 20px 10px rgba(255, 255, 255, 0.05);
 			transform: translateY(-5px);
@@ -264,7 +264,7 @@ body {
 		background-color: $background;
 		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 		border: 1px solid $light-accent;
-		transition: 0.3s;
+		transition: 0.2s;
 		&:hover {
 			box-shadow: 0 8px 20px 10px rgba(255, 255, 255, 0.05);
 			transform: scale(1.01);

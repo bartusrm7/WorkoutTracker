@@ -98,7 +98,7 @@
 
 										<ul class="training__dropdown-menu dropdown-menu p-0">
 											<li>
-												<button class="dropdown-item btn custom-btn" id="editExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
+												<button class="dropdown-item btn custom-btn editExerciseBtn" id="editExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#editExerciseFormModal">Edytuj</button>
 											</li>
 											<li>
 												<button class="dropdown-item btn custom-btn" id="removeExerciseBtn" data-exercise-id="<?= htmlspecialchars($row['id']) ?>" onclick="removeExercise.call(this)">Usuń</button>
@@ -194,7 +194,7 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5 fw-bold">Edytuj nazwę treningu</h1>
+						<h1 class="modal-title fs-5 fw-bold">Edytuj nazwę ćwiczenia</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -202,7 +202,7 @@
 							<form action="/edit-training" method="post">
 								<div class="form-floating">
 									<input class="form-control" type="text" name="name" id="editExerciseName" required placeholder="">
-									<label for="editExerciseName">Nazwa treningu</label>
+									<label for="editExerciseName">Nazwa ćwiczenia</label>
 								</div>
 								<button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="editExercise()">Edytuj</button>
 							</form>
@@ -571,11 +571,13 @@
 		window.location.reload();
 	}
 
-	document.getElementById('editExerciseBtn').addEventListener('click', e => {
-		exerciseId = e.target.dataset.exerciseId;
-		exerciseName = e.target.dataset.exerciseName;
-		document.getElementById('editExerciseName').value = exerciseName;
-	})
+	document.querySelectorAll('.editExerciseBtn').forEach(btn => {
+		btn.addEventListener('click', e => {
+			exerciseId = e.target.dataset.exerciseId;
+			exerciseName = e.target.dataset.exerciseName;
+			document.getElementById('editExerciseName').value = exerciseName;
+		})
+	})	
 
 	async function editExercise() {
 		const id = exerciseId;
