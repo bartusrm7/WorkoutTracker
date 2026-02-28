@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://kit.fontawesome.com/7287626084.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
     <title>Dashboard</title>
 </head>
@@ -48,30 +51,40 @@
     <main class="dashboard">
 
         <div class="container">
-            <div class="row m-2 my-4 mb-3 justify-content-center gap-4">
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Ostatni trening</h3>
-                    <div>
-                        <h5><?= htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? '')) ?></h5>
-                        <div class="dashboard__last-training-date">
-                            <?php $date = new DateTime($lastTraining['data']['end'] ?? '');
-                            echo $date->format('d-m-Y') ?>
+            <div class="row mt-4 mb-3 justify-content-center g-4">
+                <div class="col-md-10 col-lg-6 col-xl-5">
+                    <div class="dashboard__container rounded-4 p-4">
+                        <h3>Ostatni trening</h3>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center fs-4">
+                            <div><?= htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? '')) ?></div>
+                            <div class="dashboard__last-training-date">
+                                <?php $date = new DateTime($lastTraining['data']['end'] ?? '');
+                                echo $date->format('d-m-Y') ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Treningi w tym tygodniu</h3>
-                    <div><?= htmlspecialchars(count($trainingsThisWeek['data'])) ?></div>
+                <div class="col-md-10 col-lg-6 col-xl-5">
+                    <div class="dashboard__container rounded-4 p-4">
+                        <h3>Treningi w tym tygodniu</h3>
+                        <hr>
+                        <div class="fs-4"><?= htmlspecialchars(count($trainingsThisWeek['data'])) ?></div>
+                    </div>
                 </div>
-            </div>
-            <div class="row m-2 my-4 justify-content-center gap-4">
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Łączna objętość ostatnich 7 dni</h3>
-                    <div><?= htmlspecialchars($last7TrainingsVolume['data']['volume']) ?>kg</div>
+                <div class="col-md-10 col-lg-6 col-xl-5">
+                    <div class="dashboard__container rounded-4 p-4">
+                        <h3>Łączna objętość ostatnich 7 dni</h3>
+                        <hr>
+                        <div class="fs-4"><?= htmlspecialchars($last7TrainingsVolume['data']['volume']) ?>kg</div>
+                    </div>
                 </div>
-                <div class="dashboard__container col-12 col-lg-5 col-xl-4 card p-2">
-                    <h3>Łączny czas treningów w tym tygodniu</h3>
-                    <div><?= htmlspecialchars($sumTrainingDuration['data'] ?? 0) ?></div>
+                <div class="col-md-10 col-lg-6 col-xl-5">
+                    <div class="dashboard__container rounded-4 p-4">
+                        <h3>Czas treningów w tym tygodniu</h3>
+                        <hr>
+                        <div class="fs-4"><?= htmlspecialchars($sumTrainingDuration['data'] ?? 0) ?></div>
+                    </div>
                 </div>
             </div>
         </div>

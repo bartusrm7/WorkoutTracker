@@ -48,55 +48,58 @@
     <main class="dashboard">
 
         <div class="profile container">
-            <h3 class="text-center mb-5">Profil użytkownika <?= $_SESSION['name'] ?></h3>
-            <div class="row justify-content-center g-4">
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+            <h3 class="text-center mb-4">Profil użytkownika <?= $_SESSION['name'] ?></h3>
+            <div class="row justify-content-center g-4 col-lg-10 mx-auto">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Płeć</div>
                             <div class="profile__card-text-name"><?= $userData['data']['sex'] ?></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Wiek</div>
                             <div class="profile__card-text-name"><?= $userData['data']['age'] ?>lat</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Wzrost</div>
                             <div class="profile__card-text-name"><?= $userData['data']['height'] ?>cm</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Waga</div>
                             <div class="profile__card-text-name"><?= $userData['data']['weight'] ?>kg</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Waga docelowa</div>
                             <div class="profile__card-text-name"><?= $userData['data']['goal_weight'] ?>kg</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="profile__card p-3 p-md-4 rounded-3">
+                <div class="col-md-6">
+                    <div class="profile__card p-4 fs-5 rounded-4">
                         <div class="d-flex justify-content-between">
                             <div class="profile__card-label">Cel trenigowy</div>
-                            <div class="profile__card-text-name"><?= $userData['data']['goal'] ?></div>
+                            <div class="profile__card-text-name text-end"><?= $userData['data']['goal'] ?></div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <button type="button" class="custom-accent-btn btn py-3 rounded-4 w-100 fw-bold">Edytuj dane użytkownika</button>
                 </div>
             </div>
         </div>

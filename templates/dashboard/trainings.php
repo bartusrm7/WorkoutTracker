@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/7287626084.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
     <title>Trening</title>
 </head>
@@ -104,7 +107,7 @@
                 <?php if (!empty($trainings)): ?>
                     <?php foreach ($trainings as $training): ?>
                         <div class="col-sm-6 col-xl-4">
-                            <div class="trainings__training-container card">
+                            <div class="trainings__training-container rounded-4 p-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h5 class="card-title my-2"><?= htmlspecialchars(ucfirst($training['name'])) ?></h5>
                                     <div class="dropdown">
@@ -122,7 +125,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-body my-1">
+                                <hr>
+                                <div class="card-body mt-4">
                                     <a href="/training?id=<?= htmlspecialchars($training['id']) ?>" class="custom-btn btn py-2 px-3 w-100">Wybierz trening</a>
                                 </div>
                             </div>
