@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/7287626084.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
     <title>Ustawienia</title>
 </head>
@@ -99,7 +103,56 @@
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="custom-accent-btn btn py-3 rounded-4 w-100 fw-bold">Edytuj dane użytkownika</button>
+                    <button type="button" class="custom-accent-btn btn py-3 rounded-4 w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#profileDataFormModal">Edytuj dane użytkownika</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="profileDataFormModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 fw-bold">Edytuj dane użytkownika</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="profile__form-container">
+                            <form action="/edit-profile" method="post">
+                                <div class="form-floating mb-2">
+                                    <select name="sex" class="form-select py-0">
+                                        <option disabled <?= empty($userData['data']['sex']) ?>>Wybierz płeć</option>
+                                        <option value="Kobieta" <?= ($userData['data']['sex'] ?? '') === 'Kobieta' ? 'selected' : '' ?>>Kobieta</option>
+                                        <option value="Mężczyzna" <?= ($userData['data']['sex'] ?? '') === 'Mężczyzna' ? 'selected' : '' ?>>Mężczyzna</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" min="12" max="99" value="<?= $userData['data']['age'] ?>" type="number" name="age" id="age" required placeholder="">
+                                    <label for="age">Wiek</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" min="120" max="220" value="<?= $userData['data']['height'] ?>" type="number" name="height" id="height" required placeholder="">
+                                    <label for="height">Wzrost</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" min="30" max="180" value="<?= $userData['data']['weight'] ?>" type="number" name="weight" id="weight" required placeholder="">
+                                    <label for="weight">Waga</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" min="30" max="180" value="<?= $userData['data']['goal_weight'] ?>" type="number" name="goal_weight" id="goal_weight" required placeholder="">
+                                    <label for="goal_weight">Waga docelowa</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <select name="goal" class="form-select py-0">
+                                        <option disabled <?= empty($userData['data']['goal']) ? 'selected' : '' ?>>Cel treningowy</option>
+                                        <option value="Wzrost masy mięśniowej" <?= ($userData['data']['goal'] ?? '') === 'Wzrost masy mięśniowej' ? 'selected' : '' ?>>Wzrost masy mięśniowej</option>
+                                        <option value="Utrzymanie wagi" <?= ($userData['data']['goal'] ?? '') === 'Utrzymanie wagi' ? 'selected' : '' ?>>Utrzymanie wagi</option>
+                                        <option value="Redukcja tkanki tłuszczowej" <?= ($userData['data']['goal'] ?? '') === 'Redukcja tkanki tłuszczowej' ? 'selected' : '' ?>>Redukcja tkanki tłuszczowej</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="custom-btn btn px-5 mt-3 float-end" id="editProfileDataBtn">Zakończ edycję</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

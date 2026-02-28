@@ -58,6 +58,9 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // STATISTICS
     $r->addRoute('POST', '/filter-exercise-statistics', [StatisticsController::class, 'filterExercisesStatistics']);
 
+    // PROFILE
+    $r->addRoute('POST', '/edit-profile', [ProfileController::class, 'editProfile']);
+
     // VIEWS
     $r->addRoute('GET', '/signin-form', [AuthController::class, 'signInForm']);
     $r->addRoute('GET', '/signup-form', [AuthController::class, 'signUpForm']);
