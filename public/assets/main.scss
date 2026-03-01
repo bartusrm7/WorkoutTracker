@@ -188,9 +188,9 @@ body {
 		cursor: pointer;
 	}
 	&__dropdown-menu-btn {
-		background-color: $primary;
+		border: 1px solid $light-accent;
 		&:hover {
-			border: 1px solid $accent;
+			border: 1px solid $accent-two;
 		}
 	}
 	&__dropdown-menu {

@@ -166,10 +166,10 @@ body {
   cursor: pointer;
 }
 .training__dropdown-menu-btn {
-  background-color: #cccccc;
+  border: 1px solid rgba(255, 131, 114, 0.2470588235);
 }
 .training__dropdown-menu-btn:hover {
-  border: 1px solid #fa6c5a;
+  border: 1px solid #ff4f18;
 }
 .training__dropdown-menu {
   background-color: #cccccc;
