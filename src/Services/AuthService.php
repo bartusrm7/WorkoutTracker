@@ -62,7 +62,7 @@ class AuthService
         return $user;
     }
 
-    public function insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId)
+    public function insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate)
     {
         if (empty($sex) || empty($age) || empty($height) || empty($weight) || empty($goalWeight) || empty($goal)) {
             return ['success' => false, 'error' => 'Wszystkie pola muszą być uzupełnione'];
@@ -70,7 +70,7 @@ class AuthService
         if (!$userId) {
             return ['success' => false, 'error' => 'Brak ID użytkownika'];
         }
-        $result = $this->repository->insertUserDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId);
+        $result = $this->repository->insertUserDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate);
 
         return [
             'success' => true,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\AuthService;
+use DateTime;
 
 class AuthController
 {
@@ -109,8 +110,9 @@ class AuthController
         $weight = $data['weight'];
         $goalWeight = $data['goalWeight'];
         $goal = $data['goal'];
+        $updatedDate = (new DateTime())->format('Y-m-d H:i:s');
 
-        $result = $this->service->insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId);
+        $result = $this->service->insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate);
         if ($result) {
             $completedProfile = $this->service->markIsProfileComplete($userId);
             echo json_encode($completedProfile);

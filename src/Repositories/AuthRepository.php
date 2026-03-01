@@ -63,10 +63,10 @@ class AuthRepository
         );
     }
 
-    public function insertUserDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId)
+    public function insertUserDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO user_data (sex, age, height, weight, goal_weight, goal, user_id) VALUES (:sex, :age, :height, :weight, :goal_weight, :goal, :user_id)');
-        $stmt->execute([':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, ':user_id' => $userId]);
+        $stmt = $this->pdo->prepare('INSERT INTO user_data (sex, age, height, weight, goal_weight, goal, user_id, updated_date) VALUES (:sex, :age, :height, :weight, :goal_weight, :goal, :user_id, :updated_date)');
+        $stmt->execute([':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, ':user_id' => $userId, ':updated_date' => $updatedDate]);
         return (int) $this->pdo->lastInsertId();
     }
 

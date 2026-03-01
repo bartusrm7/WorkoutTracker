@@ -28,12 +28,12 @@ class ProfileService
         ];
     }
 
-    public function changeUserProfileData($sex, $age, $height, $weight, $goalWeight, $goal, $userId)
+    public function changeUserProfileData($id, $sex, $age, $height, $weight, $goalWeight, $goal)
     {
-        if (!$userId) {
-            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID ostatniego wiersza'];
         }
-        $result = $this->repository->changeUserProfileDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId);
+        $result = $this->repository->changeUserProfileDataQuery($id, $sex, $age, $height, $weight, $goalWeight, $goal);
 
         return [
             'success' => true,
