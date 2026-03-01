@@ -70,8 +70,8 @@
         <?php else: ?>
             <?php foreach ($trainings['data']['trainings'] as $training): ?>
 
-                <div class="history__main-container my-1  mx-1">
-                    <div class="history__training-container rounded-3 p-2 col-md-8 col-xl-6 m-auto">
+                <div class="history__main-container mb-4 mx-1">
+                    <div class="history__training-container rounded-4 mb-4 p-3 col-md-10 col-lg-8 col-xl-6 m-auto">
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <h2 class="history__training-plan-label mb-0">
@@ -86,9 +86,9 @@
                                 <h5>Szczegóły treningu</h5>
                                 <div class="d-lg-flex">
                                     <?php $duration = $training['duration'] ?? 0 ?>
-                                    <div class="me-lg-3">Czas trwania: <span class="fw-bold"><?= htmlspecialchars($duration) ?></span></div>
-                                    <div class="me-lg-3">Objętość: <span class="fw-bold"><?= htmlspecialchars($training['weightVolume']) ?>kg</span></div>
-                                    <div class="me-lg-3">Ilość serii: <span class="fw-bold"><?= htmlspecialchars($training['setsVolume']) ?></span></div>
+                                    <div class="me-lg-3">Czas trwania: <span class="history__details fw-bold"><?= htmlspecialchars($duration) ?></span></div>
+                                    <div class="me-lg-3">Objętość: <span class="history__details fw-bold"><?= htmlspecialchars($training['weightVolume']) ?>kg</span></div>
+                                    <div class="me-lg-3">Ilość serii: <span class="history__details fw-bold"><?= htmlspecialchars($training['setsVolume']) ?></span></div>
                                 </div>
                             </div>
                         </div>
@@ -97,20 +97,28 @@
                         <div class="container">
                             <div class="row">
                                 <?php foreach ($training['exercises'] as $exercise): ?>
-                                    <table class="table table-bordered mb-0 text-center">
-                                        <div class="mt-3">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <table class="table table-bordered mb-0 text-center rounded-3">
+                                        <div class="mt-3 p-0">
+                                            <div class="mb-2">
                                                 <h5 class="traning__exercise-name mb-0">
                                                     <?= htmlspecialchars(ucfirst($exercise['name'])) ?>
                                                 </h5>
                                             </div>
-                                            <div class="mb-2">
-                                                <?php if ($exercise['note']): ?>
+                                            <?php if ($exercise['note']): ?>
+                                                <div class="history__note-container mb-2 rounded-3 p-2">
                                                     <div class="history__note-field">
                                                         <?= htmlspecialchars($exercise['note']) ?>
                                                     </div>
-                                                <?php endif ?>
-                                            </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="mb-2">
+                                                    <?php if ($exercise['note']): ?>
+                                                        <div class="history__note-field">
+                                                            <?= htmlspecialchars($exercise['note']) ?>
+                                                        </div>
+                                                    <?php endif ?>
+                                                </div>
+                                            <?php endif ?>
                                         </div>
                                         <thead>
                                             <tr>
@@ -180,5 +188,8 @@
         const icon = document.querySelector('i');
         icon.classList.add('fa-bars');
         icon.classList.remove('fa-bars-staggered');
-    })
+    });
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 </script>

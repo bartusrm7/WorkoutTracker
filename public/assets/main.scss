@@ -173,21 +173,19 @@ body {
 	&__training-container {
 		background-color: $third;
 		color: $secondary;
+		border: 1px solid $accent;
 	}
 	&__details {
 		color: $accent;
 	}
 	.note-container {
+		background-color: $primary;
 		border: 1px solid $light-accent;
 		font-style: italic;
-		background-color: $primary;
 	}
 	.noteExerciseFormModalBtn {
 		color: $accent;
 		cursor: pointer;
-	}
-	&__exercise-extra-note {
-		background-color: $primary;
 	}
 	&__dropdown-menu-btn {
 		background-color: $primary;
@@ -226,18 +224,28 @@ body {
 .history {
 	&__main-container {
 		&:first-of-type {
-			padding-top: 4rem;
+			padding-top: 2rem;
 		}
 		&:last-of-type {
-			padding-bottom: 4rem;
+			margin: 0;
+			padding-bottom: 1rem;
 		}
 	}
 	&__training-container {
 		background-color: $third;
 		color: $secondary;
+		border: 1px solid $accent;
+	}
+	&__details {
+		color: $accent;
 	}
 	&__training-date {
 		color: $accent;
+	}
+	&__note-container {
+		background-color: $primary;
+		border: 1px solid $light-accent;
+		font-style: italic;
 	}
 	&__note-field {
 		color: $accent;
@@ -248,6 +256,9 @@ body {
 	&__empty-training-list {
 		padding-top: 4rem;
 		color: $accent;
+	}
+	.table {
+		overflow: hidden;
 	}
 }
 

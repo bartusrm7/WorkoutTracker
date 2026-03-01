@@ -151,21 +151,19 @@ body {
 .training__training-container {
   background-color: #e4e4e4;
   color: #424242;
+  border: 1px solid #fa6c5a;
 }
 .training__details {
   color: #fa6c5a;
 }
 .training .note-container {
+  background-color: #cccccc;
   border: 1px solid rgba(255, 131, 114, 0.2470588235);
   font-style: italic;
-  background-color: #cccccc;
 }
 .training .noteExerciseFormModalBtn {
   color: #fa6c5a;
   cursor: pointer;
-}
-.training__exercise-extra-note {
-  background-color: #cccccc;
 }
 .training__dropdown-menu-btn {
   background-color: #cccccc;
@@ -201,17 +199,27 @@ body {
 }
 
 .history__main-container:first-of-type {
-  padding-top: 4rem;
+  padding-top: 2rem;
 }
 .history__main-container:last-of-type {
-  padding-bottom: 4rem;
+  margin: 0;
+  padding-bottom: 1rem;
 }
 .history__training-container {
   background-color: #e4e4e4;
   color: #424242;
+  border: 1px solid #fa6c5a;
+}
+.history__details {
+  color: #fa6c5a;
 }
 .history__training-date {
   color: #fa6c5a;
+}
+.history__note-container {
+  background-color: #cccccc;
+  border: 1px solid rgba(255, 131, 114, 0.2470588235);
+  font-style: italic;
 }
 .history__note-field {
   color: #fa6c5a;
@@ -222,6 +230,9 @@ body {
 .history__empty-training-list {
   padding-top: 4rem;
   color: #fa6c5a;
+}
+.history .table {
+  overflow: hidden;
 }
 
 .statistics__search-exercise-select {
