@@ -108,9 +108,9 @@
 								</div>
 								<div class="mb-2 note-container rounded-3 p-2">
 									<?php if ($row['note']): ?>
-										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>"><?= htmlspecialchars(ucfirst($row['note'])) ?></div>
+										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars(ucfirst($row['note'] ?? '')) ?>"><?= htmlspecialchars(ucfirst($row['note'] ?? '')) ?></div>
 									<?php else: ?>
-										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars($row['note']) ?>">Dodaj notatkę...</div>
+										<div class="noteExerciseFormModalBtn" data-bs-toggle="modal" data-bs-target="#noteExerciseFormModal" data-exercise-id="<?= $row['id'] ?>" data-exercise-note="<?= htmlspecialchars(ucfirst($row['note'] ?? '')) ?>">Dodaj notatkę...</div>
 									<?php endif ?>
 								</div>
 							</div>
@@ -577,7 +577,7 @@
 			exerciseName = e.target.dataset.exerciseName;
 			document.getElementById('editExerciseName').value = exerciseName;
 		})
-	})	
+	})
 
 	async function editExercise() {
 		const id = exerciseId;
