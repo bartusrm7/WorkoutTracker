@@ -89,7 +89,7 @@ class Database
             training_id INT,
             CONSTRAINT fk_training_exercises
             FOREIGN KEY (training_id) 
-            REFERENCES training(id) 
+            REFERENCES training(id)
             ON DELETE CASCADE
         )');
     }
@@ -99,9 +99,9 @@ class Database
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises_data (
             id INT AUTO_INCREMENT PRIMARY KEY,
             sets INT NOT NULL,
-            weight INT,
-            reps INT NOT NULL,
-            rir INT,
+            weight FLOAT,
+            reps FLOAT NOT NULL,
+            rir FLOAT,
             created_at DATE NOT NULL,
             exercise_id INT,
             CONSTRAINT fk_exercises_data
@@ -146,9 +146,9 @@ class Database
         $this->pdo->exec('CREATE TABLE IF NOT EXISTS exercises_history_data (
             id INT AUTO_INCREMENT PRIMARY KEY,
             sets INT NOT NULL,
-            weight INT,
-            reps INT NOT NULL,
-            rir INT,
+            weight FLOAT,
+            reps FLOAT NOT NULL,
+            rir FLOAT,
             created_at DATE NOT NULL,
             exercise_id INT,
             CONSTRAINT fk_exercises_history_datas

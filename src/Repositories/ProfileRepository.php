@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Database\Database;
 use App\Models\ProfileDataModel;
+use DateTime;
 use PDO;
 
 class ProfileRepository
@@ -30,6 +31,7 @@ class ProfileRepository
         $stmt = $this->pdo->prepare('UPDATE user_data SET sex = :sex, age = :age, height = :height, weight = :weight, goal_weight = :goal_weight, goal = :goal WHERE id = :id');
         $stmt->execute([':id' => $id, ':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal]);
 
+        $dateToday = date('Y-m-d');
         return new ProfileDataModel(
             $id,
             $sex,
@@ -39,7 +41,7 @@ class ProfileRepository
             $goalWeight,
             $goal,
             null,
-            null
+            date('Y-m-d')
         );
     }
 }

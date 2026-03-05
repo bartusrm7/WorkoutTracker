@@ -75,14 +75,22 @@ class DashboardService
 
         foreach ($result as $row) {
             $durationSum += $row['duration'];
-            $minutes = intdiv($durationSum, 60);
-            $hours = intdiv($minutes, 60);
-            $rest = $durationSum % 60;
-            $time = $rest . 's';
-            if ($minutes > 0) {
-                $time = $minutes . ':' . $rest . 'm';
-            } else if ($hours > 0) {
-                $time = $hours . ':' . $minutes . ':' . $rest . 'h';
+            $totalSeconds = $durationSum;
+
+            $hours = intdiv($totalSeconds, 3600);
+            $minutes = intdiv($totalSeconds % 3600, 60);
+            $seconds = $totalSeconds % 60;
+
+            $hoursStr = str_pad((string)$hours, 2, '0', STR_PAD_LEFT);
+            $minutesStr = str_pad((string)$minutes, 2, '0', STR_PAD_LEFT);
+            $secondsStr = str_pad((string)$seconds, 2, '0', STR_PAD_LEFT);
+
+            if ($hours > 0) {
+                $time = $hoursStr . ':' . $minutesStr . ':' . $secondsStr . 'h';
+            } elseif ($minutes > 0) {
+                $time = $minutesStr . ':' . $secondsStr . 'min';
+            } else {
+                $time = $secondsStr . 's';
             }
         }
 

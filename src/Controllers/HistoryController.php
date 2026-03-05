@@ -50,10 +50,11 @@ class HistoryController
             $totalSets = 0;
 
             $durationSum = (int)$training['duration'];
+            $totalSeconds = $durationSum;
 
-            $minutes = intdiv($durationSum, 60);
-            $hours = intdiv($minutes, 60);
-            $seconds = $durationSum % 60;
+            $hours = intdiv($totalSeconds, 3600);
+            $minutes = intdiv($totalSeconds % 3600, 60);
+            $seconds = $totalSeconds % 60;
 
             $hoursStr = str_pad((string)$hours, 2, '0', STR_PAD_LEFT);
             $minutesStr = str_pad((string)$minutes, 2, '0', STR_PAD_LEFT);
@@ -62,9 +63,9 @@ class HistoryController
             if ($hours > 0) {
                 $time = $hoursStr . ':' . $minutesStr . ':' . $secondsStr . 'h';
             } elseif ($minutes > 0) {
-                $time = $minutes . ':' . $secondsStr . 'min';
+                $time = $minutesStr . ':' . $secondsStr . 'min';
             } else {
-                $time = $seconds . 's';
+                $time = $secondsStr . 's';
             }
 
             foreach ($training['exercises'] as $exercise) {

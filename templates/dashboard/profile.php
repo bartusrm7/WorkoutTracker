@@ -134,11 +134,11 @@
                                     <label for="height">Wzrost</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input class="form-control" min="30" max="180" value="<?= $userData['data']['weight'] ?>" type="number" name="weight" id="weight" required placeholder="">
+                                    <input class="form-control" step="0.1" min="30" max="180" value="<?= $userData['data']['weight'] ?>" type="number" name="weight" id="weight" required placeholder="">
                                     <label for="weight">Waga</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input class="form-control" min="30" max="180" value="<?= $userData['data']['goal_weight'] ?>" type="number" name="goal_weight" id="goal_weight" required placeholder="">
+                                    <input class="form-control" step="0.1" min="30" max="180" value="<?= $userData['data']['goal_weight'] ?>" type="number" name="goal_weight" id="goal_weight" required placeholder="">
                                     <label for="goal_weight">Waga docelowa</label>
                                 </div>
                                 <div class="form-floating mb-2">
