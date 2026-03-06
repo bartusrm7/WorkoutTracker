@@ -12,9 +12,15 @@ User registration
 <img src="/public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="100%" /> 
 
 User login
+<img src="/public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="100%" /> 
 
 ### 🛠 Technologies Used
-
+* PHP
+* MySQL
+* JavaScript
+* HTML
+* SCSS
+* Bootstrap
 
 ### 📂 Project Structure
 
