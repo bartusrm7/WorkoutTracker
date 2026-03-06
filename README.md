@@ -9,12 +9,16 @@ WorkoutTracker is a web application designed to help users track their workouts 
 ### ✨ Features
 
 #### User registration and login
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="49%" />
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
+<p align="left">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
+</p>
 
 #### User registration and login
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="49%" />
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
+<p align="left">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
+</p>
 
 ### 🛠 Technologies Used
 * PHP
