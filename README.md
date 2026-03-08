@@ -1,12 +1,10 @@
 # 🏋️‍♂️ WorkoutTracker
 
-## 📌 Table of Contents
-
-### 📖 Overview
+## 📖 Overview
 
 WorkoutTracker is a web application designed to help users track their workouts and monitor training progress over time. It provides features such as workout logging, weekly summaries, volume calculations, and a personalized dashboard. The app includes user authentication and a clean, simple interface for managing training data.
 
-### ✨ Features
+## ✨ Features
 
 #### User registration and login
 Secure user authentication with form validation, session handling, and access to a personalized dashboard.
@@ -36,7 +34,7 @@ All saved training sessions are stored in the history section, where users can r
   <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
 </p>
 
-### 🛠 Technologies Used
+## 🛠 Technologies Used
 * #### PHP
 * #### MySQL
 * #### JavaScript
@@ -44,11 +42,11 @@ All saved training sessions are stored in the history section, where users can r
 * #### SCSS
 * #### Bootstrap
 
-### 📂 Project Structure
+## 📂 Project Structure
 
 
-### 🚀 Setup & Installation
+## 🚀 Setup & Installation
 
 
-### 🧪 Running Tests
+## 🧪 Running Tests
 
