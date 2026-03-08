@@ -49,13 +49,17 @@ User account settings, including personal data and options for managing the acco
 </p>
 
 ### Mobile views
-<img src="public/assets/images/Zrzut ekranu 2026-03-06 145708.png" width="33%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="33%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-08 141239.png" width="33%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="24%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-06 145801.png" width="24%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-02 125433.png" width="24%"/>
-<img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="24%"/>
+<p align="left">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145708.png" width="33%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="33%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-08 141239.png" width="33%"/>
+</p>
+<p align="left">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="24%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145801.png" width="24%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 125433.png" width="24%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="24%"/>
+</p>
 
 
 ## 🛠 Technologies Used
