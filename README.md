@@ -51,17 +51,11 @@ Visual summaries of training volume, frequency, and performance trends over time
 #### Profile
 User account settings, including personal data and options for managing the account.
 
-<p align="left">
-  <figure style="display:inline-block; margin:0 10px 0 0;">
-    <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="60%" />
-    <figcaption style="text-align:center;">Desktop view</figcaption>
-  </figure>
-
-  <figure style="display:inline-block;">
-    <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="30%" />
-    <figcaption style="text-align:center;">Mobile view</figcaption>
-  </figure>
+<p align="center">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="60%" style="display:inline-block; margin-right:10px;" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="25%" style="display:inline-block;" />
 </p>
+
 
 ## 🛠 Technologies Used
 * #### PHP
