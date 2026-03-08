@@ -13,7 +13,7 @@ WorkoutTracker is a web application designed to help users track their workouts 
 #### User registration and login
 Secure user authentication with form validation, session handling, and access to a personalized dashboard.
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="50%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="49%"/>
   <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%"/>
 </p>
 
