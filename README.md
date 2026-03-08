@@ -24,7 +24,7 @@ A quick overview of recent workouts, weekly progress, and key training statistic
 Users can create training plans and add exercises inside each plan.
 <p align="left">
   <img src="public/assets/images/Zrzut ekranu 2026-03-02 124440.png" width="49%" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-08 141239.png" width="49%" />
 </p>
 
 #### Training
@@ -50,12 +50,10 @@ Visual summaries of training volume, frequency, and performance trends over time
 
 #### Profile
 User account settings, including personal data and options for managing the account.
-
-<p align="center">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="60%" style="display:inline-block; margin-right:10px;" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="25%" style="display:inline-block;" />
+<p align="left">
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="49%" />
 </p>
-
 
 ## 🛠 Technologies Used
 * #### PHP
