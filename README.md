@@ -44,8 +44,8 @@ A list of all previously saved training sessions for easy review and comparison.
 #### Statistics
 Visual summaries of training volume, frequency, and performance trends over time.
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125336.png" width="49%" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125433.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 125336.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 125433.png" width="49%" />
 </p>
 
 #### Profile
