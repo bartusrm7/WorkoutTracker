@@ -30,8 +30,8 @@ Users can create training plans and add exercises inside each plan.
 #### Training
 After selecting a training container, users can add, edit, and view their training sessions, including exercises, weights, volume, and notes for each set.
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 150006.png" width="49%" height="100%" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="49%" height="100%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 150006.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="49%" />
 </p>
 
 #### History
@@ -50,9 +50,17 @@ Visual summaries of training volume, frequency, and performance trends over time
 
 #### Profile
 User account settings, including personal data and options for managing the account.
+
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="49%" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="49%" />
+  <figure style="display:inline-block; margin:0 10px 0 0;">
+    <img src="public/assets/images/Zrzut ekranu 2026-03-06 125145.png" width="60%" />
+    <figcaption style="text-align:center;">Desktop view</figcaption>
+  </figure>
+
+  <figure style="display:inline-block;">
+    <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="30%" />
+    <figcaption style="text-align:center;">Mobile view</figcaption>
+  </figure>
 </p>
 
 ## 🛠 Technologies Used
