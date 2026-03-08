@@ -9,7 +9,8 @@ WorkoutTracker is a web application designed to help users track their workouts 
 #### User registration and login
 Secure user authentication with form validation, session handling, and access to a personalized dashboard.
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112042.png" width="50%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="49%"/>
 </p>
 
 #### Dashboard
@@ -51,16 +52,14 @@ User account settings, including personal data and options for managing the acco
 ### Mobile views
 <p align="left">
   <img src="public/assets/images/Zrzut ekranu 2026-03-06 145708.png" width="33%"/>
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 112036.png" width="33%"/>
   <img src="public/assets/images/Zrzut ekranu 2026-03-08 141239.png" width="33%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="33%"/>
 </p>
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="24%"/>
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145801.png" width="24%"/>
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 125433.png" width="24%"/>
-  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="24%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145801.png" width="33%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-02 125433.png" width="33%"/>
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145819.png" width="33%"/>
 </p>
-
 
 ## 🛠 Technologies Used
 * #### PHP
@@ -70,11 +69,24 @@ User account settings, including personal data and options for managing the acco
 * #### SCSS
 * #### Bootstrap
 
-## 📂 Project Structure
-
-
 ## 🚀 Setup & Installation
+1. Clone the repository:
+```bash
+git clone git@github.com:bartusrm7/WorkoutTracker.git
+```
 
+2. Create a new MySQL database manually.
 
-## 🧪 Running Tests
+3. Configure your database connection in the project settings.
 
+4. Start your local server (XAMPP, Laragon, WAMP, or similar).
+
+5. Open the project in your browser at:
+```bash
+http://localhost/signin-form
+```
+
+## 🧪 Running Ready Project
+```bash
+https://workout-tracker.free.nf/signin-form
+```
