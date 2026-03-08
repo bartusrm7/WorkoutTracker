@@ -30,8 +30,8 @@ Users can create training plans and add exercises inside each plan.
 #### Training
 After selecting a training container, users can add, edit, and view their training sessions, including exercises, weights, volume, and notes for each set.
 <p align="left">
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 150006.png" width="49%" />
-  <img src="public/assets/images/Zrzut ekranu 2026-03-02 145730.png" width="49%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 150006.png" width="49%" height="100%" />
+  <img src="public/assets/images/Zrzut ekranu 2026-03-06 145730.png" width="49%" height="100%" />
 </p>
 
 #### History
