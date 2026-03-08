@@ -1,11 +1,13 @@
 # 🏋️‍♂️ WorkoutTracker
 
 <br>
+
 ## 📖 Overview
 
 WorkoutTracker is a web application designed to help users track their workouts and monitor training progress over time. It provides features such as workout logging, weekly summaries, volume calculations, and a personalized dashboard. The app includes user authentication and a clean, simple interface for managing training data. The application also offers a fully responsive layout.
 
 <br>
+
 ## ✨ Features
 
 #### User registration and login
@@ -64,6 +66,7 @@ User account settings, including personal data and options for managing the acco
 </p>
 
 <br>
+
 ## 🛠 Technologies Used
 * #### PHP
 * #### MySQL
@@ -73,6 +76,7 @@ User account settings, including personal data and options for managing the acco
 * #### Bootstrap
 
 <br>
+
 ## 🚀 Setup & Installation
 1. Clone the repository:
 ```bash
@@ -91,6 +95,7 @@ http://localhost/signin-form
 ```
 
 <br>
+
 ## 🧪 Running Ready Project
 ```bash
 https://workout-tracker.free.nf/signin-form
