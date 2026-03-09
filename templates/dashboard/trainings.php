@@ -120,7 +120,7 @@
                                                 <button class="dropdown-item btn custom-btn edit-training-btn" id="editTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" data-training-name="<?= htmlspecialchars($training['name']) ?>" data-bs-toggle="modal" data-bs-target="#editTrainingFormModal">Edytuj</button>
                                             </li>
                                             <li>
-                                                <button class="dropdown-item btn custom-btn" id="removeTrainingBtn" data-training-id="<?= htmlspecialchars($training['id']) ?>" onclick="removeTraining.call(this)">Usuń</button>
+                                                <button class="dropdown-item btn custom-btn" onclick="handleSelectTrainingId(this)" data-training-id="<?= htmlspecialchars($training['id']) ?>" data-bs-toggle="modal" data-bs-target="#confirmTrainingDelete">Usuń</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -154,6 +154,25 @@
                                 </div>
                                 <button type="button" class="custom-btn btn px-5 mt-3 float-end" onclick="editTraining()">Edytuj</button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmTrainingDelete" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content exercises-form-modal">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 fw-bold">Potwierdzenie usunięcia treningu</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="trainings__form-container">
+                            <div>
+                                <div>Czy na pewno chcesz usunąć ten trening?</div>
+                                <button class="custom-btn btn px-5 mt-3 float-sm-end" type="button" onclick="removeTraining()">Usuń trening</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -290,8 +309,14 @@
         }
     }
 
+    let selectedTrainingId;
+
+    const handleSelectTrainingId = (button) => {
+        selectedTrainingId = button.dataset.trainingId;
+    }
+
     async function removeTraining() {
-        const id = this.dataset.trainingId;
+        const id = selectedTrainingId;
         const response = await fetch('/delete-training', {
             method: "POST",
             headers: {

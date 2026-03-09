@@ -63,11 +63,11 @@
 						<?php $trainingIdStarted = $_SESSION['training_id_started'] ?? '' ?>
 
 						<?php if (!empty($_SESSION['training_started']) && $trainingIdStarted == $_SESSION['trainingId']): ?>
-							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleOpenEndTrainingSessionFunction()" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
+							<button class="custom-accent-btn btn px-3" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button>
 							<button class="custom-accent-btn btn px-3 d-none" id="startTrainingSessionBtn" data-training-id-started="<?= htmlspecialchars($trainingIdStarted) ?>" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
 						<?php else: ?>
 							<button class="custom-accent-btn btn px-3" id="startTrainingSessionBtn" data-training-id-started="<?= htmlspecialchars($trainingIdStarted) ?>" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleStartTrainingSession()"><i class="fa-solid fa-play me-1"></i> Rozpocznij trening</button>
-							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" onclick="handleOpenEndTrainingSessionFunction()" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
+							<button class="custom-accent-btn btn px-3 d-none" id="stopTrainingSessionBtn" data-training-id="<?= htmlspecialchars($_SESSION['trainingId']) ?>" data-bs-toggle="modal" data-bs-target="#confirmTraining"><i class="fa-solid fa-stop me-1"></i> Zakończ trening</button> <?php endif ?>
 					</div>
 					<hr>
 					<div>
@@ -461,8 +461,6 @@
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
 	}
-
-	const handleOpenEndTrainingSessionFunction = () => {}
 
 	const handleEndTrainingSession = async () => {
 		const stopBtn = document.getElementById('stopTrainingSessionBtn');
