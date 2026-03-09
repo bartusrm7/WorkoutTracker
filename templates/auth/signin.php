@@ -14,7 +14,7 @@
 
 <body class="auth min-vh-100 d-flex justify-content-center align-items-center">
 
-    <div class="auth__container p-3 rounded-4">
+    <div class="auth__container p-3 mx-3 rounded-4">
         <h3 class="auth__label text-center mb-3">Logowanie</h3>
 
         <form action="/signin" method="post">

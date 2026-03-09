@@ -28,10 +28,9 @@ class ProfileRepository
 
     public function changeUserProfileDataQuery($id, $sex, $age, $height, $weight, $goalWeight, $goal)
     {
-        $stmt = $this->pdo->prepare('UPDATE user_data SET sex = :sex, age = :age, height = :height, weight = :weight, goal_weight = :goal_weight, goal = :goal WHERE id = :id');
-        $stmt->execute([':id' => $id, ':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal]);
+        $stmt = $this->pdo->prepare('UPDATE user_data SET sex = :sex, age = :age, height = :height, weight = :weight, goal_weight = :goal_weight, goal = :goal, updated_date = :updated_date WHERE id = :id');
+        $stmt->execute([':id' => $id, ':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, 'updated_date' => date('Y-m-d')]);
 
-        $dateToday = date('Y-m-d');
         return new ProfileDataModel(
             $id,
             $sex,
