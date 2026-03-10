@@ -26,20 +26,20 @@ class ProfileRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function changeUserProfileDataQuery($id, $sex, $age, $height, $weight, $goalWeight, $goal)
+    public function changeUserProfileDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId)
     {
-        $stmt = $this->pdo->prepare('UPDATE user_data SET sex = :sex, age = :age, height = :height, weight = :weight, goal_weight = :goal_weight, goal = :goal, updated_date = :updated_date WHERE id = :id');
-        $stmt->execute([':id' => $id, ':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, 'updated_date' => date('Y-m-d')]);
+        $stmt = $this->pdo->prepare('INSERT INTO user_data (sex, age, height, weight, goal_weight, goal, user_id, updated_date) VALUES (:sex, :age, :height, :weight, :goal_weight, :goal, :user_id, :updated_date)');
+        $stmt->execute([':sex' => $sex, ':age' => $age, ':height' => $height, ':weight' => $weight, ':goal_weight' => $goalWeight, ':goal' => $goal, ':user_id' => $userId, 'updated_date' => date('Y-m-d')]);
 
         return new ProfileDataModel(
-            $id,
+            null,
             $sex,
             $age,
             $height,
             $weight,
             $goalWeight,
             $goal,
-            null,
+            $userId,
             date('Y-m-d')
         );
     }

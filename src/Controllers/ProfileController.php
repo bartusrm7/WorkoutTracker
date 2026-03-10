@@ -27,9 +27,7 @@ class ProfileController
     {
         session_start();
         $userId = $_SESSION['id'];
-        $lastRecord = $this->service->getUserProfileData($userId);
 
-        $id = $lastRecord['data']['id'];
         $sex = $_POST['sex'];
         $age = $_POST['age'];
         $height = $_POST['height'];
@@ -37,7 +35,7 @@ class ProfileController
         $goalWeight = $_POST['goal_weight'];
         $goal = $_POST['goal'];
 
-        $userData = $this->service->changeUserProfileData($id, $sex, $age, $height, $weight, $goalWeight, $goal);
+        $userData = $this->service->changeUserProfileData($sex, $age, $height, $weight, $goalWeight, $goal, $userId);
         header('Location: /profile');
     }
 }
