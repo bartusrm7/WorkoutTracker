@@ -102,6 +102,20 @@ body {
 	&__last-training-date {
 		color: $accent !important;
 	}
+	&__dots {
+		margin: 0.2rem;
+		width: 25px;
+		height: 25px;
+		background-color: $primary;
+		border-radius: 50%;
+	}
+	&__dots-training-done {
+		margin: 0.2rem;
+		width: 25px;
+		height: 25px;
+		background-color: $accent-two;
+		border-radius: 50%;
+	}
 }
 
 .trainings {

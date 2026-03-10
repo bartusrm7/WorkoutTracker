@@ -86,6 +86,13 @@
                         <div class="fs-4"><?= htmlspecialchars($sumTrainingDuration['data'] ?? 0) ?></div>
                     </div>
                 </div>
+                <div class="col-md-10 col-lg-12 col-xl-10">
+                    <div class="dashboard__container rounded-4 p-4">
+                        <h3>Treningi w ostatnich 30 dniach</h3>
+                        <hr>
+                        <div class="fs-4 d-flex flex-wrap" id="dots30TrainingsContainer" data-training-lists='<?= json_encode($trainingsLast30Days['data']) ?>'></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -124,4 +131,28 @@
         icon.classList.add('fa-bars');
         icon.classList.remove('fa-bars-staggered');
     })
+
+    const displayLast30TrainingDays = () => {
+        const dotsContainer = document.getElementById('dots30TrainingsContainer');
+        const dateLists = JSON.parse(dotsContainer.dataset.trainingLists);
+
+        for (let i = 1; i < 31; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dashboard__dots');
+            dotsContainer.append(dot);
+        }
+
+        const MS_IN_DAY = 1000 * 60 * 60 * 24;
+        const currentDate = new Date();
+        dateLists.forEach(date => {
+            const trainingDate = new Date(date.start);
+            const diffDate = Math.floor((currentDate - trainingDate) / MS_IN_DAY);
+
+            if (diffDate >= 0 && diffDate < 30) {
+                dotsContainer.children[diffDate].classList.add('dashboard__dots-training-done');
+            }
+
+        })
+    }
+    displayLast30TrainingDays();
 </script>

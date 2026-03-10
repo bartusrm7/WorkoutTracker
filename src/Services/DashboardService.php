@@ -99,4 +99,17 @@ class DashboardService
             'data' => $time
         ];
     }
+
+    public function sumOfTrainingsLast30Days($userId)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        $result = $this->repository->sumOfTrainingsLast30DaysQuery($userId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
 }

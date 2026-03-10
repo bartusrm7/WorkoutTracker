@@ -26,7 +26,7 @@ class DashboardRepository
 
     public function amountOfTrainingsThisWeekQuery($userId)
     {
-        $stmt = $this->pdo->prepare('SELECT id FROM training WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(), 1)');
+        $stmt = $this->pdo->prepare('SELECT id FROM training_history WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(), 1)');
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -46,8 +46,15 @@ class DashboardRepository
 
     public function sumOfTrainigDurationsThisWeekQuery($userId)
     {
-        $stmt = $this->pdo->prepare('SELECT duration FROM training WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(),1)');
+        $stmt = $this->pdo->prepare('SELECT duration FROM training_history WHERE user_id = :user_id AND WEEK(start, 1) = WEEK(CURDATE(),1)');
         $stmt->execute([':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function sumOfTrainingsLast30DaysQuery($userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT start FROM training_history WHERE user_id = :user_id AND start >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)');
+        $stmt->execute(['user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

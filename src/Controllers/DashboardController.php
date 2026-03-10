@@ -20,6 +20,7 @@ class DashboardController
         $trainingsThisWeek = $this->service->amountOfTrainingsThisWeek($userId);
         $last7TrainingsVolume = $this->service->countVolumeLast7Days($userId);
         $sumTrainingDuration = $this->service->sumOfTrainigDurationsThisWeek($userId);
+        $trainingsLast30Days = $this->service->sumOfTrainingsLast30Days($userId);
 
         require '../templates/dashboard/dashboard.php';
     }
