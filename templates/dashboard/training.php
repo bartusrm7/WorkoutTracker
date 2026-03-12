@@ -88,9 +88,12 @@
 						<table class="table table-bordered mb-0 text-center rounded-3">
 							<div>
 								<div class="d-flex justify-content-between align-items-center mb-2">
-									<h5 class="traning__exercise-name mb-0">
-										<?= htmlspecialchars(ucfirst($row['name'])) ?>
-									</h5>
+									<div class="d-flex align-items-center">
+										<h5 class="traning__exercise-name mb-0">
+											<?= htmlspecialchars(ucfirst($row['name'])) ?>
+										</h5>
+										<button class="btn custom-accent-btn ms-3 py-1 px-3 exercise-preview-btn" data-exercise-name="<?= htmlspecialchars($row['name']) ?>" data-bs-toggle="modal" data-bs-target="#displayExercisesPreview" onclick="getLastTrainingExercisesPreview(this)">Podgląd</button>
+									</div>
 									<div class="dropdown">
 										<button class="training__dropdown-menu-btn btn" data-bs-toggle="dropdown">
 											<i class="fa-solid fa-ellipsis-vertical fs-5"></i>
@@ -116,7 +119,7 @@
 							</div>
 							<thead>
 								<tr>
-									<th class=" training__th col-2">S
+									<th class="training__th col-2">S
 										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
 									</th>
 									<th class="training__th col-2">C
@@ -185,6 +188,39 @@
 								<button type="button" class="custom-btn btn px-5 mt-3 float-end" id="setNoteExerciseBtn">Dodaj</button>
 							</form>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="displayExercisesPreview" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Dodaj notatkę do ćwiczenia</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="preview-table-error d-none">Brak danych w poprzednim treningu</div>
+						<table class="preview-table table table-bordered mb-0 text-center rounded-3">
+							<thead>
+								<tr>
+									<th class="training__th col-2">S
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Numer serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">C
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ciężar w serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">P
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Powtórzenia w serii"><i class="bi bi-info-circle"></i></span>
+									</th>
+									<th class="training__th col-2">Z
+										<span type="button" class="training__tool-tip-btn mx-sm-1 my-2 p-0 px-1 float-end" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zapas powtórzeń"><i class="bi bi-info-circle"></i></span>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="training__exercises-preview"></tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -514,6 +550,44 @@
 		} else {
 			document.getElementById('startTrainingSessionBtn').classList.add('d-none');
 			document.getElementById('stopTrainingSessionBtn').classList.remove('d-none');
+		}
+	}
+
+	async function getLastTrainingExercisesPreview(name) {
+		const exerciseName = name.dataset.exerciseName;
+		const previewTable = document.querySelector('.preview-table');
+		const previewTableError = document.querySelector('.preview-table-error');
+		const exercisesPreview = document.querySelector('.training__exercises-preview');
+		exercisesPreview.innerHTML = '';
+
+		const response = await fetch(`/exercises-preview`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				exerciseName
+			})
+		})
+		if (!response.ok) {
+			throw new Error('Błąd podczas pobierania podglądu ćwiczeń ostatniego treningu', error.status);
+		}
+		const data = await response.json();
+		if (data.data && data.data.length > 0) {
+			previewTableError.classList.add('d-none');
+			previewTable.classList.remove('d-none');
+			data.data.forEach(d => {
+				exercisesPreview.innerHTML +=
+					`<tr>
+					<th>${d.sets}</th>
+					<td>${d.weight}</td>
+					<td>${d.reps}</td>
+					<td>${d.rir}</td>
+					</tr>`
+			});
+		} else {
+			previewTableError.classList.remove('d-none');
+			previewTable.classList.add('d-none');
 		}
 	}
 

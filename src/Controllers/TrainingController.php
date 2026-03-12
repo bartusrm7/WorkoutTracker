@@ -129,6 +129,7 @@ class TrainingController
 
         $training = $this->service->displayTrainingPlan($userId, $trainingId);
         $trainingName = $trainingIdName['data']['name'];
+        $_SESSION['trainingName'] = $trainingIdName;
 
         if (!is_array($training)) {
             return 'Dane treningu nie są tablicą';
@@ -207,8 +208,9 @@ class TrainingController
         $data = json_decode(file_get_contents('php://input'), true);
         $name = $data['exercisesName'];
         $trainingId = $_SESSION['trainingId'];
+        $trainingName = $_SESSION['trainingName'];
 
-        $exercise = $this->service->createNewExercises($name, $trainingId);
+        $exercise = $this->service->createNewExercises($name, $trainingId, $trainingName);
         echo json_encode($exercise);
     }
 
@@ -232,6 +234,25 @@ class TrainingController
         $id = $data['id'];
         $result = $this->service->deleteExercise($id);
 
+        echo json_encode($result);
+    }
+
+    public function exercisesPreview()
+    {
+        session_start();
+
+        $userId = $_SESSION['id'];
+        $chosenTrainingName = $_SESSION['trainingName']['data']['name'];
+
+        $trainingNameArray = $this->service->getLastExercisesWithName($userId, $chosenTrainingName);
+        $trainingName = $trainingNameArray['data'];
+        $trainingIdArray = $this->service->findLastTrainingId($userId, $trainingName);
+        $trainingId = $trainingIdArray['data'];
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        $exerciseName = $data['exerciseName'];
+
+        $result = $this->service->displayLastTrainingExercises($trainingId, $userId, $trainingName, $exerciseName);
         echo json_encode($result);
     }
 }

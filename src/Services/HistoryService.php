@@ -42,7 +42,8 @@ class HistoryService
             $exerciseId = $this->repository->saveExercisesToHistoryQuery(
                 $exercise['name'],
                 $exercise['note'],
-                $saveTraining
+                $saveTraining,
+                $training['name']
             );
             $saveExercises[] = $exerciseId;
 
@@ -54,6 +55,7 @@ class HistoryService
                     $set['reps'],
                     $set['rir'],
                     $exerciseId,
+                    $exercise['name'],
                     $set['created_at']
                 );
             }

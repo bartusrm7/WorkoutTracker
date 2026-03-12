@@ -20,8 +20,7 @@ class TrainingService
         if (empty($trainingName)) {
             return ['success' => false, 'error' => 'Nazwa treningu musi być podana'];
         }
-
-        if (empty($exercisesName) || !is_array($exercisesName)) {
+        if (empty($trainingName) || !is_array($exercisesName)) {
             return ['success' => false, 'error' => 'Musisz dodać przynajmniej jedno ćwiczenie'];
         }
         $training = $this->repository->createNewTrainingQuery($trainingName, $userId);
@@ -29,7 +28,7 @@ class TrainingService
 
         foreach ($exercisesName as $exercise) {
             if (!empty($exercise)) {
-                $this->repository->createNewExercisesQuery($exercise, $trainingId);
+                $this->repository->createNewExercisesQuery($exercise, $trainingId, $trainingName);
             }
         }
 
@@ -263,7 +262,7 @@ class TrainingService
         ];
     }
 
-    public function createNewExercises($name, $trainingId)
+    public function createNewExercises($name, $trainingId, $trainingName)
     {
         if (empty($trainingId)) {
             return ['success' => false, 'error' => 'ID treningu jest niepoprawne'];
@@ -271,7 +270,7 @@ class TrainingService
         if (empty($name)) {
             return ['success' => false, 'error' => 'Nazwa ćwiczenia musi być podana'];
         }
-        $exercise = $this->repository->createNewExercisesQuery($name, $trainingId);
+        $exercise = $this->repository->createNewExercisesQuery($name, $trainingId, trainingName: $trainingName);
 
         return [
             'success' => true,
@@ -301,6 +300,60 @@ class TrainingService
             return ['success' => false, 'error' => 'Brak ID ćwiczenia'];
         }
         $result = $this->repository->deleteExerciseQuery($id);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
+    public function getLastExercisesWithName($userId, $traininName)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        if (!$traininName) {
+            return ['success' => false, 'error' => 'Brak nazwy treningu'];
+        }
+        $result = $this->repository->getLastExercisesWithNameQuery($userId, $traininName);
+
+        return [
+            'success' => true,
+            'data' => $result['name']
+        ];
+    }
+
+    public function findLastTrainingId($userId, $trainingName)
+    {
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        if (!$trainingName) {
+            return ['success' => false, 'error' => 'Brak nazwy treningu'];
+        }
+        $result = $this->repository->findLastTrainingIdQuery($userId, $trainingName);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
+    public function displayLastTrainingExercises($id, $userId, $trainingName, $exerciseName)
+    {
+        if (!$id) {
+            return ['success' => false, 'error' => 'Brak ID treningu'];
+        }
+        if (!$userId) {
+            return ['success' => false, 'error' => 'Brak ID użytkownika'];
+        }
+        if (!$trainingName) {
+            return ['success' => false, 'error' => 'Brak nazwy treningu'];
+        }
+        if (!$exerciseName) {
+            return ['success' => false, 'error' => 'Brak nazwy ćwiczenia'];
+        }
+        $result = $this->repository->displayLastTrainingExercisesQuery($id, $userId, $trainingName, $exerciseName);
 
         return [
             'success' => true,

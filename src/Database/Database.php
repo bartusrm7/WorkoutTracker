@@ -87,6 +87,7 @@ class Database
             name VARCHAR(255) NOT NULL,
             note VARCHAR(255),
             training_id INT,
+            training_name VARCHAR(255) NOT NULL,
             CONSTRAINT fk_training_exercises
             FOREIGN KEY (training_id) 
             REFERENCES training(id)
@@ -104,6 +105,7 @@ class Database
             rir FLOAT,
             created_at DATE NOT NULL,
             exercise_id INT,
+            exercise_name VARCHAR(255),
             CONSTRAINT fk_exercises_data
             FOREIGN KEY (exercise_id) 
             REFERENCES exercises(id) 
@@ -134,6 +136,7 @@ class Database
             name VARCHAR(255) NOT NULL,
             note VARCHAR(255),
             training_id INT,
+            training_name VARCHAR(255) NOT NULL,
             CONSTRAINT fk_training_history_exercises
             FOREIGN KEY (training_id) 
             REFERENCES training_history(id) 
@@ -151,6 +154,7 @@ class Database
             rir FLOAT,
             created_at DATE NOT NULL,
             exercise_id INT,
+            exercise_name VARCHAR(255),
             CONSTRAINT fk_exercises_history_datas
             FOREIGN KEY (exercise_id) 
             REFERENCES exercises_history(id) 
