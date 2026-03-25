@@ -74,6 +74,7 @@ User account settings, including personal data and options for managing the acco
 * #### HTML
 * #### SCSS
 * #### Bootstrap
+* #### ChartJS
 
 <br>
 
