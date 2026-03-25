@@ -27,6 +27,15 @@
                 <input type="password" name="password" class="form-control" placeholder="">
                 <label for="password">Hasło</label>
             </div>
+            <div class="d-flex justify-content-between align-items-center my-2 px-1">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" id="remember-me">
+                    <label class="form-check-label" for="remember-me">Remember me</label>
+                </div>
+                <div>
+                    <a href="/sign-in-form" class="auth__switch-form-btn ms-1" type="button">Forget password?</a>
+                </div>
+            </div>
             <?php if (!empty($errors)): ?>
                 <ul class="alert alert-danger my-2">
                     <?php foreach ($errors as $error): ?>

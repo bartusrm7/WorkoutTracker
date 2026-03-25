@@ -1,0 +1,21 @@
+@use "../global" as *;
+
+.auth {
+	&__container {
+		width: 550px;
+		background-color: $third;
+	}
+	&__label {
+		color: $background;
+	}
+	.form-check-label {
+		color: $secondary;
+	}
+	&__switch-form-btn {
+		color: $light-blue;
+		text-decoration: none;
+	}
+	li {
+		list-style: none;
+	}
+}

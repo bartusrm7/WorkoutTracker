@@ -1,51 +1,5 @@
-$background: #222222;
-$text: #ebebeb;
-$primary: #cccccc;
-$secondary: #424242;
-$third: #e4e4e4;
-$light-accent: #ff83723f;
-$accent: #fa6c5a;
-$accent-two: #ff4f18;
-
-body {
-	background-color: $background;
-	color: $text;
-	font-family: "Roboto", sans-serif;
-}
-
-.custom-btn {
-	background-color: $secondary;
-	color: $text;
-	border: 1px solid $light-accent;
-	font-weight: 500;
-	&:hover {
-		background-color: $accent;
-		color: $secondary;
-	}
-}
-
-.custom-accent-btn {
-	background-color: $accent;
-	color: $background;
-	font-weight: 500;
-	&:hover {
-		background-color: $secondary;
-		color: $text;
-	}
-}
-
-.auth {
-	&__container {
-		width: 550px;
-		background-color: $third;
-	}
-	&__label {
-		color: $background;
-	}
-	li {
-		list-style: none;
-	}
-}
+@use "global" as *;
+@use "styles/auth.scss" as *;
 
 .nav {
 	&__navbar {

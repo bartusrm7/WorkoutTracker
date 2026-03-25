@@ -1,0 +1,44 @@
+$background: #222222;
+$text: #ebebeb;
+$primary: #cccccc;
+$secondary: #424242;
+$third: #e4e4e4;
+$light-accent: #ff83723f;
+$accent: #fa6c5a;
+$accent-two: #ff4f18;
+$light-blue: #3386f3;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: $background;
+	color: $text;
+	font-family: "Roboto", sans-serif;
+}
+
+.custom-btn {
+	background-color: $secondary;
+	color: $text;
+	border: 1px solid $light-accent;
+	font-weight: 500;
+	&:hover {
+		background-color: $accent;
+		color: $secondary;
+	}
+}
+
+.custom-accent-btn {
+	background-color: $accent;
+	color: $background;
+	font-weight: 500;
+	&:hover {
+		background-color: $secondary;
+		color: $text;
+	}
+}
