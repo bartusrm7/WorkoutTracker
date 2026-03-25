@@ -252,7 +252,17 @@ class TrainingController
         $data = json_decode(file_get_contents('php://input'), true);
         $exerciseName = $data['exerciseName'];
 
-        $result = $this->service->displayLastTrainingExercises($trainingId, $userId, $trainingName, $exerciseName);
+        $result = $this->service->displayLastTrainingExercises($trainingId, $userId, $exerciseName);
+        echo json_encode($result);
+    }
+
+    public function getPR()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $exerciseName = $data['exerciseName'];
+
+        $result = $this->service->getLastExercisePR($exerciseName);
+        var_dump($result);
         echo json_encode($result);
     }
 }

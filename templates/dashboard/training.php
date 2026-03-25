@@ -138,7 +138,7 @@
 							</thead>
 							<tbody id="setsData">
 								<?php foreach ($row['sets'] as $set): ?>
-									<tr data-set-id="<?= htmlspecialchars($set['sets']) ?>">
+									<tr class="training__set-tr" data-set-id="<?= htmlspecialchars($set['sets']) ?>" data-exercise-name="<?= htmlspecialchars($row['name']) ?>">
 										<th><?= htmlspecialchars($set['setNum']) ?></th>
 										<td><?= $set['weight'] == 0 ? '' : htmlspecialchars($set['weight']) ?></td>
 										<td><?= htmlspecialchars($set['reps']) ?></td>
@@ -197,7 +197,7 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5 fw-bold">Dodaj notatkę do ćwiczenia</h1>
+						<h1 class="modal-title fs-5 fw-bold">Podgląd serii na poprzednim treningu</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -416,6 +416,36 @@
 		document.getElementById('repsSet').value = data.data.reps;
 		document.getElementById('rirSet').value = data.data.rir;
 	})
+
+	const setTr = document.querySelectorAll('.training__set-tr');
+	let exerciseNames = [];
+	setTr.forEach(tr => {
+		exerciseNames.push(tr.dataset.exerciseName);
+		console.log(exerciseNames);
+	});
+
+	async function setCurrentExercisePR() {
+		for (const exerciseName of exerciseNames) {
+			try {
+				const response = await fetch('/get-pr', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						exerciseName: exerciseName
+					})
+				});
+				if (!response.ok) {
+					throw new Error('Błąd podczas pobierania personalnego rekordu');
+				}
+				const data = await response.json();
+			} catch (error) {
+				console.error('Błąd dla exerciseName', exerciseName, error);
+			}
+		}
+	}
+	setCurrentExercisePR();
 
 	async function deleteSet() {
 		const id = this.dataset.id;

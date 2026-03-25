@@ -339,7 +339,7 @@ class TrainingService
         ];
     }
 
-    public function displayLastTrainingExercises($id, $userId, $trainingName, $exerciseName)
+    public function displayLastTrainingExercises($id, $userId, $exerciseName)
     {
         if (!$id) {
             return ['success' => false, 'error' => 'Brak ID treningu'];
@@ -347,17 +347,31 @@ class TrainingService
         if (!$userId) {
             return ['success' => false, 'error' => 'Brak ID użytkownika'];
         }
-        if (!$trainingName) {
-            return ['success' => false, 'error' => 'Brak nazwy treningu'];
-        }
         if (!$exerciseName) {
             return ['success' => false, 'error' => 'Brak nazwy ćwiczenia'];
         }
-        $result = $this->repository->displayLastTrainingExercisesQuery($id, $userId, $trainingName, $exerciseName);
+        $result = $this->repository->displayLastTrainingExercisesQuery($id, $userId, $exerciseName);
 
         return [
             'success' => true,
             'data' => $result
+        ];
+    }
+
+    public function getLastExercisePR($exerciseName)
+    {
+        if (!$exerciseName) {
+            return ['success' => false, 'error' => 'Brak nazwy ćwiczenia'];
+        }
+        $exercisesData = $this->repository->getLastExercisePRQuery($exerciseName);
+        foreach ($exercisesData as $data) {
+            $maxPR = $data['weight'] * (1 + $data['reps'] / 30);
+        }
+
+        return [
+            'success' => true,
+            'data' => $exercisesData,
+            'pr' => $maxPR ?? null
         ];
     }
 }

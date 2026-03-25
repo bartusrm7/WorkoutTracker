@@ -122,9 +122,9 @@ class TrainingRepository
     {
         $stmt = $this->pdo->prepare(
             'SELECT * FROM training
-        INNER JOIN exercises ON training.id = exercises.training_id
-        WHERE training.user_id = :user_id
-        AND training.id = :training_id'
+            INNER JOIN exercises ON training.id = exercises.training_id
+            WHERE training.user_id = :user_id
+            AND training.id = :training_id'
         );
         $stmt->execute([':user_id' => $userId, ':training_id' => $trainingId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -212,18 +212,28 @@ class TrainingRepository
         return $stmt->fetchColumn();
     }
 
-    public function displayLastTrainingExercisesQuery($id, $userId, $trainingName, $exerciseName)
+    public function displayLastTrainingExercisesQuery($id, $userId, $exerciseName)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT * FROM exercises_history_data
+            INNER JOIN exercises_history ON exercises_history_data.exercise_id = exercises_history.id
+            INNER JOIN training_history ON exercises_history.training_id = training_history.id
+            WHERE training_history.id = :id
+            AND training_history.user_id = :user_id
+            AND exercises_history.name = :exercise_name'
+        );
+        $stmt->execute([':id' => $id, ':user_id' => $userId, ':exercise_name' => $exerciseName]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLastExercisePRQuery($exerciseName)
     {
         $stmt = $this->pdo->prepare(
             'SELECT * FROM exercises_history_data
             INNER JOIN exercises_history ON exercises_history_data.exercise_name = exercises_history.name
-            INNER JOIN training_history ON exercises_history.training_name = training_history.name
-            WHERE training_history.id = :id
-            AND training_history.user_id = :user_id
-            AND exercises_history.training_name = :training_name
-            AND exercises_history_data.exercise_name = :exercise_name'
+            WHERE exercises_history.name = :name'
         );
-        $stmt->execute([':id' => $id, ':user_id' => $userId, ':training_name' => $trainingName, ':exercise_name' => $exerciseName]);
+        $stmt->execute([':name' => $exerciseName]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
