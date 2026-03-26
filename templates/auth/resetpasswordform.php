@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/main.css?v=<?= filemtime('assets/main.css') ?>">
+    <title>Zmiana hasła</title>
+</head>
+
+<body class="auth min-vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="auth__container p-3 mx-3 rounded-4">
+        <h3 class="auth__label text-center mb-3">Utwórz nowe hasło</h3>
+
+        <form action="/reset-password" method="post">
+            <div class="form-floating mt-2">
+                <input type="password" name="password" class="form-control" placeholder="">
+                <label for="password">Password</label>
+            </div>
+
+            <button class="btn custom-btn mt-3 w-100" type="submit">Zmień hasło</button>
+        </form>
+
+        <div class="mt-5">
+            <a class="btn custom-accent-btn w-100" href="/signin-form">Logowanie</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

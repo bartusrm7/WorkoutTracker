@@ -10,7 +10,7 @@ class AuthService
 {
     private AuthRepository $repository;
 
-    public function __construct()
+    public function __construct(private MailerService $mailer)
     {
         $this->repository = new AuthRepository();
     }
@@ -60,6 +60,19 @@ class AuthService
             return ['Hasło niepoprawne'];
         }
         return $user;
+    }
+
+    public function forgetPasswordEmail($email)
+    {
+        if (!@$email) {
+            return ['success' => false, 'error' => 'Email jest wymagany'];
+        }
+        $result = $this->mailer->sendResetPasswordMailToUser($email);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
     }
 
     public function insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate)

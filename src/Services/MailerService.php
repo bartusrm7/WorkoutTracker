@@ -17,7 +17,6 @@ class MailerService
         $this->mail = new PHPMailer(true);
 
         try {
-            //Server settings
             $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $this->mail->isSMTP();
             $this->mail->Host       = $_ENV['SMTP_HOST'];
@@ -36,8 +35,8 @@ class MailerService
         $this->mail->setFrom($_ENV['SMTP_NAME'], 'WorkoutTracker');
         $this->mail->addAddress($email);
         $this->mail->isHTML(true);
-        $this->mail->Subject = 'Confirm your registration';
-        $this->mail->Body = '<div><div style="font-weight: bold;">Thank you for signing up!</div><br/> Please confirm your registration to get started, <a style="font-weight: bold;" href="http://workouttracker.local:8000/signin-form">sign in here</a></div>';
+        $this->mail->Subject = 'Potwierde swoja rejestracje';
+        $this->mail->Body = '<div><div style="font-weight: bold;">Dziękujemy za rejestrację!</div><br/>  Aby rozpocząć korzystanie z aplikacji, potwierdź swoją rejestrację. Możesz się zalogować, klikając <a style="font-weight: bold;" href="http://workouttracker.local:8000/signin-form">tutaj</a></div>';
         $this->mail->send();
     }
 
@@ -46,8 +45,8 @@ class MailerService
         $this->mail->setFrom($_ENV['SMTP_NAME'], 'WorkoutTracker');
         $this->mail->addAddress($email);
         $this->mail->isHTML(true);
-        $this->mail->Subject = 'Reset password';
-        $this->mail->Body = '<div><a style="font-weight: bold;" href="http://workouttracker.local:8000/reset-password-form">Click the link</a> to change password.</div>';
+        $this->mail->Subject = 'Zresetuj swoje haslo';
+        $this->mail->Body = '<div><a style="font-weight: bold;" href="http://workouttracker.local:8000/reset-password-form">Kliknij tutaj</a>, aby zresetować hasło..</div>';
         $this->mail->send();
     }
 }

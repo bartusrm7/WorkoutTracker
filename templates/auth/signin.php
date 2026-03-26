@@ -33,7 +33,7 @@
                     <label class="form-check-label" for="remember-me">Remember me</label>
                 </div>
                 <div>
-                    <a href="/sign-in-form" class="auth__switch-form-btn ms-1" type="button">Forget password?</a>
+                    <a href="/forget-password-email-form" class="auth__switch-form-btn ms-1" type="button">Forget password?</a>
                 </div>
             </div>
             <?php if (!empty($errors)): ?>

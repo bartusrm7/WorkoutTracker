@@ -22,6 +22,8 @@ $dotenv->load();
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     // GET
     $r->addRoute('GET', '/logout', [AuthController::class, 'userLogout']);
+    $r->addRoute('GET', '/forget-password-email-form', [AuthController::class, 'forgetPasswordEmailForm']);
+    $r->addRoute('GET', '/reset-password-form', [AuthController::class, 'resetPasswordForm']);
     $r->addRoute('GET', '/trainings', [TrainingController::class, 'displayAllTrainings']);
     $r->addRoute('GET', '/training', [TrainingController::class, 'displayTraining']);
     $r->addRoute('GET', '/set-id', [TrainingController::class, 'getEditSet']);
@@ -31,6 +33,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     // AUTH
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
+    $r->addRoute('POST', '/forget-password-email', [AuthController::class, 'forgetPasswordEmail']);
+    $r->addRoute('POST', '/reset-password', [AuthController::class, 'forgetPasswordEmail']);
     $r->addRoute('POST', '/user-data', [AuthController::class, 'userData']);
 
     // TRAINING

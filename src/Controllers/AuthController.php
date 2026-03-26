@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Services\AuthService;
+use App\Services\MailerService;
 use DateTime;
 
 class AuthController
@@ -13,7 +14,8 @@ class AuthController
 
     public function __construct()
     {
-        $this->service = new AuthService();
+        $mailer = new MailerService();
+        $this->service = new AuthService($mailer);
     }
 
     public function userRegistration()
@@ -75,6 +77,17 @@ class AuthController
         exit();
     }
 
+    public function forgetPasswordEmail($email)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $result = $this->service->forgetPasswordEmail($email);
+
+            header('Location: /signin-form');
+            exit;
+        }
+    }
+
     public function signInForm()
     {
         session_start();
@@ -91,6 +104,24 @@ class AuthController
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
         require '../templates/auth/signup.php';
+    }
+
+    public function forgetPasswordEmailForm()
+    {
+        session_start();
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
+        require '../templates/auth/forgetpasswordform.php';
+    }
+
+    public function resetPasswordForm()
+    {
+        session_start();
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
+        require '../templates/auth/resetpasswordform.php';
     }
 
     public function userDataForm()
