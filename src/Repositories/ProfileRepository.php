@@ -6,8 +6,6 @@ namespace App\Repositories;
 
 use App\Database\Database;
 use App\Models\ProfileDataModel;
-use DateTime;
-use PDO;
 
 class ProfileRepository
 {

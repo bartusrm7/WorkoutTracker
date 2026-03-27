@@ -60,7 +60,10 @@
                             <div><?= htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? '')) ?></div>
                             <div class="dashboard__last-training-date">
                                 <?php $date = new DateTime($lastTraining['data']['end'] ?? '');
-                                echo $date->format('d-m-Y') ?>
+                                if (htmlspecialchars(ucfirst($lastTraining['data']['name'] ?? ''))) {
+                                    echo $date->format('d-m-Y');
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
