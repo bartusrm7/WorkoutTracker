@@ -297,15 +297,15 @@
 								<input type="hidden" name="sets" id="setId">
 								<div class="d-flex gap-3">
 									<div class="form-floating">
-										<input class="form-control" type="number" min="0" name="weight" id="weightSet" placeholder="">
+										<input class="form-control" step="0.25" type="number" min="0" name="weight" id="weightSet" placeholder="">
 										<label for="weightSet">Ciężar (kg)</label>
 									</div>
 									<div class="form-floating">
-										<input class="form-control" type="number" min="1" name="reps" id="repsSet" required placeholder="">
+										<input class="form-control" step="0.25" type="number" min="1" name="reps" id="repsSet" required placeholder="">
 										<label for="repsSet">Powtórzeń</label>
 									</div>
 									<div class="form-floating">
-										<input class="form-control" type="number" min="0" name="rir" id="rirSet" placeholder="">
+										<input class="form-control" step="0.25" type="number" min="0" name="rir" id="rirSet" placeholder="">
 										<label for="rirSet">Zapas powtórzeń</label>
 									</div>
 								</div>
