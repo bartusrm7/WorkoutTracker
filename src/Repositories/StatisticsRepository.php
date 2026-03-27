@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Database\Database;
-use PDO;
 
 class StatisticsRepository
 {
@@ -22,14 +21,14 @@ class StatisticsRepository
     {
         $stmt = $this->pdo->prepare('SELECT weight, updated_date FROM user_data WHERE user_id = :user_id');
         $stmt->execute([':user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getUserTrainingsQuery($userId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE user_id = :user_id');
         $stmt->execute([':user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function filterExercisesStatisticsByDateQuery($userId, $start, $end, $exercise)
@@ -44,7 +43,7 @@ class StatisticsRepository
             AND exercises_history.name = :name'
         );
         $stmt->execute([':user_id' => $userId, ':start' => $start, ':end' => $end, 'name' => $exercise]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getAllExercisesBelongForLoggedUserQuery($userId)
@@ -55,6 +54,6 @@ class StatisticsRepository
             WHERE training_history.user_id = :user_id'
         );
         $stmt->execute([':user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 }

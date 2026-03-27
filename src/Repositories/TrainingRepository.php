@@ -8,7 +8,6 @@ use App\Database\Database;
 use App\Models\ExercisesDataModel;
 use App\Models\ExercisesModel;
 use App\Models\TrainingModel;
-use PDO;
 
 class TrainingRepository
 {
@@ -101,21 +100,21 @@ class TrainingRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE exercise_id = :exercise_id');
         $stmt->execute([':exercise_id' => $exerciseId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function displayAllTrainingPlansQuery($userId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM training WHERE user_id = :user_id');
         $stmt->execute([':user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getTrainingNameQuery($id)
     {
         $stmt = $this->pdo->prepare('SELECT name FROM training WHERE id = :id');
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function displayTrainingPlanQuery($userId, $trainingId)
@@ -127,7 +126,7 @@ class TrainingRepository
             AND training.id = :training_id'
         );
         $stmt->execute([':user_id' => $userId, ':training_id' => $trainingId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function addNoteSetQuery($id, $note)
@@ -164,7 +163,7 @@ class TrainingRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE id = :id');
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function countSetsVolumeQuery($trainingId)
@@ -175,7 +174,7 @@ class TrainingRepository
             WHERE exercises.training_id = :training_id'
         );
         $stmt->execute([':training_id' => $trainingId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function editExerciseQuery($id, $name)
@@ -202,7 +201,7 @@ class TrainingRepository
     {
         $stmt = $this->pdo->prepare('SELECT name FROM training_history WHERE user_id = :user_id AND name = :name');
         $stmt->execute([':user_id' => $userId, ':name' => $trainingName]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function findLastTrainingIdQuery($userId, $trainingName)
@@ -223,7 +222,7 @@ class TrainingRepository
             AND exercises_history.name = :exercise_name'
         );
         $stmt->execute([':id' => $id, ':user_id' => $userId, ':exercise_name' => $exerciseName]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getLastExercisePRQuery($exerciseName)
@@ -234,6 +233,6 @@ class TrainingRepository
             WHERE exercises_history.name = :name'
         );
         $stmt->execute([':name' => $exerciseName]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 }

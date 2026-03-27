@@ -23,7 +23,7 @@ class ProfileRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM user_data WHERE user_id = :user_id ORDER BY id DESC LIMIT 1');
         $stmt->execute([':user_id' => $userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function changeUserProfileDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId)

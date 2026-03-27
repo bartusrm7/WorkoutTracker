@@ -21,7 +21,7 @@ class HistoryRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM training WHERE id = :id AND user_id = :user_id');
         $stmt->execute([':id' => $id, ':user_id' => $userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function deleteAllSetsAfterFinishedTrainingQuery($trainingId)
@@ -39,14 +39,14 @@ class HistoryRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises WHERE training_id = :training_id');
         $stmt->execute([':training_id' => $trainingId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getSavedExercisesDataQuery($exerciseId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_data WHERE exercise_id = :exercise_id');
         $stmt->execute([':exercise_id' => $exerciseId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function saveTrainingToHistoryQuery($name, $start, $end, $duration, $userId)
@@ -74,20 +74,20 @@ class HistoryRepository
     {
         $stmt = $this->pdo->prepare('SELECT * FROM training_history WHERE start >= :start AND end <= :end AND user_id = :user_id');
         $stmt->execute([':start' => $start, ':end' => $end, ':user_id' => $userId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function findExercisesByTrainingQuery($trainingId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_history WHERE training_id = :training_id');
         $stmt->execute([':training_id' => $trainingId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function findExercisesDataByExercisesQuery($exerciseId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises_history_data WHERE exercise_id = :exercise_id');
         $stmt->execute([':exercise_id' => $exerciseId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 }

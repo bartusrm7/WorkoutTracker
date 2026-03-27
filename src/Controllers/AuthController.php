@@ -42,6 +42,17 @@ class AuthController
 
     public function userLogin()
     {
+        $rememberMe = isset($_POST['remember-me']);
+        if ($rememberMe) {
+            session_set_cookie_params([
+                'lifetime' => 60 * 60 * 24 * 30,
+                'secure' => true,
+                'httponly' => true,
+                'samesite' => 'Strict'
+            ]);
+        }
+
+        session_start();
         if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
             die('CSRF token nieprawidłowy');
         }
