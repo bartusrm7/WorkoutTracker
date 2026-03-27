@@ -64,7 +64,7 @@ class AuthService
 
     public function forgetPasswordEmail($email)
     {
-        if (!@$email) {
+        if (!$email) {
             return ['success' => false, 'error' => 'Email jest wymagany'];
         }
         $result = $this->mailer->sendResetPasswordMailToUser($email);
@@ -73,6 +73,27 @@ class AuthService
             'success' => true,
             'data' => $result
         ];
+    }
+
+    public function resetPassword($email, $pass, $repeatPass)
+    {
+        $errors = [];
+        if (empty($email) || empty($pass) || empty($repeatPass)) {
+            $errors[] = 'Wszystkie pola muszą być uzupełnione';
+        }
+        if (strlen($pass) < 6) {
+            $errors[] =  'Hasło musi posiadać co najmniej 6 znaków';
+        }
+        if ($pass !== $repeatPass) {
+            $errors[] =  'Oba hasła muszą się zgadzać';
+        }
+        if (!empty($errors)) {
+            return $errors;
+        } else {
+            $hashPass = password_hash($pass, PASSWORD_DEFAULT);
+            $result = $this->repository->resetPasswordQuery($email, $hashPass);
+            return $result;
+        }
     }
 
     public function insertUserData($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate)

@@ -34,7 +34,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('POST', '/signin', [AuthController::class, 'userLogin']);
     $r->addRoute('POST', '/signup', [AuthController::class, 'userRegistration']);
     $r->addRoute('POST', '/forget-password-email', [AuthController::class, 'forgetPasswordEmail']);
-    $r->addRoute('POST', '/reset-password', [AuthController::class, 'forgetPasswordEmail']);
+    $r->addRoute('POST', '/reset-password', [AuthController::class, 'resetPassword']);
     $r->addRoute('POST', '/user-data', [AuthController::class, 'userData']);
 
     // TRAINING

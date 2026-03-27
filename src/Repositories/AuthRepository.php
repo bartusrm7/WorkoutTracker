@@ -63,6 +63,13 @@ class AuthRepository
         );
     }
 
+    public function resetPasswordQuery($email, $pass)
+    {
+        $stmt = $this->pdo->prepare('UPDATE users SET password = :password WHERE email = :email');
+        $stmt->execute([':email' => $email, ':password' => $pass]);
+        return $stmt->rowCount();
+    }
+
     public function insertUserDataQuery($sex, $age, $height, $weight, $goalWeight, $goal, $userId, $updatedDate)
     {
         $stmt = $this->pdo->prepare('INSERT INTO user_data (sex, age, height, weight, goal_weight, goal, user_id, updated_date) VALUES (:sex, :age, :height, :weight, :goal_weight, :goal, :user_id, :updated_date)');

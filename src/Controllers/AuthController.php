@@ -42,7 +42,6 @@ class AuthController
 
     public function userLogin()
     {
-        session_start();
         if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
             die('CSRF token nieprawidłowy');
         }
@@ -79,12 +78,36 @@ class AuthController
 
     public function forgetPasswordEmail($email)
     {
+        session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $_SESSION['userEmail'] = $email;
+
             $result = $this->service->forgetPasswordEmail($email);
 
             header('Location: /signin-form');
             exit;
+        }
+    }
+
+    public function resetPassword()
+    {
+        session_start();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_SESSION['userEmail'];
+            $pass = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
+            $repeatPass = filter_input(INPUT_POST, 'repeatPass', FILTER_UNSAFE_RAW);
+
+            $result = $this->service->resetPassword($email, $pass, $repeatPass);
+            if (is_array($result)) {
+                $errors = $result;
+                include __DIR__ . '/../../templates/auth/resetpasswordform.php';
+                exit;
+            } else {
+                session_unset();
+                header('Location: /signin-form');
+                exit;
+            }
         }
     }
 

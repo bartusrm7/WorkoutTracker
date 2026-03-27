@@ -18,11 +18,24 @@
         <h3 class="auth__label text-center mb-3">Utwórz nowe hasło</h3>
 
         <form action="/reset-password" method="post">
+            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
             <div class="form-floating mt-2">
                 <input type="password" name="password" class="form-control" placeholder="">
-                <label for="password">Password</label>
+                <label for="password">Hasło</label>
             </div>
-
+            <div class="form-floating mt-2">
+                <input type="password" name="repeatPass" class="form-control" placeholder="">
+                <label for="repeatPass">Powtórz hasło</label>
+            </div>
+            <?php if (!empty($errors)): ?>
+                <ul class="alert alert-danger my-2">
+                    <?php foreach ($errors as $error): ?>
+                        <li>
+                            <?= htmlspecialchars($error) ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
             <button class="btn custom-btn mt-3 w-100" type="submit">Zmień hasło</button>
         </form>
 
