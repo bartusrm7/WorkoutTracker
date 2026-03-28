@@ -46,7 +46,6 @@ class AuthController
         if ($rememberMe) {
             session_set_cookie_params([
                 'lifetime' => 60 * 60 * 24 * 30,
-                'secure' => true,
                 'httponly' => true,
                 'samesite' => 'Strict'
             ]);
@@ -82,6 +81,7 @@ class AuthController
     {
         session_start();
         session_unset();
+        setcookie('PHPSESSID', '', time() - 3600, '/');
         session_destroy();
         header('Location: /signin-form');
         exit();
