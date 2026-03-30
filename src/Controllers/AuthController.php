@@ -32,7 +32,7 @@ class AuthController
         $user = $this->service->createNewUser($name, $email, $pass);
         if (is_array($user)) {
             $errors = $user;
-            include __DIR__ . '/../../templates/auth/signup.php';
+            include __DIR__ . '/../../templates/auth/signup.html.twig';
             exit();
         }
 
@@ -63,7 +63,7 @@ class AuthController
 
         if (is_array($user)) {
             $errors = $user;
-            include __DIR__ .  '/../../templates/auth/signin.php';
+            include __DIR__ .  '/../../templates/auth/signin.html.twig';
             exit();
         }
         session_regenerate_id(true);
@@ -112,7 +112,7 @@ class AuthController
             $result = $this->service->resetPassword($email, $pass, $repeatPass);
             if (is_array($result)) {
                 $errors = $result;
-                include __DIR__ . '/../../templates/auth/resetpasswordform.php';
+                include __DIR__ . '/../../templates/auth/resetpasswordform.html.twig';
                 exit;
             } else {
                 session_unset();
@@ -128,7 +128,7 @@ class AuthController
         if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
-        require '../templates/auth/signin.php';
+        require '../templates/auth/signin.html.twig';
     }
 
     public function signUpForm()
@@ -137,7 +137,7 @@ class AuthController
         if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
-        require '../templates/auth/signup.php';
+        require '../templates/auth/signup.html.twig';
     }
 
     public function forgetPasswordEmailForm()
@@ -146,7 +146,7 @@ class AuthController
         if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
-        require '../templates/auth/forgetpasswordform.php';
+        require '../templates/auth/forgetpasswordform.html.twig';
     }
 
     public function resetPasswordForm()
@@ -155,12 +155,12 @@ class AuthController
         if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
-        require '../templates/auth/resetpasswordform.php';
+        require '../templates/auth/resetpasswordform.html.twig';
     }
 
     public function userDataForm()
     {
-        require '../templates/auth/userdataform.php';
+        require '../templates/auth/userdataform.html.twig';
     }
 
     public function userData()

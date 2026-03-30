@@ -22,7 +22,7 @@ class StatisticsController
         $trainingCharts = $this->service->getUserTrainings($userId);
         $exercises = $this->service->getAllExercisesBelongForLoggedUser($userId);
 
-        require '../templates/dashboard/statistics.php';
+        require '../templates/dashboard/statistics.html.twig';
     }
 
     public function filterExercisesStatistics()

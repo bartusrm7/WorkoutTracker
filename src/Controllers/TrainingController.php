@@ -136,7 +136,7 @@ class TrainingController
         $result = $this->service->displayAllTrainingPlans($userId);
         $trainings = $result['data'] ?? [];
 
-        require '../templates/dashboard/trainings.php';
+        require '../templates/dashboard/trainings.html.twig';
     }
 
     public function displayTraining()
@@ -170,7 +170,7 @@ class TrainingController
             }
         };
 
-        require '../templates/dashboard/training.php';
+        require '../templates/dashboard/training.html.twig';
     }
 
     public function deleteAllSetsData() {}

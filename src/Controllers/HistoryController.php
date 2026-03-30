@@ -18,7 +18,7 @@ class HistoryController
     public function history()
     {
         session_start();
-        require '../templates/dashboard/history.php';
+        require '../templates/dashboard/history.html.twig';
     }
 
     public function saveTrainingHistory()
@@ -82,6 +82,6 @@ class HistoryController
         }
         unset($training);
 
-        require '../templates/dashboard/history.php';
+        require '../templates/dashboard/history.html.twig';
     }
 }
