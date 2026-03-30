@@ -6,22 +6,26 @@ namespace App\Controllers;
 
 use App\Services\AuthService;
 use App\Services\MailerService;
+use App\Sessions\Session;
 use DateTime;
 
 class AuthController
 {
     private AuthService $service;
+    private Session $session;
 
     public function __construct()
     {
         $mailer = new MailerService();
         $this->service = new AuthService($mailer);
+        $this->session = new Session();
     }
 
     public function userRegistration()
     {
         session_start();
-        if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+        $token = $_POST['token'];
+        if (!isset($token) || $token !== $this->session->getSession('token')) {
             die('CSRF token nieprawidłowy');
         }
 
@@ -52,7 +56,8 @@ class AuthController
         }
 
         session_start();
-        if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+        $token = $_POST['token'];
+        if (!isset($token) || $token !== $this->session->getSession('token')) {
             die('CSRF token nieprawidłowy');
         }
 
@@ -67,8 +72,8 @@ class AuthController
             exit();
         }
         session_regenerate_id(true);
-        $_SESSION['id'] = $user->getId();
-        $_SESSION['name'] = $user->getName();
+        $this->session->setSession('id', $user->getId());
+        $this->session->setSession('name', $user->getName());
         if ($user->getIsProfileComplete()) {
             header('Location: /dashboard');
         } else {
@@ -92,7 +97,7 @@ class AuthController
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-            $_SESSION['userEmail'] = $email;
+            $this->session->setSession('userEmail', $email);
 
             $result = $this->service->forgetPasswordEmail($email);
 
@@ -105,7 +110,7 @@ class AuthController
     {
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_SESSION['userEmail'];
+            $email = $this->session->getSession('userEmail');
             $pass = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
             $repeatPass = filter_input(INPUT_POST, 'repeatPass', FILTER_UNSAFE_RAW);
 
@@ -125,8 +130,8 @@ class AuthController
     public function signInForm()
     {
         session_start();
-        if (!isset($_SESSION['token'])) {
-            $_SESSION['token'] = bin2hex(random_bytes(32));
+        if (!$this->session->getSession('token')) {
+            $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
         require '../templates/auth/signin.html.twig';
     }
@@ -134,8 +139,8 @@ class AuthController
     public function signUpForm()
     {
         session_start();
-        if (!isset($_SESSION['token'])) {
-            $_SESSION['token'] = bin2hex(random_bytes(32));
+        if (!$this->session->getSession('token')) {
+            $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
         require '../templates/auth/signup.html.twig';
     }
@@ -143,8 +148,8 @@ class AuthController
     public function forgetPasswordEmailForm()
     {
         session_start();
-        if (!isset($_SESSION['token'])) {
-            $_SESSION['token'] = bin2hex(random_bytes(32));
+        if (!$this->session->getSession('token')) {
+            $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
         require '../templates/auth/forgetpasswordform.html.twig';
     }
@@ -152,8 +157,8 @@ class AuthController
     public function resetPasswordForm()
     {
         session_start();
-        if (!isset($_SESSION['token'])) {
-            $_SESSION['token'] = bin2hex(random_bytes(32));
+        if (!$this->session->getSession('token')) {
+            $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
         require '../templates/auth/resetpasswordform.html.twig';
     }
@@ -166,7 +171,7 @@ class AuthController
     public function userData()
     {
         session_start();
-        $userId = $_SESSION['id'];
+        $userId = $this->session->getSession('id');
         $data = json_decode(file_get_contents('php://input'), true);
 
         $sex = $data['sex'];
