@@ -274,7 +274,7 @@
 										<label for="rir">Zapas powtórzeń</label>
 									</div>
 								</div>
-								<button type="submit" class="custom-btn btn px-5 mt-3 float-end">Dalej</button>
+								<button type="button" class="custom-btn btn px-5 mt-3 float-end" id="addNewSetBtn">Dalej</button>
 							</form>
 						</div>
 					</div>
@@ -358,6 +358,25 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="startTrainingInformationModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content exercises-form-modal">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5 fw-bold">Rozpocznij trening</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="training__form-container">
+							<div>
+								<div>Trening nie został rozpoczęty. Aby dodać serie, rozpocznij trening.</div>
+								<button class="custom-btn btn px-5 mt-3 float-sm-end" type="button" id="closeTrainingInformatiom">Zamknij</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 </body>
@@ -394,13 +413,63 @@
 		icon.classList.remove('fa-bars-staggered');
 	})
 
-	const handleAddSetExercisesData = () => {
-		document.getElementById('exercisesDataModal').classList.toggle('d-none');
-	}
-
 	document.getElementById('exercisesDataModal').addEventListener('show.bs.modal', e => {
 		document.getElementById('exerciseId').value = e.relatedTarget.dataset.exerciseId;
 		document.getElementById('sets').value = e.relatedTarget.dataset.sets;
+	})
+
+	let trainingStarted = false;
+
+	const addNewSet = async () => {
+		const exerciseId = document.getElementById('exerciseId').value;
+		const sets = document.getElementById('sets').value;
+		const weight = document.getElementById('weight').value;
+		const reps = document.getElementById('reps').value;
+		const rir = document.getElementById('rir').value;
+
+		const response = await fetch('/add-exercise-set', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				exerciseId,
+				sets,
+				weight,
+				reps,
+				rir
+			})
+		});
+		if (!response.ok) {
+			throw new Error('Błąd podczas dodawania nowej serii');
+		}
+		const data = await response.json();
+		if (data.success) {
+			window.location.reload();
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const trainingStartedBtn = document.getElementById('startTrainingSessionBtn');
+		const trainingStartedSession = trainingStartedBtn.dataset.trainingIdStarted;
+		const startTrainingInformationModal = new bootstrap.Modal(document.getElementById('startTrainingInformationModal'));
+		const closeTrainingInformatiom = document.getElementById('closeTrainingInformatiom');
+		const exercisesDataModal = new bootstrap.Modal(document.getElementById('exercisesDataModal'));
+
+		if (trainingStartedSession) {
+			document.getElementById('addNewSetBtn').addEventListener('click', () => {
+				addNewSet();
+			})
+		} else {
+			document.getElementById('addNewSetBtn').addEventListener('click', () => {
+				startTrainingInformationModal.show();
+				exercisesDataModal.hide();
+			})
+		}
+
+		closeTrainingInformatiom.addEventListener('click', () => {
+			startTrainingInformationModal.hide();
+		})
 	})
 
 	document.getElementById('exerciseSetEditModal').addEventListener('show.bs.modal', async (e) => {
@@ -421,7 +490,6 @@
 	let exerciseNames = [];
 	setTr.forEach(tr => {
 		exerciseNames.push(tr.dataset.exerciseName);
-		console.log(exerciseNames);
 	});
 
 	async function setCurrentExercisePR() {
@@ -466,8 +534,6 @@
 			window.location.reload();
 		}
 	}
-
-	let trainingStarted = false;
 
 	const countingTrainingTimestampDuration = () => {
 		if (trainingStarted) return;
@@ -523,6 +589,7 @@
 		if (data.success) {
 			document.getElementById('trainingDuration').dataset.durationTraining = start;
 			countingTrainingTimestampDuration();
+			window.location.reload();
 		}
 		trainingStarted = true;
 		handleSwapTrainingStatusBtns();
