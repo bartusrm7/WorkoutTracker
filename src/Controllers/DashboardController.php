@@ -3,19 +3,23 @@
 namespace App\Controllers;
 
 use App\Services\DashboardService;
+use App\Sessions\Session;
 
 class DashboardController
 {
     private DashboardService $service;
+    private Session $session;
 
     public function __construct()
     {
         $this->service = new DashboardService();
+        $this->session = new Session();
     }
 
     public function dashboard()
     {
-        $userId = $_SESSION['id'];
+        $userId = $this->session->getSession('id');
+
         $lastTraining = $this->service->getLastTrainingNameQuery($userId);
         $trainingsThisWeek = $this->service->amountOfTrainingsThisWeek($userId);
         $last7TrainingsVolume = $this->service->countVolumeLast7Days($userId);

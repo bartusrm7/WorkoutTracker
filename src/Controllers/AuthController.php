@@ -130,6 +130,9 @@ class AuthController
     public function signInForm()
     {
         session_start();
+        if ($this->session->getSession('id')) {
+            header('Location: /dashboard');
+        }
         if (!$this->session->getSession('token')) {
             $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
