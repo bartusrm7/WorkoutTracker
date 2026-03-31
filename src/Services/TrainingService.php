@@ -10,9 +10,9 @@ class TrainingService
 {
     private TrainingRepository $repository;
 
-    public function __construct()
+    public function __construct(TrainingRepository $repository)
     {
-        $this->repository = new TrainingRepository();
+        $this->repository = $repository;
     }
 
     public function newTraining($trainingName, $exercisesName, $userId)

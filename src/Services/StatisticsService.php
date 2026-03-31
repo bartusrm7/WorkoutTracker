@@ -10,9 +10,9 @@ class StatisticsService
 {
     private StatisticsRepository $repository;
 
-    public function __construct()
+    public function __construct(StatisticsRepository $repository)
     {
-        $this->repository = new StatisticsRepository();
+        $this->repository = $repository;
     }
 
     public function getUserWeights($userId)

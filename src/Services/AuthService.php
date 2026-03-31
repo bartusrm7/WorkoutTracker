@@ -9,10 +9,12 @@ use App\Repositories\AuthRepository;
 class AuthService
 {
     private AuthRepository $repository;
+    private MailerService $mailer;
 
-    public function __construct(private MailerService $mailer)
+    public function __construct(AuthRepository $repository, MailerService $mailer)
     {
-        $this->repository = new AuthRepository();
+        $this->repository = $repository;
+        $this->mailer = $mailer;
     }
 
     public function createNewUser($name, $email, $pass)

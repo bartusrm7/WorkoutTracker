@@ -10,9 +10,9 @@ class HistoryController
 {
     private HistoryService $service;
 
-    public function __construct()
+    public function __construct(HistoryService $service)
     {
-        $this->service = new HistoryService();
+        $this->service = $service;
     }
 
     public function history()

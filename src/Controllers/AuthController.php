@@ -13,12 +13,13 @@ class AuthController
 {
     private AuthService $service;
     private Session $session;
+    private MailerService $mailer;
 
-    public function __construct()
+    public function __construct(AuthService $service, Session $session, MailerService $mailer)
     {
-        $mailer = new MailerService();
-        $this->service = new AuthService($mailer);
-        $this->session = new Session();
+        $this->mailer = $mailer;
+        $this->service = $service;
+        $this->session = $session;
     }
 
     public function userRegistration()

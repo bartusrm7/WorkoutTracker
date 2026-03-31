@@ -6,14 +6,14 @@ namespace App\Repositories;
 
 use App\Database\Database;
 use App\Models\ProfileDataModel;
+use PDO;
 
 class ProfileRepository
 {
-    private $pdo;
+    private PDO $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getConnection();
     }
 

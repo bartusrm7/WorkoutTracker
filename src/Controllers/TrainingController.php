@@ -11,9 +11,9 @@ class TrainingController
 {
     private TrainingService $service;
 
-    public function __construct()
+    public function __construct(TrainingService $service)
     {
-        $this->service = new TrainingService();
+        $this->service = $service;
     }
 
     public function addTraining()

@@ -8,14 +8,14 @@ use App\Database\Database;
 use App\Models\ExercisesDataModel;
 use App\Models\ExercisesModel;
 use App\Models\TrainingModel;
+use PDO;
 
 class TrainingRepository
 {
-    private $pdo;
+    private PDO $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getConnection();
     }
 

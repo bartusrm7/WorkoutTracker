@@ -10,9 +10,9 @@ class StatisticsController
 {
     private StatisticsService $service;
 
-    public function __construct()
+    public function __construct(StatisticsService $service)
     {
-        $this->service = new StatisticsService();
+        $this->service = $service;
     }
 
     public function statistics()

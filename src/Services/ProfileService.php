@@ -10,9 +10,9 @@ class ProfileService
 {
     private ProfileRepository $repository;
 
-    public function __construct()
+    public function __construct(ProfileRepository $repository)
     {
-        $this->repository = new ProfileRepository();
+        $this->repository = $repository;
     }
 
     public function getUserProfileData($userId)

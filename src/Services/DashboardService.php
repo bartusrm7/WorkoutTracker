@@ -10,9 +10,9 @@ class DashboardService
 {
     private DashboardRepository $repository;
 
-    public function __construct()
+    public function __construct(DashboardRepository $repository)
     {
-        $this->repository = new DashboardRepository();
+        $this->repository = $repository;
     }
 
     public function getLastTrainingNameQuery($userId)

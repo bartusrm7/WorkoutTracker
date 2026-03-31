@@ -10,9 +10,9 @@ class ProfileController
 {
     private ProfileService $service;
 
-    public function __construct()
+    public function __construct(ProfileService $service)
     {
-        $this->service = new ProfileService();
+        $this->service = $service;
     }
 
     public function profile()

@@ -10,10 +10,10 @@ class DashboardController
     private DashboardService $service;
     private Session $session;
 
-    public function __construct()
+    public function __construct(DashboardService $service, Session $session)
     {
-        $this->service = new DashboardService();
-        $this->session = new Session();
+        $this->service = $service;
+        $this->session = $session;
     }
 
     public function dashboard()

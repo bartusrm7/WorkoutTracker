@@ -10,9 +10,9 @@ class HistoryService
 {
     private HistoryRepository $repository;
 
-    public function __construct()
+    public function __construct(HistoryRepository $repository)
     {
-        $this->repository = new HistoryRepository();
+        $this->repository = $repository;
     }
 
     public function saveTrainingToHistory($id, $userId)

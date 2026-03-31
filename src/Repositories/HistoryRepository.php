@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Database\Database;
+use PDO;
 
 class HistoryRepository
 {
-    private $pdo;
+    private PDO $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getConnection();
     }
 
@@ -34,7 +34,8 @@ class HistoryRepository
         return $stmt->rowCount();
     }
 
-    public function deleteAllNotesFromSavedTrainingQuery($trainingId) {
+    public function deleteAllNotesFromSavedTrainingQuery($trainingId)
+    {
         $stmt = $this->pdo->prepare('UPDATE exercises SET note = NULL WHERE training_id = :training_id');
         $stmt->execute([':training_id' => $trainingId]);
         return $stmt->rowCount();

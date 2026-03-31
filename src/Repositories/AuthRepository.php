@@ -6,14 +6,14 @@ namespace App\Repositories;
 
 use App\Database\Database;
 use App\Models\AuthModel;
+use PDO;
 
 class AuthRepository
 {
-    private $pdo;
+    private PDO $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getConnection();
     }
 
@@ -22,13 +22,12 @@ class AuthRepository
         $stmt = $this->pdo->prepare('SELECT email FROM users WHERE email = :email');
         $stmt->execute([':email' => $email]);
         $row = $stmt->fetch();
-        $id = (int) $this->pdo->lastInsertId();
 
         if (!$row) {
             return null;
         }
         return new AuthModel(
-            $id,
+            $row['id'],
             '',
             $row['email'],
             '',
