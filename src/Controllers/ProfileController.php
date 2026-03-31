@@ -20,7 +20,7 @@ class ProfileController
         $userId = $_SESSION['id'];
         $userData = $this->service->getUserProfileData($userId);
 
-        require '../templates/dashboard/profile.html.twig';
+        require '../templates/dashboard/profile.html';
     }
 
     public function editProfile()

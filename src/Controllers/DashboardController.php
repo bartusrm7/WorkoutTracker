@@ -26,6 +26,6 @@ class DashboardController
         $sumTrainingDuration = $this->service->sumOfTrainigDurationsThisWeek($userId);
         $trainingsLast30Days = $this->service->sumOfTrainingsLast30Days($userId);
 
-        require '../templates/dashboard/dashboard.html.twig';
+        require '../templates/dashboard/dashboard.html';
     }
 }
