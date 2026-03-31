@@ -17,9 +17,9 @@ class AuthController
 
     public function __construct(AuthService $service, Session $session, MailerService $mailer)
     {
-        $this->mailer = $mailer;
         $this->service = $service;
         $this->session = $session;
+        $this->mailer = $mailer;
     }
 
     public function userRegistration()

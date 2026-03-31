@@ -169,7 +169,7 @@ class TrainingRepository
     public function countSetsVolumeQuery($trainingId)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT exercises_data.* FROM exercises_data AS ed
+            'SELECT ed.* FROM exercises_data AS ed
             INNER JOIN exercises AS e ON ed.exercise_id = e.id
             WHERE e.training_id = :training_id'
         );

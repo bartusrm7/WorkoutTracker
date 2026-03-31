@@ -12,12 +12,64 @@ use App\Controllers\HistoryController;
 use App\Controllers\ProfileController;
 use App\Controllers\StatisticsController;
 use App\Controllers\TrainingController;
+use App\Database\Database;
 use App\Middlewares\AuthMiddleware;
+use App\Repositories\AuthRepository;
+use App\Repositories\DashboardRepository;
+use App\Repositories\HistoryRepository;
+use App\Repositories\ProfileRepository;
+use App\Repositories\StatisticsRepository;
+use App\Repositories\TrainingRepository;
+use App\Services\AuthService;
+use App\Services\DashboardService;
+use App\Services\HistoryService;
+use App\Services\MailerService;
+use App\Services\ProfileService;
+use App\Services\StatisticsService;
+use App\Services\TrainingService;
+use App\Sessions\Session;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
+
+$db = new Database();
+$session = new Session();
+$mailer = new MailerService();
+
+// REPOSITORIES
+$authRepository = new AuthRepository($db);
+$dashboardRepository = new DashboardRepository($db);
+$trainingRepository = new TrainingRepository($db);
+$historyRepository = new HistoryRepository($db);
+$statisticsRepository = new StatisticsRepository($db);
+$profileRepository = new ProfileRepository($db);
+
+// SERVICES
+$authService = new AuthService($authRepository, $mailer);
+$dashboardService = new DashboardService($dashboardRepository);
+$trainingService = new TrainingService($trainingRepository);
+$historyService = new HistoryService($historyRepository);
+$statisticsService = new StatisticsService($statisticsRepository);
+$profileService = new ProfileService($profileRepository);
+
+// CONTROLLERS
+$authController = new AuthController($authService, $session, $mailer);
+$dashboardController = new DashboardController($dashboardService, $session);
+$trainingController = new TrainingController($trainingService);
+$historyController = new HistoryController($historyService);
+$statisticsController = new StatisticsController($statisticsService);
+$profileController = new ProfileController($profileService);
+
+$controllers = [
+    AuthController::class        => $authController,
+    DashboardController::class   => $dashboardController,
+    TrainingController::class    => $trainingController,
+    HistoryController::class     => $historyController,
+    StatisticsController::class  => $statisticsController,
+    ProfileController::class     => $profileController,
+];
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     // GET
@@ -116,6 +168,6 @@ switch ($routeInfo[0]) {
             return $handler($vars);
         }
         [$class, $method] = $handler;
-        $controller = new $class();
+        $controller = $controllers[$class];
         return $controller->$method($vars);
 }

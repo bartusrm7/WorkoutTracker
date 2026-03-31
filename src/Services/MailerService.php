@@ -12,9 +12,9 @@ class MailerService
 {
     private PHPMailer $mail;
 
-    public function __construct(PHPMailer $mail)
+    public function __construct()
     {
-        $this->mail = $mail;
+        $this->mail = new PHPMailer(true);
 
         try {
             $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
