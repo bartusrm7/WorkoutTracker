@@ -34,13 +34,13 @@ class StatisticsRepository
     public function filterExercisesStatisticsByDateQuery($userId, $start, $end, $exercise)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT * FROM training_history
-            INNER JOIN exercises_history ON exercises_history.training_id = training_history.id
-            INNER JOIN exercises_history_data ON exercises_history_data.exercise_id = exercises_history.id
-            WHERE training_history.user_id = :user_id
-            AND training_history.start >= :start
-            AND training_history.end <= :end
-            AND exercises_history.name = :name'
+            'SELECT * FROM training_history AS th
+            INNER JOIN exercises_history AS eh ON eh.training_id = th.id
+            INNER JOIN exercises_history_data AS ehd ON ehd.exercise_id = eh.id
+            WHERE th.user_id = :user_id
+            AND th.start >= :start
+            AND th.end <= :end
+            AND eh.name = :name'
         );
         $stmt->execute([':user_id' => $userId, ':start' => $start, ':end' => $end, 'name' => $exercise]);
         return $stmt->fetchAll();
@@ -49,9 +49,9 @@ class StatisticsRepository
     public function getAllExercisesBelongForLoggedUserQuery($userId)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT DISTINCT exercises_history.name FROM exercises_history
-            INNER JOIN training_history ON exercises_history.training_id = training_history.id
-            WHERE training_history.user_id = :user_id'
+            'SELECT DISTINCT eh.name FROM exercises_history AS eh
+            INNER JOIN training_history AS th ON eh.training_id = th.id
+            WHERE th.user_id = :user_id'
         );
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll();

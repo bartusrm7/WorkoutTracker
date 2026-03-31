@@ -26,9 +26,9 @@ class HistoryRepository
     public function deleteAllSetsAfterFinishedTrainingQuery($trainingId)
     {
         $stmt = $this->pdo->prepare(
-            'DELETE exercises_data FROM exercises_data 
-            INNER JOIN exercises ON exercises_data.exercise_id = exercises.id
-            WHERE exercises.training_id = :training_id'
+            'DELETE ed FROM exercises_data AS ed
+            INNER JOIN exercises AS e ON ed.exercise_id = e.id
+            WHERE e.training_id = :training_id'
         );
         $stmt->execute([':training_id' => $trainingId]);
         return $stmt->rowCount();

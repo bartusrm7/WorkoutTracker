@@ -120,10 +120,10 @@ class TrainingRepository
     public function displayTrainingPlanQuery($userId, $trainingId)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT * FROM training
-            INNER JOIN exercises ON training.id = exercises.training_id
-            WHERE training.user_id = :user_id
-            AND training.id = :training_id'
+            'SELECT * FROM training AS t
+            INNER JOIN exercises AS e ON t.id = e.training_id
+            WHERE t.user_id = :user_id
+            AND t.id = :training_id'
         );
         $stmt->execute([':user_id' => $userId, ':training_id' => $trainingId]);
         return $stmt->fetchAll();
@@ -169,9 +169,9 @@ class TrainingRepository
     public function countSetsVolumeQuery($trainingId)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT exercises_data.* FROM exercises_data
-            INNER JOIN exercises ON exercises_data.exercise_id = exercises.id
-            WHERE exercises.training_id = :training_id'
+            'SELECT exercises_data.* FROM exercises_data AS ed
+            INNER JOIN exercises AS e ON ed.exercise_id = e.id
+            WHERE e.training_id = :training_id'
         );
         $stmt->execute([':training_id' => $trainingId]);
         return $stmt->fetchAll();
@@ -214,12 +214,12 @@ class TrainingRepository
     public function displayLastTrainingExercisesQuery($id, $userId, $exerciseName)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT * FROM exercises_history_data
-            INNER JOIN exercises_history ON exercises_history_data.exercise_id = exercises_history.id
-            INNER JOIN training_history ON exercises_history.training_id = training_history.id
-            WHERE training_history.id = :id
-            AND training_history.user_id = :user_id
-            AND exercises_history.name = :exercise_name'
+            'SELECT * FROM exercises_history_data AS ehd
+            INNER JOIN exercises_history AS eh ON ehd.exercise_id = eh.id
+            INNER JOIN training_history AS th ON eh.training_id = th.id
+            WHERE th.id = :id
+            AND th.user_id = :user_id
+            AND eh.name = :exercise_name'
         );
         $stmt->execute([':id' => $id, ':user_id' => $userId, ':exercise_name' => $exerciseName]);
         return $stmt->fetchAll();
@@ -228,9 +228,9 @@ class TrainingRepository
     public function getLastExercisePRQuery($exerciseName)
     {
         $stmt = $this->pdo->prepare(
-            'SELECT * FROM exercises_history_data
-            INNER JOIN exercises_history ON exercises_history_data.exercise_name = exercises_history.name
-            WHERE exercises_history.name = :name'
+            'SELECT * FROM exercises_history_data AS ehd
+            INNER JOIN exercises_history AS eh ON ehd.exercise_name = eh.name
+            WHERE eh.name = :name'
         );
         $stmt->execute([':name' => $exerciseName]);
         return $stmt->fetchAll();
