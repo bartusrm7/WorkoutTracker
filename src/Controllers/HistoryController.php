@@ -31,6 +31,7 @@ class HistoryController
         $training = $this->service->saveTrainingToHistory($trainingId, $userId);
 
         $setsData = $this->service->deleteAllSetsAfterFinishedTraining($trainingId);
+        $removeNotes = $this->service->deleteAllNotesFromSavedTraining($trainingId);
 
         echo json_encode($training);
     }

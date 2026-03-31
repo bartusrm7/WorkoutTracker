@@ -85,6 +85,19 @@ class HistoryService
         ];
     }
 
+    public function deleteAllNotesFromSavedTraining($trainingId)
+    {
+        if (!$trainingId) {
+            return ['success' => false, 'error' => 'Brak ID treninigu'];
+        }
+        $result = $this->repository->deleteAllNotesFromSavedTrainingQuery($trainingId);
+
+        return [
+            'success' => true,
+            'data' => $result
+        ];
+    }
+
     public function filterTrainingByDate($start, $end, $userId)
     {
         if (empty($start) || empty($end)) {

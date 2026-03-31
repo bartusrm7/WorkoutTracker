@@ -34,6 +34,12 @@ class HistoryRepository
         return $stmt->rowCount();
     }
 
+    public function deleteAllNotesFromSavedTrainingQuery($trainingId) {
+        $stmt = $this->pdo->prepare('UPDATE exercises SET note = NULL WHERE training_id = :training_id');
+        $stmt->execute([':training_id' => $trainingId]);
+        return $stmt->rowCount();
+    }
+
     public function getSavedExercisesQuery($trainingId)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM exercises WHERE training_id = :training_id');

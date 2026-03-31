@@ -92,27 +92,6 @@ class TrainingController
         echo json_encode($result);
     }
 
-    // public function exerciseSet()
-    // {
-    //     session_start();
-    //     $trainingId = $_SESSION['trainingId'];
-
-    //     if (!isset($_SESSION['training_started'])) {
-    //         header("Location: /training?id=$trainingId");
-    //         exit;
-    //     }
-
-    //     $sets = $_POST['sets'];
-    //     $weight = $_POST['weight'];
-    //     $reps = $_POST['reps'];
-    //     $rir = $_POST['rir'];
-    //     $exerciseId = $_POST['exerciseId'];
-    //     $createdAt = (new DateTime())->format('Y-m-d');
-
-    //     $exercisesData = $this->service->createExerciseDataSet($sets, $weight, $reps, $rir, $exerciseId, $createdAt);
-    //     header("Location: /training?id=$trainingId");
-    // }
-
     public function exerciseSet()
     {
         session_start();
