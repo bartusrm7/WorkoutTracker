@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Auth;
 
-use App\Database\Database;
 use App\Repositories\AuthRepository;
 use App\Services\AuthService;
 use PHPUnit\Framework\TestCase;
