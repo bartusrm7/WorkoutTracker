@@ -5,63 +5,72 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\AuthRepository;
+use App\Validators\AuthValidation;
 
 class AuthService
 {
     private AuthRepository $repository;
+    private AuthValidation $validator;
     private MailerService $mailer;
 
-    public function __construct(AuthRepository $repository, MailerService $mailer)
+    public function __construct(AuthRepository $repository, AuthValidation $validator, MailerService $mailer)
     {
         $this->repository = $repository;
+        $this->validator = $validator;
         $this->mailer = $mailer;
     }
 
     public function createNewUser($name, $email, $pass)
     {
         $errors = [];
-        if (empty($name) || empty($email) || empty($pass)) {
-            $errors[] = 'Wszystkie pola muszą być uzupełnione';
+        if ($error = $this->validator->nameValidation($name)) {
+            $errors[] = $error;
         }
-        if (strlen($name) < 4) {
-            $errors[] = 'Nazwa użytkownika musi posiadać co najmniej 4 znaki';
+        if ($error = $this->validator->passwordValidation($pass)) {
+            $errors[] = $error;
         }
+        if ($error = $this->validator->nameToShort($name)) {
+            $errors[] = $error;
+        }
+        if ($error = $this->validator->passwordToShort($pass)) {
+            $errors[] = $error;
+        }
+
         $emailExists = $this->repository->isUserEmailsExistsQuery($email);
         if ($emailExists) {
             $errors[] =  'Użytkownik z takim adresem email już istnieje';
         }
-        if (strlen($pass) < 6) {
-            $errors[] =  'Hasło musi posiadać co najmniej 6 znaków';
-        }
         if (!empty($errors)) {
             return $errors;
+        } else {
+            $hashPass = password_hash($pass, PASSWORD_DEFAULT);
+            return $this->repository->registerUserQuery($name, $email, $hashPass);
         }
-
-        $hashPass = password_hash($pass, PASSWORD_DEFAULT);
-        return $this->repository->registerUserQuery($name, $email, $hashPass);
     }
 
     public function loginUser($email, $pass)
     {
         $errors = [];
-        if (empty($email) || empty($pass)) {
-            $errors[] = 'Wszystkie pola muszą być uzupełnione';
+        if ($error = $this->validator->passwordValidation($pass)) {
+            $errors[] = $error;
         }
+        if ($error = $this->validator->passwordToShort($pass)) {
+            $errors[] = $error;
+        }
+
         $userExists = $this->repository->isUserEmailsExistsQuery($email);
         if (!$userExists) {
             $errors[] = 'Użytkownik z takim adresem email nie istnieje';
         }
-        if (strlen($pass) < 6) {
-            $errors[] =  'Hasło musi posiadać co najmniej 6 znaków';
-        }
         if (!empty($errors)) {
             return $errors;
+        } else {
+            $user = $this->repository->loginUserQuery($email);
+            if (!password_verify($pass, $user->getPass())) {
+                return ['Hasło niepoprawne'];
+            }
+            return $user;
         }
-        $user = $this->repository->loginUserQuery($email);
-        if (!password_verify($pass, $user->getPass())) {
-            return ['Hasło niepoprawne'];
-        }
-        return $user;
     }
 
     public function forgetPasswordEmail($email)
