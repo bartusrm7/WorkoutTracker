@@ -37,7 +37,7 @@ class AuthController
         $user = $this->service->createNewUser($name, $email, $pass);
         if (is_array($user)) {
             $errors = $user;
-            include __DIR__ . '/../../templates/auth/signup.html';
+            include __DIR__ . '/../../templates/auth/signup.php';
             exit();
         }
 
@@ -69,7 +69,7 @@ class AuthController
 
         if (is_array($user)) {
             $errors = $user;
-            include __DIR__ .  '/../../templates/auth/signin.html';
+            include __DIR__ .  '/../../templates/auth/signin.php';
             exit();
         }
         session_regenerate_id(true);
@@ -118,7 +118,7 @@ class AuthController
             $result = $this->service->resetPassword($email, $pass, $repeatPass);
             if (is_array($result)) {
                 $errors = $result;
-                include __DIR__ . '/../../templates/auth/resetpasswordform.html';
+                include __DIR__ . '/../../templates/auth/resetpasswordform.php';
                 exit;
             } else {
                 session_unset();
@@ -137,7 +137,7 @@ class AuthController
         if (!$this->session->getSession('token')) {
             $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
-        require '../templates/auth/signin.html';
+        require '../templates/auth/signin.php';
     }
 
     public function signUpForm()
@@ -146,7 +146,7 @@ class AuthController
         if (!$this->session->getSession('token')) {
             $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
-        require '../templates/auth/signup.html';
+        require '../templates/auth/signup.php';
     }
 
     public function forgetPasswordEmailForm()
@@ -155,7 +155,7 @@ class AuthController
         if (!$this->session->getSession('token')) {
             $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
-        require '../templates/auth/forgetpasswordform.html';
+        require '../templates/auth/forgetpasswordform.php';
     }
 
     public function resetPasswordForm()
@@ -164,12 +164,12 @@ class AuthController
         if (!$this->session->getSession('token')) {
             $this->session->setSession('token', bin2hex(random_bytes(32)));
         }
-        require '../templates/auth/resetpasswordform.html';
+        require '../templates/auth/resetpasswordform.php';
     }
 
     public function userDataForm()
     {
-        require '../templates/auth/userdataform.html';
+        require '../templates/auth/userdataform.php';
     }
 
     public function userData()

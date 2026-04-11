@@ -3,7 +3,7 @@
         'name' => 'bbogu/workout-tracker',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3c8ffdb8c9b86842bd6180b61063a1c4f31dae57',
+        'reference' => '511b2a8ac1a83d94b5de29f8b5f1505bce415f3e',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'bbogu/workout-tracker' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3c8ffdb8c9b86842bd6180b61063a1c4f31dae57',
+            'reference' => '511b2a8ac1a83d94b5de29f8b5f1505bce415f3e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

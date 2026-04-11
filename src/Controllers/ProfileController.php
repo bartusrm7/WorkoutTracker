@@ -20,7 +20,7 @@ class ProfileController
         $userId = $_SESSION['id'];
         $userData = $this->service->getUserProfileData($userId);
 
-        require '../templates/dashboard/profile.html';
+        require '../templates/dashboard/profile.php';
     }
 
     public function editProfile()
