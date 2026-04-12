@@ -97,6 +97,10 @@ git clone git@github.com:bartusrm7/WorkoutTracker.git
 ```bash
 http://localhost/signin-form
 ```
+6. For testing write in terminal:
+```
+vendor/bin/phpunit
+```
 
 <br>
 
