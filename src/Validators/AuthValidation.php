@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validators;
 
-final class AuthValidation
+class AuthValidation
 {
     public function nameValidation(string $name)
     {

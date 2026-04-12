@@ -37,7 +37,6 @@ $dotenv->load();
 
 $db = new Database();
 $session = new Session();
-$mailer = new MailerService();
 
 // REPOSITORIES
 $authRepository = new AuthRepository($db);
@@ -48,10 +47,10 @@ $statisticsRepository = new StatisticsRepository($db);
 $profileRepository = new ProfileRepository($db);
 
 // VALIDATIONS
-$authValidator = new AuthValidation();
+$authValidation = new AuthValidation();
 
 // SERVICES
-$authService = new AuthService($authRepository, $authValidator, $mailer);
+$authService = new AuthService($authRepository, $authValidation);
 $dashboardService = new DashboardService($dashboardRepository);
 $trainingService = new TrainingService($trainingRepository);
 $historyService = new HistoryService($historyRepository);
@@ -59,7 +58,7 @@ $statisticsService = new StatisticsService($statisticsRepository);
 $profileService = new ProfileService($profileRepository);
 
 // CONTROLLERS
-$authController = new AuthController($authService, $session, $mailer);
+$authController = new AuthController($authService, $session);
 $dashboardController = new DashboardController($dashboardService, $session);
 $trainingController = new TrainingController($trainingService);
 $historyController = new HistoryController($historyService);

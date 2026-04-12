@@ -13,13 +13,13 @@ class AuthController
 {
     private AuthService $service;
     private Session $session;
-    private MailerService $mailer;
+    // private MailerService $mailer;
 
-    public function __construct(AuthService $service, Session $session, MailerService $mailer)
+    public function __construct(AuthService $service, Session $session)
     {
         $this->service = $service;
         $this->session = $session;
-        $this->mailer = $mailer;
+        // $this->mailer = $mailer;
     }
 
     public function userRegistration()
@@ -93,19 +93,19 @@ class AuthController
         exit();
     }
 
-    public function forgetPasswordEmail($email)
-    {
-        session_start();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-            $this->session->setSession('userEmail', $email);
+    // public function forgetPasswordEmail($email)
+    // {
+    //     session_start();
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    //         $this->session->setSession('userEmail', $email);
 
-            $result = $this->service->forgetPasswordEmail($email);
+    //         $result = $this->service->forgetPasswordEmail($email);
 
-            header('Location: /signin-form');
-            exit;
-        }
-    }
+    //         header('Location: /signin-form');
+    //         exit;
+    //     }
+    // }
 
     public function resetPassword()
     {

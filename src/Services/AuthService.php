@@ -10,29 +10,29 @@ use App\Validators\AuthValidation;
 class AuthService
 {
     private AuthRepository $repository;
-    private AuthValidation $validator;
-    private MailerService $mailer;
+    private AuthValidation $validation;
+    // private MailerService $mailer;
 
-    public function __construct(AuthRepository $repository, AuthValidation $validator, MailerService $mailer)
+    public function __construct(AuthRepository $repository, AuthValidation $validation)
     {
         $this->repository = $repository;
-        $this->validator = $validator;
-        $this->mailer = $mailer;
+        $this->validation = $validation;
+        // $this->mailer = $mailer;
     }
 
     public function createNewUser($name, $email, $pass)
     {
         $errors = [];
-        if ($error = $this->validator->nameValidation($name)) {
+        if ($error = $this->validation->nameValidation($name)) {
             $errors[] = $error;
         }
-        if ($error = $this->validator->passwordValidation($pass)) {
+        if ($error = $this->validation->passwordValidation($pass)) {
             $errors[] = $error;
         }
-        if ($error = $this->validator->nameToShort($name)) {
+        if ($error = $this->validation->nameToShort($name)) {
             $errors[] = $error;
         }
-        if ($error = $this->validator->passwordToShort($pass)) {
+        if ($error = $this->validation->passwordToShort($pass)) {
             $errors[] = $error;
         }
 
@@ -51,10 +51,10 @@ class AuthService
     public function loginUser($email, $pass)
     {
         $errors = [];
-        if ($error = $this->validator->passwordValidation($pass)) {
+        if ($error = $this->validation->passwordValidation($pass)) {
             $errors[] = $error;
         }
-        if ($error = $this->validator->passwordToShort($pass)) {
+        if ($error = $this->validation->passwordToShort($pass)) {
             $errors[] = $error;
         }
 
@@ -73,18 +73,18 @@ class AuthService
         }
     }
 
-    public function forgetPasswordEmail($email)
-    {
-        if (!$email) {
-            return ['success' => false, 'error' => 'Email jest wymagany'];
-        }
-        $result = $this->mailer->sendResetPasswordMailToUser($email);
+    // public function forgetPasswordEmail($email)
+    // {
+    //     if (!$email) {
+    //         return ['success' => false, 'error' => 'Email jest wymagany'];
+    //     }
+    //     $result = $this->mailer->sendResetPasswordMailToUser($email);
 
-        return [
-            'success' => true,
-            'data' => $result
-        ];
-    }
+    //     return [
+    //         'success' => true,
+    //         'data' => $result
+    //     ];
+    // }
 
     public function resetPassword($email, $pass, $repeatPass)
     {
