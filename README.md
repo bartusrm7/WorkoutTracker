@@ -74,6 +74,8 @@ User account settings, including personal data and options for managing the acco
 * #### HTML
 * #### SCSS
 * #### Bootstrap
+* #### PHPUnit
+* #### xDebug
 * #### ChartJS
 * #### PHPMailer
 
