@@ -22,7 +22,7 @@ class TrainingController
         header('Content-Type: application/json');
 
         $trainingName = $_POST['trainingName'] ?? '';
-        $exercises = $_POST['exercisesName'] ?? '[]';
+        $exercises = $_POST['exercisesName'] ?? [];
         $exercisesName = json_decode($exercises, true);
         $userId = (int)($_SESSION['id'] ?? 0);
 

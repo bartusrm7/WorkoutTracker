@@ -29,6 +29,7 @@ use App\Services\StatisticsService;
 use App\Services\TrainingService;
 use App\Sessions\Session;
 use App\Validators\AuthValidation;
+use App\Validators\TrainingValidation;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -48,11 +49,12 @@ $profileRepository = new ProfileRepository($db);
 
 // VALIDATIONS
 $authValidation = new AuthValidation();
+$trainingValidation = new TrainingValidation();
 
 // SERVICES
 $authService = new AuthService($authRepository, $authValidation);
 $dashboardService = new DashboardService($dashboardRepository);
-$trainingService = new TrainingService($trainingRepository);
+$trainingService = new TrainingService($trainingRepository, $trainingValidation);
 $historyService = new HistoryService($historyRepository);
 $statisticsService = new StatisticsService($statisticsRepository);
 $profileService = new ProfileService($profileRepository);

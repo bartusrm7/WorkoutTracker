@@ -215,14 +215,18 @@
         icon.classList.remove('fa-bars-staggered');
     })
 
-    const handleToggleFormContainer = () => {
-        document.querySelector('.training-form-modal').classList.add('d-none');
-        document.querySelector('.exercises-form-modal').classList.remove('d-none');
-        saveTrainingName()
-    }
-
     let trainingData = [];
     let exercises = []
+
+    const handleToggleFormContainer = () => {
+        console.log(trainingData);
+        if (trainingData) {
+            console.log(trainingData);
+            document.querySelector('.training-form-modal').classList.add('d-none');
+            document.querySelector('.exercises-form-modal').classList.remove('d-none');
+            saveTrainingName()
+        }
+    }
 
     const saveTrainingName = () => {
         const trainingName = document.querySelector('.training-input').value;
@@ -244,6 +248,7 @@
         const alertTraining = document.querySelector('.trainings__alert');
         alertTraining.textContent = `Ćwiczenie ${exercisesName} zostało dodane`;
         alertTraining.classList.remove('d-none');
+        alertTraining.classList.remove('bg-danger');
         setTimeout(() => {
             alertTraining.classList.add('d-none');
         }, 3000);
@@ -266,10 +271,19 @@
         }
         const data = await response.json();
         const alertTraining = document.querySelector('.trainings__alert');
-        if (!data.success === false) {
+        console.log(data.errors);
+        if (data.success) {
             window.location.reload();
             alertTraining.textContent = 'Trening został zapisany';
             alertTraining.classList.remove('d-none');
+            alertTraining.classList.remove('bg-danger');
+            setTimeout(() => {
+                alertTraining.classList.add('d-none');
+            }, 3000);
+        } else {
+            alertTraining.textContent = data.errors;
+            alertTraining.classList.remove('d-none');
+            alertTraining.classList.add('bg-danger');
             setTimeout(() => {
                 alertTraining.classList.add('d-none');
             }, 3000);

@@ -5,41 +5,51 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\TrainingRepository;
+use App\Validators\TrainingValidation;
 
 class TrainingService
 {
     private TrainingRepository $repository;
+    private TrainingValidation $validation;
 
-    public function __construct(TrainingRepository $repository)
+    public function __construct(TrainingRepository $repository, TrainingValidation $validation)
     {
         $this->repository = $repository;
+        $this->validation = $validation;
     }
 
-    public function newTraining($trainingName, $exercisesName, $userId)
+    public function newTraining(string $trainingName, array $exercisesName, int $userId)
     {
-        if (empty($trainingName)) {
-            return ['success' => false, 'error' => 'Nazwa treningu musi być podana'];
+        $errors = [];
+        if ($error = $this->validation->emptyTrainingNameValidation($trainingName)) {
+            $errors[] = $error;
         }
-        if (empty($trainingName) || !is_array($exercisesName)) {
-            return ['success' => false, 'error' => 'Musisz dodać przynajmniej jedno ćwiczenie'];
+        if ($error = $this->validation->emptyExercisesValidation($exercisesName)) {
+            $errors[] = $error;
         }
-        $training = $this->repository->createNewTrainingQuery($trainingName, $userId);
-        $trainingId = $training->getId();
+        if (!empty($errors)) {
+            return [
+                'success' => false,
+                'errors' => $errors
+            ];
+        } else {
+            $training = $this->repository->createNewTrainingQuery($trainingName, $userId);
+            $trainingId = $training->getId();
 
-        foreach ($exercisesName as $exercise) {
-            if (!empty($exercise)) {
-                $this->repository->createNewExercisesQuery($exercise, $trainingId, $trainingName);
+            foreach ($exercisesName as $exercise) {
+                if (!empty($exercise)) {
+                    $this->repository->createNewExercisesQuery($exercise, $trainingId, $trainingName);
+                }
             }
+            return [
+                'success' => true,
+                'data' => [
+                    'id' => $training->getId(),
+                    'name' => $training->getName(),
+                    'exercises' => $exercisesName
+                ]
+            ];
         }
-
-        return [
-            'success' => true,
-            'data' => [
-                'id' => $training->getId(),
-                'name' => $training->getName(),
-                'exercises' => $exercisesName
-            ]
-        ];
     }
 
     public function startTraining($id, $start)
