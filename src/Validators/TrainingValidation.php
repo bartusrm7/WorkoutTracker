@@ -18,10 +18,4 @@ class TrainingValidation
             return 'Nazwa ćwiczenia musi zostać podana';
         }
     }
-    public function emptyExercisesNameValidation(array $exercisesName)
-    {
-        if (!is_array($exercisesName)) {
-            return 'Musisz dodać przynajmniej jedno ćwiczenie';
-        }
-    }
 }
